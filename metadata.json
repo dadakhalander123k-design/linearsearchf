@@ -1,0 +1,6 @@
+{
+  "name": "Hash Quest",
+  "description": "An interactive educational mini-game to master hashing and collision resolution algorithms by playing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
