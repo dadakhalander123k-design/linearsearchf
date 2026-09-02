@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Trophy,
-  Star,
   CheckCircle2,
   Award,
-  ArrowRight,
   RotateCcw,
-  BookOpen,
   Layers,
   Sparkles,
-  Zap,
 } from 'lucide-react';
 import { progressManager } from '../utils/progressManager';
 import { soundManager } from '../utils/audio';
+import { LinearSearchLab } from './LinearSearchLab';
 
 interface QuestCompletionViewProps {
   onReplayLevel: (levelId: number) => void;
@@ -24,49 +21,55 @@ interface QuestCompletionViewProps {
 
 export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
   onReplayLevel,
-  onOpenTheory,
   onOpenSandbox,
   onOpenQuiz,
   onOpenProgress,
 }) => {
-  const pState = progressManager.getState();
-  const stats = progressManager.getStats();
+  const [pState, setPState] = React.useState(() => progressManager.getState());
+  const [showEmbeddedLab, setShowEmbeddedLab] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    const unsub = progressManager.subscribe(() => {
+      setPState(progressManager.getState());
+    });
+    return unsub;
+  }, []);
 
   const masteredAlgorithms = [
     {
       id: 1,
       code: '01',
-      title: 'Basic Modulo Hashing',
-      desc: 'h(k) = k mod m direct slot computation and bounds wrapping.',
+      title: 'Find the Number',
+      desc: 'Sequential scanning from index 0 until matching target is found.',
       tag: 'FOUNDATION',
     },
     {
       id: 2,
       code: '02',
-      title: 'Separate Chaining',
-      desc: 'Linked bucket traversal handling multiple collisions per slot.',
-      tag: 'CLOSED ADDRESSING',
+      title: 'Find It Quickly',
+      desc: 'Target position dictates comparisons: 1 at index 0 vs n at end.',
+      tag: 'POSITION PRINCIPLE',
     },
     {
       id: 3,
       code: '03',
-      title: 'Linear Probing',
-      desc: 'Consecutive step scanning (i = 0, 1, 2...) with circular array wraps.',
-      tag: 'OPEN ADDRESSING',
+      title: 'Is It There?',
+      desc: 'Differentiating successful matches from complete unsuccessful scans.',
+      tag: 'SEARCH OUTCOMES',
     },
     {
       id: 4,
       code: '04',
-      title: 'Quadratic Probing',
-      desc: 'Exponential step dispersal jumping over primary memory clusters.',
-      tag: 'OPEN ADDRESSING',
+      title: 'Count the Comparisons',
+      desc: 'Complexity analysis: Best Case O(1) vs Worst Case O(n).',
+      tag: 'ALGORITHM ANALYSIS',
     },
     {
       id: 5,
       code: '05',
-      title: 'Double Hashing',
-      desc: 'Dual hash functions generating unique dynamic jump steps.',
-      tag: 'OPTIMAL OPEN ADDRESSING',
+      title: 'Linear Search Master',
+      desc: 'Full algorithmic synthesis, verification checks, and search audit results.',
+      tag: 'MASTER SYNTHESIS',
     },
   ];
 
@@ -80,17 +83,17 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
             <span>Game Level 06 // Completion Milestone</span>
           </div>
           <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">
-            Status: 5 of 5 Algorithms Mastered
+            Status: 5 of 5 Levels Mastered
           </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-8 space-y-3">
             <h1 className="text-3xl sm:text-5xl font-bold font-display text-slate-900 dark:text-white tracking-tight leading-tight animate-heading-enter">
-              Hash Game Completed!
+              Linear Search Mastered!
             </h1>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl font-normal">
-              Congratulations! You have completed all foundational and advanced collision resolution levels. You have verified how direct memory hashing transforms slow <code className="font-bold text-indigo-600 dark:text-cyan-400 font-mono">O(N)</code> scans into lightning-fast <code className="font-bold text-indigo-600 dark:text-cyan-400 font-mono">O(1)</code> lookups.
+              Congratulations! You have completed all 5 foundational and advanced Linear Search levels. You have verified how sequential scanning inspects elements one by one from Best Case <code className="font-bold text-indigo-600 dark:text-cyan-400 font-mono">O(1)</code> to Worst Case <code className="font-bold text-indigo-600 dark:text-cyan-400 font-mono">O(n)</code>.
             </p>
           </div>
 
@@ -103,7 +106,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
               5 / 5 <span className="text-xl">Levels</span>
             </div>
             <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 pt-2 border-t border-indigo-200 dark:border-purple-500/20 font-mono">
-              Accuracy Streak: {pState.streak ?? 0} Keys
+              Accuracy Streak: {pState.streak ?? 0}
             </div>
           </div>
         </div>
@@ -114,7 +117,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
         <div className="flex items-center justify-between border-b border-slate-200 dark:border-purple-500/20 pb-2">
           <span className="text-xs font-bold text-slate-900 dark:text-white uppercase font-mono tracking-wider flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-indigo-600 dark:text-purple-400" />
-            <span>5 Completed Algorithm Modules</span>
+            <span>5 Completed Linear Search Modules</span>
           </span>
           <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">Click any level to replay</span>
         </div>
@@ -156,39 +159,45 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
 
           {/* 6th Card: Interactive Lab Sandbox */}
           <div
+            id="card-completion-open-lab"
             onClick={() => {
               soundManager.playSelect();
-              onOpenSandbox();
+              setShowEmbeddedLab(true);
             }}
-            className="bg-indigo-50/50 dark:bg-purple-950/30 border border-indigo-100 dark:border-purple-500/25 rounded-2xl p-5 shadow-2xs hover:shadow-md hover:border-indigo-300 dark:hover:border-purple-500/40 transition-all cursor-pointer flex flex-col justify-between group select-none"
+            className="bg-indigo-50/50 dark:bg-purple-950/30 border border-indigo-200 dark:border-purple-500/30 rounded-2xl p-5 shadow-2xs hover:shadow-md hover:border-indigo-400 dark:hover:border-purple-500/50 transition-all cursor-pointer flex flex-col justify-between group select-none ring-2 ring-indigo-500/10"
           >
             <div>
               <div className="flex items-center justify-between mb-3 font-mono">
                 <span className="px-2.5 py-1 bg-indigo-600 dark:bg-purple-600 text-white rounded-md text-xs font-bold">
-                  Sandbox
+                  Interactive Lab
                 </span>
                 <span className="text-[10px] font-bold text-indigo-800 dark:text-purple-200 uppercase tracking-wider">
-                  Unlimited Keys
+                  Custom Arrays
                 </span>
               </div>
 
               <h3 className="font-bold text-base text-slate-900 dark:text-white tracking-tight mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-cyan-300 transition-colors">
-                Interactive Lab
+                Linear Search Lab
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Experiment freely with arbitrary keys, custom table capacities, and instant step-by-step resolution vectors.
+                Build your own array, choose any target, and execute Linear Search step by step with live comparison metrics.
               </p>
             </div>
 
             <div className="mt-5 pt-3 border-t border-indigo-100 dark:border-purple-500/20 flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-purple-400 font-mono">
-              <span>Open Sandbox Lab</span>
+              <span>{showEmbeddedLab ? 'Lab Active Below ↓' : 'Open Linear Search Lab'}</span>
               <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-purple-400" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. Next Steps & Certification Actions */}
+      {/* 3. Existing Lab Section in Game Completion Page */}
+      <div id="section-game-completion-lab" className="pt-2">
+        <LinearSearchLab />
+      </div>
+
+      {/* 4. Next Steps & Certification Actions */}
       <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/20 rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <span className="text-xs font-bold text-indigo-600 dark:text-purple-400 uppercase font-mono tracking-widest block">
@@ -204,7 +213,12 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
             id="btn-completion-open-lab"
             onClick={() => {
               soundManager.playSelect();
-              onOpenSandbox();
+              const labEl = document.getElementById('section-game-completion-lab');
+              if (labEl) {
+                labEl.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                onOpenSandbox();
+              }
             }}
             className="btn-modern-secondary px-4 sm:px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer select-none"
           >

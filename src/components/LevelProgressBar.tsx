@@ -21,17 +21,17 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
   const pState = progressManager.getState();
 
   const steps = [
-    { id: 1, code: '01', name: 'Basic Modulo' },
-    { id: 2, code: '02', name: 'Chaining' },
-    { id: 3, code: '03', name: 'Linear Probe' },
-    { id: 4, code: '04', name: 'Quadratic' },
-    { id: 5, code: '05', name: 'Double Hash' },
+    { id: 1, code: '01', name: 'Find Number' },
+    { id: 2, code: '02', name: 'Find Quickly' },
+    { id: 3, code: '03', name: 'Is It There?' },
+    { id: 4, code: '04', name: 'Comparisons' },
+    { id: 5, code: '05', name: 'Master' },
   ];
 
   const isAllQuestCompleted = [1, 2, 3, 4, 5].every(
     (id) => completedLevels.includes(id) || pState.levelsCompleted.includes(id) || pState.levelsMastered.includes(id)
   );
-  const isLevel6Active = (currentLevelId === 6 || isCompletionActive) && isAllQuestCompleted;
+  const isLevel6Active = currentLevelId === 6 || isCompletionActive;
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-4 flex flex-col items-center">
@@ -97,17 +97,12 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
         {/* Completion Step Node */}
         <button
           id="step-progress-node-completion"
-          disabled={!isAllQuestCompleted}
           onClick={() => {
-            if (!isAllQuestCompleted) return;
             soundManager.playSelect();
             onSelectLevel(6);
           }}
-          className={`group flex flex-col items-center gap-2 relative z-10 focus:outline-hidden ${
-            isAllQuestCompleted ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'
-          }`}
-          title={isAllQuestCompleted ? 'Completion Milestone' : 'Completion locked: Complete all 5 levels to unlock'}
-          aria-disabled={!isAllQuestCompleted}
+          className="group flex flex-col items-center gap-2 relative z-10 focus:outline-hidden cursor-pointer"
+          title="Completion Milestone"
         >
           <div
             className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-200 border-2 ${
@@ -118,7 +113,7 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
                 : 'bg-slate-100 dark:bg-[#080D1F] text-slate-400 dark:text-slate-500 border-slate-300 dark:border-purple-500/30'
             }`}
           >
-            {isAllQuestCompleted ? (
+            {isAllQuestCompleted || isLevel6Active ? (
               <Trophy className={`w-4 h-4 ${isLevel6Active ? 'text-white' : 'text-amber-500 dark:text-amber-400'}`} />
             ) : (
               <Lock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
@@ -132,9 +127,7 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
               className={`text-[11px] font-semibold hidden sm:block max-w-[85px] leading-tight transition-colors ${
                 isLevel6Active
                   ? 'text-amber-700 dark:text-amber-300 font-bold'
-                  : isAllQuestCompleted
-                  ? 'text-slate-900 dark:text-white'
-                  : 'text-slate-400 dark:text-slate-500'
+                  : 'text-slate-700 dark:text-slate-300'
               }`}
             >
               Completion
