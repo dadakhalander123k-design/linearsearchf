@@ -6,6 +6,14 @@
 
   :root,
   [data-theme="light"] {
+    --primary: #2563EB;
+    --primary-dark: #1D4ED8;
+    --primary-deep: #1E40AF;
+    --primary-navy: #172554;
+    --accent-violet: #6366F1;
+    --accent-violet-soft: #7C5CFC;
+    --primary-light: #EFF6FF;
+    --primary-tint: #DBEAFE;
     --bg-main: #F8FAFC;
     --bg-card: #FFFFFF;
     --bg-subtle: #F8FAFF;
@@ -19,15 +27,21 @@
     --primary-blue-active: #1E40AF;
     --primary-blue-light: #EFF6FF;
     --primary-blue-border: #DBEAFE;
-    --accent-indigo: #4F46E5;
-    --accent-violet: #6366F1;
-    --accent-violet-soft: #7C5CFC;
+    --border: #E2E8F0;
     --border-light: #E2E8F0;
     --border-strong: #CBD5E1;
   }
 
   .dark,
   [data-theme="dark"] {
+    --primary: #3B82F6;
+    --primary-dark: #2563EB;
+    --primary-deep: #1D4ED8;
+    --primary-navy: #172554;
+    --accent-violet: #6366F1;
+    --accent-violet-soft: #7C5CFC;
+    --primary-light: rgba(59, 130, 246, 0.15);
+    --primary-tint: rgba(59, 130, 246, 0.4);
     --bg-main: #0B1120;
     --bg-card: #111827;
     --bg-subtle: #0F172A;
@@ -40,9 +54,7 @@
     --primary-blue-active: #1D4ED8;
     --primary-blue-light: rgba(59, 130, 246, 0.15);
     --primary-blue-border: rgba(59, 130, 246, 0.4);
-    --accent-indigo: #4F46E5;
-    --accent-violet: #6366F1;
-    --accent-violet-soft: #7C5CFC;
+    --border: rgba(148, 163, 184, 0.18);
     --border-light: rgba(148, 163, 184, 0.18);
     --border-strong: rgba(148, 163, 184, 0.3);
   }
@@ -265,14 +277,14 @@
 }
 
 .modern-pill-active {
-  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 55%, #6366F1 100%) !important;
+  background: linear-gradient(90deg, #1D4ED8 0%, #2563EB 60%, #6366F1 100%) !important;
   color: #FFFFFF !important;
   border-color: #2563EB !important;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
 }
 
 .dark .modern-pill-active {
-  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 45%, #4F46E5 70%, #6366F1 100%) !important;
+  background: linear-gradient(90deg, #1E40AF 0%, #2563EB 55%, #6366F1 100%) !important;
   color: #FFFFFF !important;
   border-color: #3B82F6 !important;
   box-shadow: 0 0 16px rgba(59, 130, 246, 0.35) !important;
@@ -492,14 +504,14 @@
 }
 
 .editorial-pill-active {
-  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 55%, #6366F1 100%) !important;
+  background: linear-gradient(90deg, #1D4ED8 0%, #2563EB 60%, #6366F1 100%) !important;
   color: #FFFFFF !important;
   border-color: #2563EB !important;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25) !important;
 }
 
 .dark .editorial-pill-active {
-  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 45%, #4F46E5 70%, #6366F1 100%) !important;
+  background: linear-gradient(90deg, #1E40AF 0%, #2563EB 55%, #6366F1 100%) !important;
   color: #FFFFFF !important;
   border-color: #3B82F6 !important;
   box-shadow: 0 0 16px rgba(59, 130, 246, 0.35) !important;
@@ -571,11 +583,23 @@
    Special Theme Gradients & Glow Utilities
    ========================================================================= */
 .bg-gradient-brand {
-  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 55%, #6366F1 100%);
+  background: linear-gradient(90deg, #1D4ED8 0%, #2563EB 60%, #6366F1 100%);
 }
 
 .bg-gradient-brand-deep {
-  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 45%, #4F46E5 70%, #6366F1 100%);
+  background: linear-gradient(90deg, #172554 0%, #1D4ED8 35%, #2563EB 70%, #6366F1 100%);
+}
+
+.input-focus-brand:focus {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+  outline: none !important;
+}
+
+.dark .input-focus-brand:focus {
+  border-color: #3B82F6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+  outline: none !important;
 }
 
 .neon-glow-violet {

@@ -147,7 +147,7 @@ export const CurrentKeyCard: React.FC<CurrentKeyCardProps> = ({
                       placeholder="Remainder"
                       value={manualInput}
                       onChange={(e) => setManualInput(e.target.value)}
-                      className="w-28 px-3 py-2 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/30 rounded-xl text-slate-900 dark:text-white font-mono text-center font-bold text-base focus:border-[#2563EB] dark:focus:border-blue-400 focus:outline-hidden shadow-2xs"
+                      className="w-28 px-3 py-2 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/30 rounded-xl text-slate-900 dark:text-white font-mono text-center font-bold text-base focus:border-[#2563EB] dark:focus:border-blue-400 focus:ring-2 focus:ring-[#2563EB]/20 dark:focus:ring-blue-400/25 focus:outline-hidden shadow-2xs"
                     />
                     <button
                       id="btn-submit-modulus"

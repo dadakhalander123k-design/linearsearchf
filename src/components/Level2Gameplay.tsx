@@ -184,7 +184,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
       </div>
 
       {/* Position Rule Principle Card */}
-      <div className="bg-gradient-to-r from-blue-500/10 via-[#4F46E5]/10 to-blue-500/10 dark:from-blue-950/40 dark:to-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl p-5 shadow-xs">
+      <div className="bg-gradient-to-r from-blue-500/10 via-[#2563EB]/10 to-[#6366F1]/10 dark:from-blue-950/40 dark:to-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl p-5 shadow-xs">
         <div className="text-xs font-bold uppercase font-mono tracking-widest text-[#2563EB] dark:text-[#3B82F6] mb-2">
           Target Position Principle
         </div>

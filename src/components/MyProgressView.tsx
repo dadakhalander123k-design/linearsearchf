@@ -195,7 +195,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
           {/* Clean Segmented Progress Bar */}
           <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
             <div
-              className="bg-[#2563EB] dark:bg-gradient-to-r dark:from-[#2563EB] dark:to-[#4F46E5] h-full rounded-full transition-all duration-500 ease-out"
+              className="bg-gradient-to-r from-[#1D4ED8] via-[#2563EB] to-[#6366F1] h-full rounded-full transition-all duration-500 ease-out"
               style={{ width: `${stats.percentage}%` }}
             />
           </div>

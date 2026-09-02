@@ -358,7 +358,7 @@ export const LinearSearchLab: React.FC<LinearSearchLabProps> = () => {
                   value={el}
                   onChange={(e) => handleElementChange(idx, e.target.value)}
                   placeholder="0"
-                  className="w-full text-center py-2 px-1 bg-white dark:bg-[#0F172A] border border-slate-300 dark:border-blue-500/30 rounded-xl font-mono font-bold text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#2563EB]/40"
+                  className="w-full text-center py-2 px-1 bg-white dark:bg-[#0F172A] border border-slate-300 dark:border-blue-500/30 rounded-xl font-mono font-bold text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 dark:focus:ring-blue-400/25"
                 />
               </div>
             ))}
@@ -380,7 +380,7 @@ export const LinearSearchLab: React.FC<LinearSearchLabProps> = () => {
                 setTargetInput(e.target.value);
               }}
               placeholder="Target value"
-              className="w-28 text-center py-2 px-3 bg-white dark:bg-[#0F172A] border border-[#DBEAFE] dark:border-blue-500/40 rounded-xl font-mono font-extrabold text-[#2563EB] dark:text-[#3B82F6] text-base focus:outline-none focus:ring-2 focus:ring-[#2563EB]/40"
+              className="w-28 text-center py-2 px-3 bg-white dark:bg-[#0F172A] border border-[#DBEAFE] dark:border-blue-500/40 rounded-xl font-mono font-extrabold text-[#2563EB] dark:text-[#3B82F6] text-base focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 dark:focus:ring-blue-400/25"
             />
           </div>
 
