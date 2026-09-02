@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowRight, HelpCircle, CheckCircle2, XCircle, Lightbulb } from 'lucide-react';
+import { ArrowRight, HelpCircle, CheckCircle2, XCircle, Lightbulb, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { GuidedSolvePanel } from './GuidedSolvePanel';
 
 interface Level4Challenge {
   type: 'general' | 'best_case' | 'worst_case_last' | 'worst_case_absent';
@@ -83,6 +84,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
   const [status, setStatus] = useState<'searching' | 'question_active' | 'challenge_completed'>('searching');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string>('Search through the array element by element.');
+  const [isGuidedSolveActive, setIsGuidedSolveActive] = useState<boolean>(false);
 
   const currentChallenge = challenges[challengeIndex];
   const isSearching = status === 'searching';
@@ -150,6 +152,38 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
     }
   };
 
+  const getGuidedSolveExplanation = () => {
+    if (status === 'challenge_completed') {
+      if (challengeIndex < challenges.length - 1) {
+        return `Challenge ${challengeIndex + 1} completed! Click Next Step to proceed to Challenge ${challengeIndex + 2}.`;
+      }
+      return `All 4 complexity challenges solved! Level 4 complete.`;
+    }
+    if (status === 'question_active') {
+      const correct = currentChallenge.options.find((o) => o.isCorrect);
+      return `Analysis: "${currentChallenge.question}" — Correct Answer: "${correct?.label}". ${currentChallenge.explanation}`;
+    }
+    const val = currentChallenge.array[pointer];
+    if (val === currentChallenge.target) {
+      return `Index ${pointer} contains target ${currentChallenge.target}! Target reached in ${pointer + 1} comparisons.`;
+    }
+    if (pointer >= currentChallenge.array.length - 1) {
+      return `Checking final index ${pointer} (${val} ≠ ${currentChallenge.target}). Array scan complete.`;
+    }
+    return `Checking index ${pointer} (${val} ≠ ${currentChallenge.target}). Linear Search advances to index ${pointer + 1}.`;
+  };
+
+  const handleGuidedNextStep = () => {
+    if (status === 'searching') {
+      handleCheck();
+    } else if (status === 'question_active') {
+      const correct = currentChallenge.options.find((o) => o.isCorrect);
+      if (correct) handleOptionSelect(correct.id);
+    } else {
+      handleNextChallenge();
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 animate-page-enter">
       <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
@@ -166,13 +200,59 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-2 font-mono text-xs">
-            <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
-            <span className="px-3 py-1 bg-[#2563EB] text-white rounded-lg font-bold text-sm shadow-xs">
-              {comparisons}
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 font-mono text-xs">
+              <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
+              <span className="px-3 py-1 bg-[#2563EB] text-white rounded-lg font-bold text-sm shadow-xs animate-scale">
+                {comparisons}
+              </span>
+            </div>
+
+            {!isGuidedSolveActive && !isAllChallengesComplete && (
+              <button
+                id="btn-lvl4-start-guided-solve"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setIsGuidedSolveActive(true);
+                }}
+                className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
+                title="Start Guided Solve step-by-step assistant"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
+                <span>Guided Solve</span>
+              </button>
+            )}
           </div>
         </div>
+
+        {/* Guided Solve Step-by-Step Panel */}
+        {isGuidedSolveActive && (
+          <div className="pt-4">
+            <GuidedSolvePanel
+              stepNumber={
+                status === 'challenge_completed'
+                  ? comparisons + 2
+                  : status === 'question_active'
+                  ? comparisons + 1
+                  : pointer + 1
+              }
+              explanation={getGuidedSolveExplanation()}
+              isComplete={isAllChallengesComplete}
+              nextButtonLabel={
+                status === 'searching'
+                  ? `Compare [${pointer}] with ${currentChallenge.target}`
+                  : status === 'question_active'
+                  ? 'Answer Analysis Question'
+                  : challengeIndex < challenges.length - 1
+                  ? `Proceed to Challenge ${challengeIndex + 2}`
+                  : 'Complete Level 4'
+              }
+              onNextStep={handleGuidedNextStep}
+              onStop={() => setIsGuidedSolveActive(false)}
+            />
+          </div>
+        )}
 
         {/* Array Visual */}
         <div className="pt-6 pb-2">

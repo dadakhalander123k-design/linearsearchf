@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowRight, Lightbulb } from 'lucide-react';
+import { ArrowRight, Lightbulb, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { GuidedSolvePanel } from './GuidedSolvePanel';
 
 interface Level2Round {
   array: number[];
@@ -31,6 +32,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
   const [comparisons, setComparisons] = useState<number>(0);
   const [isFound, setIsFound] = useState<boolean>(false);
   const [feedback, setFeedback] = useState<string>('Check elements sequentially from left to right.');
+  const [isGuidedSolveActive, setIsGuidedSolveActive] = useState<boolean>(false);
 
   const currentRound = rounds[roundIndex];
   const isAllRoundsComplete = roundIndex >= rounds.length - 1 && isFound;
@@ -78,6 +80,28 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
     }
   };
 
+  const getGuidedSolveExplanation = () => {
+    if (isFound) {
+      if (roundIndex < rounds.length - 1) {
+        return `Target ${currentRound.target} found (${currentRound.positionLabel}) in ${comparisons} comparison${comparisons > 1 ? 's' : ''}! Click Next Step to proceed to Round ${roundIndex + 2}.`;
+      }
+      return `All 3 rounds completed! Linear Search demonstrated best-case, average-case, and worst-case search times.`;
+    }
+    const val = currentRound.array[pointer];
+    if (val === currentRound.target) {
+      return `Index ${pointer} contains element ${val}, which matches the target ${currentRound.target}! Target found.`;
+    }
+    return `Checking index ${pointer} (value ${val}). Since ${val} ≠ ${currentRound.target}, Linear Search advances to index ${pointer + 1}.`;
+  };
+
+  const handleGuidedNextStep = () => {
+    if (!isFound) {
+      handleCheck();
+    } else {
+      handleNextRound();
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 animate-page-enter">
       <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
@@ -94,13 +118,52 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-2 font-mono text-xs">
-            <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
-            <span className="px-3 py-1 bg-[#2563EB] text-white rounded-lg font-bold text-sm shadow-xs animate-scale">
-              {comparisons}
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 font-mono text-xs">
+              <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
+              <span className="px-3 py-1 bg-[#2563EB] text-white rounded-lg font-bold text-sm shadow-xs animate-scale">
+                {comparisons}
+              </span>
+            </div>
+
+            {!isGuidedSolveActive && !isAllRoundsComplete && (
+              <button
+                id="btn-lvl2-start-guided-solve"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setIsGuidedSolveActive(true);
+                }}
+                className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
+                title="Start Guided Solve step-by-step assistant"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
+                <span>Guided Solve</span>
+              </button>
+            )}
           </div>
         </div>
+
+        {/* Guided Solve Step-by-Step Panel */}
+        {isGuidedSolveActive && (
+          <div className="pt-4">
+            <GuidedSolvePanel
+              stepNumber={isFound ? currentRound.expectedComparisons + 1 : pointer + 1}
+              totalSteps={currentRound.expectedComparisons + 1}
+              explanation={getGuidedSolveExplanation()}
+              isComplete={isAllRoundsComplete}
+              nextButtonLabel={
+                isFound
+                  ? roundIndex < rounds.length - 1
+                    ? `Proceed to Round ${roundIndex + 2}`
+                    : 'Complete Level 2'
+                  : `Compare [${pointer}] with ${currentRound.target}`
+              }
+              onNextStep={handleGuidedNextStep}
+              onStop={() => setIsGuidedSolveActive(false)}
+            />
+          </div>
+        )}
 
         {/* Interactive Array Grid */}
         <div className="pt-6 pb-2">

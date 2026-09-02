@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, Sparkles, Award } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { GuidedSolvePanel } from './GuidedSolvePanel';
 
 interface Level5Challenge {
   id: number;
@@ -36,6 +37,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
   const [comparisons, setComparisons] = useState<number>(0);
   const [status, setStatus] = useState<'searching' | 'challenge_completed'>('searching');
   const [feedback, setFeedback] = useState<string>('Execute the Linear Search sequence.');
+  const [isGuidedSolveActive, setIsGuidedSolveActive] = useState<boolean>(false);
 
   // Final Master Challenge
   const finalMasterArray = [23, 41, 12, 67, 35, 89, 54];
@@ -117,6 +119,55 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
     }
   };
 
+  const handleMasterComplete = () => {
+    soundManager.playLevelVictory();
+    onLevelComplete(5, 100);
+  };
+
+  const getGuidedSolveExplanation = () => {
+    if (phase === 'challenges') {
+      if (status === 'challenge_completed') {
+        if (challengeIndex < challenges.length - 1) {
+          return `Challenge ${challengeIndex + 1} complete! Click Next Step to proceed to Challenge ${challengeIndex + 2}.`;
+        }
+        return `All 4 challenges completed! Click Next Step to unlock the Final Master Challenge.`;
+      }
+      const val = currentChallenge.array[pointer];
+      if (val === currentChallenge.target) {
+        return `Index ${pointer} contains target ${currentChallenge.target}! Target reached.`;
+      }
+      if (pointer >= currentChallenge.array.length - 1) {
+        return `Checking final index ${pointer} (${val} ≠ ${currentChallenge.target}). Target is absent.`;
+      }
+      return `Checking index ${pointer} (${val} ≠ ${currentChallenge.target}). Linear Search advances to index ${pointer + 1}.`;
+    } else {
+      if (masterStatus === 'completed') {
+        return `Final Master Challenge completed! Target ${finalMasterTarget} found at index 4. Level 5 complete!`;
+      }
+      const val = finalMasterArray[masterPointer];
+      if (val === finalMasterTarget) {
+        return `Index ${masterPointer} has value ${val}, matching target ${finalMasterTarget}! Match found.`;
+      }
+      return `Checking master index ${masterPointer} (${val} ≠ ${finalMasterTarget}). Linear Search checks index ${masterPointer + 1}.`;
+    }
+  };
+
+  const handleGuidedNextStep = () => {
+    if (phase === 'challenges') {
+      if (status === 'searching') {
+        handleCheck();
+      } else {
+        handleNextChallenge();
+      }
+    } else {
+      if (masterStatus === 'searching') {
+        handleMasterCheck();
+      } else {
+        handleMasterComplete();
+      }
+    }
+  };
+
   // 1. Progressive Challenges Phase
   if (phase === 'challenges') {
     const isChallengeDone = status === 'challenge_completed';
@@ -134,13 +185,51 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
               </span>
             </div>
 
-            <div className="flex items-center gap-2 font-mono text-xs">
-              <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
-              <span className="px-3 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-lg font-bold text-sm shadow-xs">
-                {comparisons}
-              </span>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 font-mono text-xs">
+                <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
+                <span className="px-3 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-lg font-bold text-sm shadow-xs animate-scale">
+                  {comparisons}
+                </span>
+              </div>
+
+              {!isGuidedSolveActive && (
+                <button
+                  id="btn-lvl5-start-guided-solve"
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setIsGuidedSolveActive(true);
+                  }}
+                  className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
+                  title="Start Guided Solve step-by-step assistant"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
+                  <span>Guided Solve</span>
+                </button>
+              )}
             </div>
           </div>
+
+          {/* Guided Solve Step-by-Step Panel */}
+          {isGuidedSolveActive && (
+            <div className="pt-4">
+              <GuidedSolvePanel
+                stepNumber={isChallengeDone ? comparisons + 2 : pointer + 1}
+                explanation={getGuidedSolveExplanation()}
+                isComplete={false}
+                nextButtonLabel={
+                  status === 'searching'
+                    ? `Compare [${pointer}] with ${currentChallenge.target}`
+                    : challengeIndex < challenges.length - 1
+                    ? `Proceed to Challenge ${challengeIndex + 2}`
+                    : 'Enter Final Master Challenge'
+                }
+                onNextStep={handleGuidedNextStep}
+                onStop={() => setIsGuidedSolveActive(false)}
+              />
+            </div>
+          )}
 
           <div className="pt-4 pb-2 flex items-center justify-between">
             <div className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
@@ -243,13 +332,50 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
               </span>
             </div>
 
-            <div className="flex items-center gap-2 font-mono text-xs">
-              <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
-              <span className="px-3 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-lg font-bold text-sm shadow-xs">
-                {masterComparisons}
-              </span>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 font-mono text-xs">
+                <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
+                <span className="px-3 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-lg font-bold text-sm shadow-xs animate-scale">
+                  {masterComparisons}
+                </span>
+              </div>
+
+              {!isGuidedSolveActive && !isMasterFinished && (
+                <button
+                  id="btn-master-start-guided-solve"
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    setIsGuidedSolveActive(true);
+                  }}
+                  className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
+                  title="Start Guided Solve step-by-step assistant"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
+                  <span>Guided Solve</span>
+                </button>
+              )}
             </div>
           </div>
+
+          {/* Guided Solve Step-by-Step Panel for Master Challenge */}
+          {isGuidedSolveActive && (
+            <div className="pt-2">
+              <GuidedSolvePanel
+                stepNumber={isMasterFinished ? 6 : masterPointer + 1}
+                totalSteps={6}
+                explanation={getGuidedSolveExplanation()}
+                isComplete={isMasterFinished}
+                nextButtonLabel={
+                  !isMasterFinished
+                    ? `Compare [${masterPointer}] with ${finalMasterTarget}`
+                    : 'Complete Level 5'
+                }
+                onNextStep={handleGuidedNextStep}
+                onStop={() => setIsGuidedSolveActive(false)}
+              />
+            </div>
+          )}
 
           <div className="pt-2">
             <div className="text-xs font-bold uppercase font-mono tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center justify-between">

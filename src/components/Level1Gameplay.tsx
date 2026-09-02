@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { CheckCircle2, ArrowRight, Check, Lightbulb } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Check, Lightbulb, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { GuidedSolvePanel } from './GuidedSolvePanel';
 
 interface Level1GameplayProps {
   onLevelComplete: (levelId: number, score: number) => void;
@@ -22,6 +23,7 @@ export const Level1Gameplay: React.FC<Level1GameplayProps> = ({
     'Click the first element or "Compare Element" to start sequential search.'
   );
   const [hasGuidanceError, setHasGuidanceError] = useState<boolean>(false);
+  const [isGuidedSolveActive, setIsGuidedSolveActive] = useState<boolean>(false);
 
   const handleCheck = (clickedIndex?: number) => {
     if (isFound) return;
@@ -56,6 +58,30 @@ export const Level1Gameplay: React.FC<Level1GameplayProps> = ({
     onLevelComplete(1, 100);
   };
 
+  const getGuidedSolveExplanation = () => {
+    if (isFound) {
+      return `Target ${target} has been found at index 2 after 3 comparisons. Linear search is complete!`;
+    }
+    if (pointer === 0) {
+      return `Start at index 0. Linear Search always starts from the first element of the array. Compare ${array[0]} with target ${target}.`;
+    }
+    if (pointer === 1) {
+      return `Since 12 ≠ ${target}, the pointer moves to index 1. Now compare element ${array[1]} with target ${target}.`;
+    }
+    if (pointer === 2) {
+      return `25 ≠ ${target}, so the search advances to index 2. Here, element ${array[2]} equals target ${target}! Search succeeded.`;
+    }
+    return `Compare element at index ${pointer} with target ${target}.`;
+  };
+
+  const handleGuidedNextStep = () => {
+    if (!isFound) {
+      handleCheck();
+    } else {
+      handleComplete();
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 animate-page-enter">
       <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
@@ -73,13 +99,46 @@ export const Level1Gameplay: React.FC<Level1GameplayProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-2 font-mono text-xs text-slate-600 dark:text-slate-300">
-            <span>Comparisons:</span>
-            <span className="px-2.5 py-1 bg-slate-100 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/30 rounded-md font-bold text-slate-900 dark:text-white">
-              {searchPath.length}
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 font-mono text-xs text-slate-600 dark:text-slate-300">
+              <span>Comparisons:</span>
+              <span className="px-2.5 py-1 bg-slate-100 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/30 rounded-md font-bold text-slate-900 dark:text-white">
+                {searchPath.length}
+              </span>
+            </div>
+
+            {!isGuidedSolveActive && !isFound && (
+              <button
+                id="btn-lvl1-start-guided-solve"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  setIsGuidedSolveActive(true);
+                }}
+                className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
+                title="Start Guided Solve step-by-step assistant"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
+                <span>Guided Solve</span>
+              </button>
+            )}
           </div>
         </div>
+
+        {/* Guided Solve Step-by-Step Panel */}
+        {isGuidedSolveActive && (
+          <div className="pt-4">
+            <GuidedSolvePanel
+              stepNumber={isFound ? 4 : pointer + 1}
+              totalSteps={4}
+              explanation={getGuidedSolveExplanation()}
+              isComplete={isFound}
+              nextButtonLabel={isFound ? 'Complete Level 1' : `Compare [${pointer}] with ${target}`}
+              onNextStep={handleGuidedNextStep}
+              onStop={() => setIsGuidedSolveActive(false)}
+            />
+          </div>
+        )}
 
         {/* Interactive Array Grid */}
         <div className="pt-6 pb-2">
