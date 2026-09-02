@@ -33,7 +33,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
   const [progressState, setProgressState] = useState<UserProgressState>(progressManager.getState());
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [showCertificateModal, setShowCertificateModal] = useState<boolean>(false);
-  const [activeFilter, setActiveFilter] = useState<'ALL' | 'FOUNDATION' | 'TECHNIQUE' | 'ANALYSIS' | 'EXAMINATION'>('ALL');
+  const [activeFilter, setActiveFilter] = useState<'ALL' | 'FOUNDATION' | 'MECHANICS' | 'ANALYSIS' | 'PRACTICE'>('ALL');
 
   useEffect(() => {
     progressManager.checkAndCompleteCertification();
@@ -292,7 +292,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
           {/* Lesson 1 status */}
           <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#080D1F] border border-slate-200/80 dark:border-purple-500/20">
             <span className="text-xs font-medium text-slate-800 dark:text-slate-200">
-              Introduction to Hashing
+              Lesson 01: What is Linear Search?
             </span>
             {videoStats.isIntroCompleted ? (
               <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
@@ -308,7 +308,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
           {/* Lesson 2 status */}
           <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#080D1F] border border-slate-200/80 dark:border-purple-500/20">
             <span className="text-xs font-medium text-slate-800 dark:text-slate-200">
-              Collision
+              Lesson 02: How Does Linear Search Work?
             </span>
             {videoStats.isCollisionCompleted ? (
               <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
@@ -326,7 +326,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
       {/* Filter Tabs */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-purple-500/20 pb-3 mb-6">
         <div className="flex items-center gap-1.5 overflow-x-auto py-1">
-          {(['ALL', 'FOUNDATION', 'TECHNIQUE', 'ANALYSIS', 'EXAMINATION'] as const).map((cat) => (
+          {(['ALL', 'FOUNDATION', 'MECHANICS', 'ANALYSIS', 'PRACTICE'] as const).map((cat) => (
             <button
               key={cat}
               onClick={() => {

@@ -350,7 +350,6 @@ class ProgressManager {
   // ALL 12 MODULES
   public getModules(): ModuleRecord[] {
     const theoryDone = this.state.completedTheoryChapters || [];
-    const levelsDone = this.state.levelsCompleted || [];
 
     const moduleMapping: Record<string, string> = {
       'fn-01-basics': 'theory-01',
@@ -374,21 +373,6 @@ class ProgressManager {
 
       if (chapterId && theoryDone.includes(chapterId)) {
         status = 'COMPLETED';
-        progressPercent = 100;
-      }
-
-      // Also support game level masteries for interactive modules
-      if (m.id === 'fn-06-chaining' && levelsDone.includes(2)) {
-        status = this.state.levelsMastered.includes(2) ? 'MASTERED' : 'COMPLETED';
-        progressPercent = 100;
-      } else if (m.id === 'fn-07-linear' && levelsDone.includes(3)) {
-        status = this.state.levelsMastered.includes(3) ? 'MASTERED' : 'COMPLETED';
-        progressPercent = 100;
-      } else if (m.id === 'fn-08-quadratic' && levelsDone.includes(4)) {
-        status = this.state.levelsMastered.includes(4) ? 'MASTERED' : 'COMPLETED';
-        progressPercent = 100;
-      } else if (m.id === 'fn-09-double' && levelsDone.includes(5)) {
-        status = this.state.levelsMastered.includes(5) ? 'MASTERED' : 'COMPLETED';
         progressPercent = 100;
       }
 

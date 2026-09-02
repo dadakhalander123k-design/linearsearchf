@@ -276,7 +276,12 @@ export const VideoTutorialsView: React.FC = () => {
 
   const handleTimeUpdate = () => {
     if (videoRef.current) {
-      setCurrentTime(videoRef.current.currentTime);
+      const cur = videoRef.current.currentTime;
+      const dur = videoRef.current.duration;
+      setCurrentTime(cur);
+      if (selectedLesson && dur > 0 && cur >= dur * 0.90) {
+        progressManager.completeVideo(selectedLesson.id);
+      }
     }
   };
 
