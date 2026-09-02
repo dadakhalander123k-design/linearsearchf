@@ -84,7 +84,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             <button
               onClick={runM1Simulation}
               disabled={m1Searching}
-              className="px-3.5 py-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all disabled:opacity-50"
+              className="btn-modern-primary px-3.5 py-1.5 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all disabled:opacity-50"
             >
               <Play className="w-3 h-3 fill-current" />
               <span>{m1Searching ? 'Scanning...' : 'Run Simulation'}</span>
@@ -178,7 +178,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             </div>
             <button
               onClick={() => setM2Step((prev) => (prev < 3 ? prev + 1 : 0))}
-              className="px-3.5 py-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all"
+              className="btn-modern-primary px-3.5 py-1.5 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all"
             >
               <span>{m2Step < 3 ? `Advance to Step ${m2Step + 2}` : 'Reset Simulation'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -254,7 +254,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
               <button
                 onClick={() => setM3Step((prev) => Math.min(3, prev + 1))}
                 disabled={m3Step === 3}
-                className="px-3 py-1 bg-[#2563EB] dark:bg-[#2563EB] text-white rounded-lg text-xs font-semibold disabled:opacity-40 cursor-pointer"
+                className="btn-modern-primary px-3 py-1 text-xs font-semibold disabled:opacity-40 cursor-pointer"
               >
                 Next Step
               </button>

@@ -43,7 +43,7 @@ export const GameLevelGuide: React.FC<GameLevelGuideProps> = ({ levelId }) => {
             e.preventDefault();
             // Non-functional visual placeholder as instructed
           }}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold font-mono rounded-lg bg-white dark:bg-[#0F172A] text-[#2563EB] dark:text-[#3B82F6] border border-[#DBEAFE] dark:border-blue-500/40 shadow-xs dark:shadow-[0_0_12px_rgba(37,99,235,0.25)] hover:border-[#2563EB] dark:hover:border-blue-400 dark:hover:shadow-[0_0_16px_rgba(37,99,235,0.4)] transition-all cursor-default select-none"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold font-mono rounded-lg bg-white dark:bg-[#0F172A] text-[#2563EB] dark:text-[#3B82F6] border border-[#DBEAFE] dark:border-blue-500/40 shadow-xs hover:border-[#2563EB] dark:hover:border-blue-400 transition-all cursor-default select-none"
           title="AI Assistant (Preview)"
           aria-label="AI Help Placeholder"
         >

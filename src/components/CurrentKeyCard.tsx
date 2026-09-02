@@ -97,16 +97,16 @@ export const CurrentKeyCard: React.FC<CurrentKeyCardProps> = ({
               onDragEnd={onDragEnd}
               className={`relative flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-2 transition-all duration-150 select-none ${
                 isCalculated
-                  ? 'bg-gradient-to-b from-[#2563EB] to-[#1D4ED8] dark:from-blue-900 dark:to-blue-950 text-white border-blue-500 dark:border-blue-500 shadow-md dark:shadow-[0_0_24px_rgba(37,99,235,0.4)] ring-4 ring-blue-100 dark:ring-blue-500/20 cursor-grab active:cursor-grabbing hover:scale-105 active:scale-95'
+                  ? 'bg-gradient-to-b from-[#2563EB] to-[#1D4ED8] dark:from-blue-900 dark:to-blue-950 text-white border-blue-500 dark:border-blue-500 shadow-md ring-4 ring-blue-100 dark:ring-blue-500/20 cursor-grab active:cursor-grabbing hover:scale-105 active:scale-95'
                   : 'bg-slate-50 dark:bg-[#0F172A] text-slate-800 dark:text-slate-200 border-slate-300 dark:border-blue-500/30 border-dashed shadow-2xs'
               }`}
             >
               {isCalculated && (
-                <div className="absolute top-2.5 right-2.5 text-blue-200 dark:text-blue-300">
+                <div className="absolute top-2.5 right-2.5 text-white/80">
                   <GripVertical className="w-4 h-4" />
                 </div>
               )}
-              <span className={`text-[10px] uppercase tracking-widest font-bold font-mono ${isCalculated ? 'text-blue-200 dark:text-blue-300' : 'text-slate-400 dark:text-slate-500'}`}>
+              <span className={`text-[10px] uppercase tracking-widest font-bold font-mono ${isCalculated ? 'text-white/80' : 'text-slate-400 dark:text-slate-500'}`}>
                 Incoming Key
               </span>
               <span className="text-4xl sm:text-5xl font-black font-mono tracking-tight text-inherit">

@@ -233,7 +233,7 @@ export const Level3Gameplay: React.FC<Level3GameplayProps> = ({
             <button
               id="btn-lvl3-next-round"
               onClick={handleNextRound}
-              className="btn-modern-primary bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
+              className="btn-modern-primary px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
             >
               <span>{isAllRoundsComplete ? 'Complete Level 3' : 'Next Round'}</span>
               <ArrowRight className="w-4 h-4" />

@@ -77,7 +77,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Top Search Icon and Connector Arrow */}
               <div className="relative w-full flex justify-end pr-8 sm:pr-10 mb-1">
                 {/* Search Magnifying Glass Icon Badge - Styled directly after reference squircle */}
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-[#2563EB] via-[#4F46E5] to-[#6366F1] text-white flex items-center justify-center shadow-md shadow-blue-600/30 dark:shadow-[0_0_20px_rgba(99,102,241,0.4)] shrink-0 z-10">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-[#2563EB] via-[#4F46E5] to-[#6366F1] text-white flex items-center justify-center shadow-md shrink-0 z-10">
                   <Search className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.4] text-white drop-shadow-xs" />
                 </div>
 

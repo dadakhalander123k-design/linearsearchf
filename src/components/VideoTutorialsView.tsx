@@ -412,7 +412,7 @@ export const VideoTutorialsView: React.FC = () => {
                 id={`video-card-${lesson.id}`}
                 onClick={() => handleSelectLesson(lesson, true)}
                 className={`p-6 sm:p-7 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col justify-between border ${isSelected
-                    ? 'bg-white dark:bg-[#111827] border-[#2563EB] dark:border-[#3B82F6] shadow-md dark:shadow-[0_0_24px_rgba(59,130,246,0.25)] ring-2 ring-[#2563EB]/20 dark:ring-blue-500/30'
+                    ? 'bg-white dark:bg-[#111827] border-[#2563EB] dark:border-[#3B82F6] shadow-md dark:shadow-lg ring-2 ring-[#2563EB]/20 dark:ring-blue-500/30'
                     : 'bg-white dark:bg-[#111827]/85 border-[#E2E8F0] dark:border-blue-500/20 hover:border-[#DBEAFE] dark:hover:border-blue-500/50 shadow-xs'
                   }`}
               >
@@ -496,7 +496,7 @@ export const VideoTutorialsView: React.FC = () => {
           ========================================================================= */}
       <section
         aria-label="Video Player Area"
-        className="p-4 sm:p-8 rounded-2xl bg-white dark:bg-[#111827]/90 border border-slate-200 dark:border-blue-500/20 shadow-[0_4px_24px_rgba(15,23,42,0.06)] dark:shadow-[0_0_32px_rgba(59,130,246,0.12)] space-y-4 sm:space-y-6"
+        className="p-4 sm:p-8 rounded-2xl bg-white dark:bg-[#111827]/90 border border-slate-200 dark:border-blue-500/20 shadow-[0_4px_24px_rgba(15,23,42,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] space-y-4 sm:space-y-6"
       >
         {/* Now Playing Header Indicator */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-slate-100 dark:border-blue-500/20">
@@ -538,7 +538,7 @@ export const VideoTutorialsView: React.FC = () => {
           onPointerMove={triggerFullscreenActivity}
           onTouchStart={triggerFullscreenActivity}
           onClick={triggerFullscreenActivity}
-          className={`relative w-full bg-slate-950 rounded-2xl overflow-hidden border border-slate-800/80 dark:border-blue-500/30 shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_24px_rgba(59,130,246,0.15)] flex items-center justify-center group select-none ${isFullscreen
+          className={`relative w-full bg-slate-950 rounded-2xl overflow-hidden border border-slate-800/80 dark:border-blue-500/30 shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-center group select-none ${isFullscreen
               ? `fixed inset-0 z-50 rounded-none w-screen h-screen ${!isFullscreenControlsVisible ? 'cursor-none' : 'cursor-default'
               }`
               : 'aspect-video'
@@ -660,7 +660,7 @@ export const VideoTutorialsView: React.FC = () => {
                   {/* 2. PLAY / PAUSE BUTTON */}
                   <button
                     onClick={togglePlay}
-                    className="h-11 sm:h-10 px-5 sm:px-6 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95 transition-all"
+                    className="btn-modern-primary h-11 sm:h-10 px-5 sm:px-6 rounded-xl text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95 transition-all"
                     title={isPlaying ? 'Pause video (Space/K)' : 'Play video (Space)'}
                   >
                     {isPlaying ? <Pause className="w-4 h-4 sm:w-4.5 sm:h-4.5" /> : <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current" />}
@@ -786,7 +786,7 @@ export const VideoTutorialsView: React.FC = () => {
                   id="btn-video-play-pause"
                   onClick={togglePlay}
                   disabled={hasError}
-                  className="h-11 sm:h-10 px-5 sm:px-6 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer disabled:opacity-50"
+                  className="btn-modern-primary h-11 sm:h-10 px-5 sm:px-6 rounded-xl text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer disabled:opacity-50"
                   title={isPlaying ? 'Pause video (Space/K)' : 'Play video (Space)'}
                   aria-label={isPlaying ? 'Pause' : 'Play'}
                 >

@@ -99,7 +99,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           <button
             id="btn-sidebar-toggle"
             onClick={onToggleMobileSidebar}
-            className={`p-1.5 sm:p-2 text-slate-600 dark:text-blue-300 hover:text-slate-900 dark:hover:text-white bg-slate-100/80 dark:bg-blue-950/40 hover:bg-slate-200/80 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-500/30 rounded-xl transition-all duration-150 cursor-pointer shrink-0 shadow-xs items-center justify-center ${hamburgerVisibilityClass}`}
+            className={`p-1.5 sm:p-2 text-slate-600 dark:text-slate-200 hover:text-[#2563EB] dark:hover:text-[#3B82F6] bg-slate-100/80 dark:bg-blue-950/40 hover:bg-[#EFF6FF] dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-500/30 rounded-xl transition-all duration-150 cursor-pointer shrink-0 shadow-xs items-center justify-center ${hamburgerVisibilityClass}`}
             title="Open Navigation Menu (☰)"
             aria-label="Open navigation menu"
           >
@@ -140,7 +140,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
               soundManager.playToggle(theme !== 'dark');
               toggleTheme();
             }}
-            className="p-1.5 sm:p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-blue-950/40 border border-slate-200 dark:border-blue-500/30 rounded-xl transition-all cursor-pointer shadow-xs dark:shadow-[0_0_12px_rgba(37,99,235,0.2)]"
+            className="p-1.5 sm:p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-blue-950/40 border border-slate-200 dark:border-blue-500/30 rounded-xl transition-all cursor-pointer shadow-xs"
             title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           >

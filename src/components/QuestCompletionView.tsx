@@ -170,7 +170,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
                 <span className="px-2.5 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-md text-xs font-bold">
                   Interactive Lab
                 </span>
-                <span className="text-[10px] font-bold text-[#2563EB] dark:text-blue-200 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider">
                   Custom Arrays
                 </span>
               </div>

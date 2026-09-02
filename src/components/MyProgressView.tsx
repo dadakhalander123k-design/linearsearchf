@@ -145,7 +145,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
         {is100Percent && (
           <div
             id="progress-100-percent-banner"
-            className="mt-6 p-5 bg-gradient-to-r from-[#EFF6FF] to-blue-100/60 dark:from-blue-950/50 dark:to-blue-900/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl shadow-xs dark:shadow-[0_0_20px_rgba(59,130,246,0.25)] flex flex-col sm:flex-row items-center justify-between gap-4 animate-editorial-scale"
+            className="mt-6 p-5 bg-gradient-to-r from-[#EFF6FF] to-blue-100/60 dark:from-blue-950/50 dark:to-blue-900/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 animate-editorial-scale"
           >
             <div className="flex items-center gap-3.5">
               <div className="w-11 h-11 rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white flex items-center justify-center font-bold shadow-xs">
@@ -281,7 +281,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
               soundManager.playNav();
               onNavigateToTab('VIDEO');
             }}
-            className="text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] hover:text-[#1D4ED8] dark:hover:text-blue-200 flex items-center gap-1.5 self-start sm:self-auto cursor-pointer transition-colors"
+            className="text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] hover:text-[#1D4ED8] dark:hover:text-[#3B82F6] flex items-center gap-1.5 self-start sm:self-auto cursor-pointer transition-colors"
           >
             <span>Open Video Section</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -334,7 +334,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
                 setActiveFilter(cat);
               }}
               className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${activeFilter === cat
-                ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white shadow-xs dark:shadow-[0_0_10px_rgba(59,130,246,0.4)]'
+                ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white shadow-xs'
                 : 'bg-slate-100 dark:bg-[#0F172A] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[#172033]'
                 }`}
             >

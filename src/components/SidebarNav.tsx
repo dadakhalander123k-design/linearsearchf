@@ -142,7 +142,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
               id={`sidebar-nav-${item.id.toLowerCase()}`}
               onClick={() => handleSelect(item.id)}
               className={`group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-150 cursor-pointer ${isActive
-                  ? 'bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-[#3B82F6] font-semibold shadow-xs dark:shadow-[0_0_14px_rgba(37,99,235,0.18)] border border-[#DBEAFE] dark:border-blue-500/30'
+                  ? 'bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-[#3B82F6] font-semibold shadow-xs border border-[#DBEAFE] dark:border-blue-500/30'
                   : 'text-[#475569] dark:text-slate-400 hover:bg-[#EFF6FF] dark:hover:bg-blue-950/20 hover:text-[#2563EB] dark:hover:text-white border border-transparent'
                 }`}
             >

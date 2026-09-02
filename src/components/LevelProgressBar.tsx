@@ -56,7 +56,7 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
             >
               <div
                 className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-200 border-2 ${isCurrent
-                    ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] shadow-md dark:shadow-[0_0_15px_rgba(59,130,246,0.4)] ring-4 ring-blue-100 dark:ring-blue-500/20 scale-110'
+                    ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] shadow-md ring-4 ring-blue-100 dark:ring-blue-500/20 scale-110'
                     : isCompleted
                       ? 'bg-white dark:bg-[#111827] text-[#2563EB] dark:text-[#3B82F6] border-[#2563EB] dark:border-[#3B82F6] shadow-xs hover:bg-[#EFF6FF] dark:hover:bg-blue-950/40'
                       : 'bg-white dark:bg-[#0F172A] text-slate-400 dark:text-slate-500 border-slate-300 dark:border-blue-500/30 hover:border-slate-400 dark:hover:border-blue-400'

@@ -585,7 +585,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
               </div>
 
               {/* Code Snippet Box */}
-              <div className="p-4 sm:p-5 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-300 dark:text-blue-200 leading-relaxed">
+              <div className="p-4 sm:p-5 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-300 leading-relaxed">
                 <pre>
                   <code>{activeModule.codeSnippets[selectedLang]}</code>
                 </pre>

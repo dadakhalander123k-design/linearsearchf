@@ -174,7 +174,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
             <button
               id="btn-lvl2-next-round"
               onClick={handleNextRound}
-              className="btn-modern-primary bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
+              className="btn-modern-primary px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
             >
               <span>{isAllRoundsComplete ? 'Complete Level 2' : 'Next Round'}</span>
               <ArrowRight className="w-4 h-4" />

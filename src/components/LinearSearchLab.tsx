@@ -390,7 +390,7 @@ export const LinearSearchLab: React.FC<LinearSearchLabProps> = () => {
               <button
                 id="btn-start-linear-search"
                 onClick={startSearch}
-                className="btn-modern-primary bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white px-6 py-2.5 text-xs font-bold flex items-center gap-2 cursor-pointer shadow-md"
+                className="btn-modern-primary px-6 py-2.5 text-xs font-bold flex items-center gap-2 cursor-pointer shadow-md"
               >
                 <Search className="w-4 h-4" />
                 <span>START LINEAR SEARCH</span>
@@ -519,7 +519,7 @@ export const LinearSearchLab: React.FC<LinearSearchLabProps> = () => {
               <button
                 id="btn-lab-next-step"
                 onClick={stepSearch}
-                className="btn-modern-primary bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white px-6 py-2.5 text-xs font-bold flex items-center gap-2 cursor-pointer shadow-md"
+                className="btn-modern-primary px-6 py-2.5 text-xs font-bold flex items-center gap-2 cursor-pointer shadow-md"
               >
                 <span>NEXT STEP</span>
                 <SkipForward className="w-4 h-4" />

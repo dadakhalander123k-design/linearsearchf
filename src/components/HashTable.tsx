@@ -54,8 +54,8 @@ export const HashTable: React.FC<HashTableProps> = ({
               <span className="w-2.5 h-2.5 bg-[#2563EB] dark:bg-[#3B82F6] rounded-xs shadow-2xs" /> Target / Probe
             </span>
             {isChaining && (
-              <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-slate-50 dark:bg-blue-950/40 border border-slate-200 dark:border-blue-500/20 text-slate-700 dark:text-blue-300 font-semibold shadow-2xs">
-                <span className="w-2.5 h-2.5 bg-blue-200 dark:bg-blue-900/60 rounded-xs" /> Linked List
+              <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/20 text-slate-700 dark:text-slate-300 font-semibold shadow-2xs">
+                <span className="w-2.5 h-2.5 bg-slate-200 dark:bg-slate-700 rounded-xs" /> Linked List
               </span>
             )}
           </div>

@@ -292,7 +292,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
             <button
               id="btn-lvl4-next-challenge"
               onClick={handleNextChallenge}
-              className="btn-modern-primary bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
+              className="btn-modern-primary px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
             >
               <span>{isAllChallengesComplete ? 'Complete Level 4' : 'Next Challenge'}</span>
               <ArrowRight className="w-4 h-4" />

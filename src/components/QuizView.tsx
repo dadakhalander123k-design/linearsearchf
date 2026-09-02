@@ -503,7 +503,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
                     soundManager.playNav();
                     setViewMode(viewMode === 'STEP_BY_STEP' ? 'FULL_REVIEW' : 'STEP_BY_STEP');
                   }}
-                  className="text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] hover:text-[#1D4ED8] dark:hover:text-blue-300 flex items-center gap-1 cursor-pointer"
+                  className="text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] hover:text-[#1D4ED8] dark:hover:text-[#3B82F6] flex items-center gap-1 cursor-pointer"
                 >
                   <ListOrdered className="w-3.5 h-3.5" />
                   <span>{viewMode === 'STEP_BY_STEP' ? 'Switch to Full Review' : 'Switch to Step Mode'}</span>
@@ -521,7 +521,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
 
               let pillStyle = 'bg-slate-50 dark:bg-[#0F172A] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-blue-500/20 hover:bg-slate-100 dark:hover:bg-[#172033]';
               if (isCurrent) {
-                pillStyle = 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] font-bold shadow-xs dark:shadow-[0_0_12px_rgba(59,130,246,0.4)]';
+                pillStyle = 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] font-bold shadow-xs';
               } else if (isAnswered) {
                 if (rec.isCorrect) {
                   pillStyle = 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30 font-semibold';
@@ -582,7 +582,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
           </p>
 
           {/* 5. Large Highlighted Score Card */}
-          <div className="w-full max-w-md mx-auto p-6 sm:p-8 bg-white dark:bg-[#0F172A] border-2 border-[#DBEAFE] dark:border-blue-500/40 rounded-3xl shadow-[0_8px_30px_rgba(37,99,235,0.08)] dark:shadow-[0_8px_30px_rgba(59,130,246,0.18)] flex flex-col items-center justify-center text-center mb-6 sm:mb-8">
+          <div className="w-full max-w-md mx-auto p-6 sm:p-8 bg-white dark:bg-[#0F172A] border-2 border-[#DBEAFE] dark:border-blue-500/40 rounded-3xl shadow-sm dark:shadow-md flex flex-col items-center justify-center text-center mb-6 sm:mb-8">
             <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] text-[#2563EB] dark:text-[#3B82F6] uppercase mb-2">
               FINAL HIGHLIGHTED SCORE
             </span>
@@ -635,7 +635,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
               id="btn-quiz-retake"
               type="button"
               onClick={handleResetQuiz}
-              className="w-full sm:w-auto px-6 sm:px-7 py-3 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white font-sans text-sm font-semibold shadow-md shadow-blue-500/20 dark:shadow-[0_4px_16px_rgba(59,130,246,0.35)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-6 sm:px-7 py-3 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white font-sans text-sm font-semibold shadow-xs transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
             >
               <RotateCcw className="w-4 h-4 stroke-[2.2]" />
               <span>Retake Quiz</span>
@@ -722,7 +722,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
                   }
                 } else if (isSelected) {
                   optStyle =
-                    'bg-[#EFF6FF]/80 dark:bg-blue-950/60 border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-blue-200 font-semibold ring-2 ring-[#2563EB] dark:ring-blue-500/30';
+                    'bg-[#EFF6FF]/80 dark:bg-blue-950/60 border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-[#F8FAFC] font-semibold ring-2 ring-[#2563EB] dark:ring-blue-500/30';
                 }
 
                 return (

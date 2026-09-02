@@ -140,7 +140,7 @@ export const GameHintCard: React.FC<GameHintCardProps> = ({
             </p>
 
             {hint.formulaTip && (
-              <div className="bg-[#F8FAFC] dark:bg-[#0F172A] text-[#111827] dark:text-blue-300 px-3 py-2 rounded-xl text-xs font-mono font-bold border border-[#E5E7EB] dark:border-blue-500/20 border-l-4 border-l-[#2563EB] dark:border-l-blue-500 overflow-x-auto">
+              <div className="bg-[#F8FAFC] dark:bg-[#0F172A] text-[#111827] dark:text-[#3B82F6] px-3 py-2 rounded-xl text-xs font-mono font-bold border border-[#E5E7EB] dark:border-blue-500/20 border-l-4 border-l-[#2563EB] dark:border-l-[#3B82F6] overflow-x-auto">
                 <code>{hint.formulaTip}</code>
               </div>
             )}
