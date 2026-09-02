@@ -708,7 +708,10 @@ export default function App() {
             {activeTab === 'LAB' && (
               <SandboxMode
                 initialTechnique={sandboxTechnique}
-                onExit={() => setActiveTab('GAME')}
+                onExit={() => {
+                  setCurrentLevelIndex(5);
+                  setActiveTab('GAME');
+                }}
                 onOpenTheory={() => {
                   setActiveTheoryTopic('theory-01');
                   setActiveTab('THEORY');

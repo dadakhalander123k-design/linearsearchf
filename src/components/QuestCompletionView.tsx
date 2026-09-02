@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Trophy,
   CheckCircle2,
@@ -6,10 +6,10 @@ import {
   RotateCcw,
   Layers,
   Sparkles,
+  ArrowRight,
 } from 'lucide-react';
 import { progressManager } from '../utils/progressManager';
 import { soundManager } from '../utils/audio';
-import { LinearSearchLab } from './LinearSearchLab';
 
 interface QuestCompletionViewProps {
   onReplayLevel: (levelId: number) => void;
@@ -26,7 +26,6 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
   onOpenProgress,
 }) => {
   const [pState, setPState] = React.useState(() => progressManager.getState());
-  const [showEmbeddedLab, setShowEmbeddedLab] = useState<boolean>(false);
 
   React.useEffect(() => {
     const unsub = progressManager.subscribe(() => {
@@ -106,7 +105,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
               5 / 5 <span className="text-xl">Levels</span>
             </div>
             <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 pt-2 border-t border-indigo-200 dark:border-purple-500/20 font-mono">
-              Accuracy Streak: {pState.streak ?? 0}
+              Accuracy Streak: {pState?.streak ?? 0}
             </div>
           </div>
         </div>
@@ -162,7 +161,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
             id="card-completion-open-lab"
             onClick={() => {
               soundManager.playSelect();
-              setShowEmbeddedLab(true);
+              onOpenSandbox();
             }}
             className="bg-indigo-50/50 dark:bg-purple-950/30 border border-indigo-200 dark:border-purple-500/30 rounded-2xl p-5 shadow-2xs hover:shadow-md hover:border-indigo-400 dark:hover:border-purple-500/50 transition-all cursor-pointer flex flex-col justify-between group select-none ring-2 ring-indigo-500/10"
           >
@@ -185,19 +184,14 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
             </div>
 
             <div className="mt-5 pt-3 border-t border-indigo-100 dark:border-purple-500/20 flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-purple-400 font-mono">
-              <span>{showEmbeddedLab ? 'Lab Active Below ↓' : 'Open Linear Search Lab'}</span>
-              <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-purple-400" />
+              <span>Open Linear Search Lab</span>
+              <ArrowRight className="w-3.5 h-3.5 text-indigo-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. Existing Lab Section in Game Completion Page */}
-      <div id="section-game-completion-lab" className="pt-2">
-        <LinearSearchLab />
-      </div>
-
-      {/* 4. Next Steps & Certification Actions */}
+      {/* 3. Next Steps & Certification Actions */}
       <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/20 rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <span className="text-xs font-bold text-indigo-600 dark:text-purple-400 uppercase font-mono tracking-widest block">
@@ -213,12 +207,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
             id="btn-completion-open-lab"
             onClick={() => {
               soundManager.playSelect();
-              const labEl = document.getElementById('section-game-completion-lab');
-              if (labEl) {
-                labEl.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                onOpenSandbox();
-              }
+              onOpenSandbox();
             }}
             className="btn-modern-secondary px-4 sm:px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer select-none"
           >
