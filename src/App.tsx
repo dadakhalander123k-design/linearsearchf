@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { GameState, LevelConfig, ProbeStep, TableSlot, TechniqueType } from './types/game';
+import { LevelConfig, TechniqueType } from './types/game';
 import { GAME_LEVELS } from './data/levels';
-import {
-  calculateBaseHash,
-  calculateH2,
-  computeDoubleHashSequence,
-  computeLinearProbeSequence,
-  computeQuadraticProbeSequence,
-} from './utils/hashAlgorithms';
 import { soundManager } from './utils/audio';
 import { MainViewTab } from './types/game';
 import { SidebarNav } from './components/SidebarNav';
@@ -15,11 +8,6 @@ import { TopHeader } from './components/TopHeader';
 import { HomePage } from './components/HomePage';
 import { LevelProgressBar } from './components/LevelProgressBar';
 import { LinearSearchGameplay } from './components/LinearSearchGameplay';
-import { CurrentKeyCard } from './components/CurrentKeyCard';
-import { HashTable } from './components/HashTable';
-import { ProbingController } from './components/ProbingController';
-import { ExplanationPanel } from './components/ExplanationPanel';
-import { CollisionModal } from './components/CollisionModal';
 import { LevelCompleteModal } from './components/LevelCompleteModal';
 import { SandboxMode } from './components/SandboxMode';
 import { LearnLinearSearchSection } from './components/LearnLinearSearchSection';
@@ -27,9 +15,6 @@ import { VideoTutorialsView } from './components/VideoTutorialsView';
 import { MyProgressView } from './components/MyProgressView';
 import { QuizView } from './components/QuizView';
 import { QuestCompletionView } from './components/QuestCompletionView';
-import { FieldNotesBackground } from './components/FieldNotesBackground';
-import { GameHintCard } from './components/GameHintCard';
-import { GameLevelGuide } from './components/GameLevelGuide';
 import { CompletionCelebrationModal } from './components/CompletionCelebrationModal';
 import { ResetProgressModal } from './components/ResetProgressModal';
 import { AIBotFloatingButton } from './components/AIBotFloatingButton';
@@ -125,312 +110,16 @@ export default function App() {
 
   // Active Level State
   const currentLevel: LevelConfig = GAME_LEVELS[Math.min(currentLevelIndex, 4)] || GAME_LEVELS[0];
-  const [slots, setSlots] = useState<TableSlot[]>(() =>
-    Array.from({ length: 10 }, (_, i) => ({
-      index: i,
-      items: [],
-      status: 'idle',
-    }))
-  );
-  const [keySequenceIndex, setKeySequenceIndex] = useState<number>(0);
-  const [currentKey, setCurrentKey] = useState<number | null>(null);
-  const [gameState, setGameState] = useState<GameState>('INTRO');
-  const [calculatedIndex, setCalculatedIndex] = useState<number | null>(null);
-  const [targetIndex, setTargetIndex] = useState<number | null>(null);
-  const [isCalculating, setIsCalculating] = useState<boolean>(false);
-
-  // Collision & Probing State
-  const [collidedSlotIndex, setCollidedSlotIndex] = useState<number | null>(null);
-  const [collidingExistingKey, setCollidingExistingKey] = useState<number | null>(null);
-  const [probeSteps, setProbeSteps] = useState<ProbeStep[]>([]);
-  const [currentProbeStepIndex, setCurrentProbeStepIndex] = useState<number>(0);
-  const [isProbing, setIsProbing] = useState<boolean>(false);
-
   // Modals & Interactive Overlays
-  const [showCollisionModal, setShowCollisionModal] = useState<boolean>(false);
   const [showLevelCompleteModal, setShowLevelCompleteModal] = useState<boolean>(false);
 
   // Sandbox pre-configuration
   const [sandboxTechnique, setSandboxTechnique] = useState<TechniqueType>('linear');
 
   // Initialize level
-  const initLevel = (levelIdx: number, customKeys?: number[], customTechnique?: TechniqueType) => {
-    const lvl = GAME_LEVELS[levelIdx] || GAME_LEVELS[0];
-    const size = lvl.tableSize || 10;
-
-    setSlots(
-      Array.from({ length: size }, (_, i) => ({
-        index: i,
-        items: [],
-        status: 'idle',
-      }))
-    );
-    setKeySequenceIndex(0);
-    const keys = customKeys || lvl.keysSequence;
-    const firstKey = keys[0] ?? null;
-    setCurrentKey(firstKey);
-    setCalculatedIndex(null);
-    setTargetIndex(null);
-    setCollidedSlotIndex(null);
-    setCollidingExistingKey(null);
-    setProbeSteps([]);
-    setCurrentProbeStepIndex(0);
-    setIsProbing(false);
-    setShowCollisionModal(false);
+  const initLevel = (levelIdx: number) => {
+    setCurrentLevelIndex(levelIdx);
     setShowLevelCompleteModal(false);
-    setGameState('KEY_APPEARS');
-
-    if (firstKey !== null) {
-      soundManager.playKeyAppear();
-    }
-  };
-
-  // Level effect
-  useEffect(() => {
-    if (activeTab === 'GAME' || activeTab === 'QUEST') {
-      initLevel(currentLevelIndex);
-    }
-  }, [currentLevelIndex, activeTab]);
-
-  // Subscribe to progress manager
-  useEffect(() => {
-    const unsub = progressManager.subscribe((pState) => {
-      setCompletedLevels(pState.levelsCompleted);
-      setScore(pState.totalScore);
-    });
-    return () => unsub();
-  }, []);
-
-  // Handle calculation
-  const performCalculation = (keyVal: number | string) => {
-    setIsCalculating(true);
-    const numKey = Number(keyVal);
-    const m = Number(currentLevel.tableSize);
-    const hash = calculateBaseHash(numKey, m);
-    setCalculatedIndex(hash);
-    setTargetIndex(hash);
-    setIsCalculating(false);
-    setGameState('INDEX_FOUND');
-    soundManager.playCalcSuccess();
-    setScore((s) => s + 10);
-    setStreak((st) => st + 1);
-  };
-
-  const handleManualModulusSubmit = (userAnswer: number | string): boolean => {
-    if (currentKey === null) return false;
-    const numAns = Number(userAnswer);
-    const numKey = Number(currentKey);
-    const m = Number(currentLevel.tableSize);
-    const correctHash = calculateBaseHash(numKey, m);
-    if (numAns === correctHash) {
-      setCalculatedIndex(correctHash);
-      setTargetIndex(correctHash);
-      setGameState('INDEX_FOUND');
-      soundManager.playCalcSuccess();
-      setScore((s) => s + 15);
-      setStreak((st) => st + 1);
-      return true;
-    } else {
-      soundManager.playError();
-      setStreak(0);
-      return false;
-    }
-  };
-
-  // Drag handlers
-  const handleDragStart = () => {
-    if (calculatedIndex !== null && gameState === 'INDEX_FOUND') {
-      soundManager.playDragStart();
-      setGameState('DRAGGING');
-    }
-  };
-
-  const handleDragEnd = () => {
-    if (gameState === 'DRAGGING') {
-      setGameState('INDEX_FOUND');
-    }
-  };
-
-  // Cell interaction & Placement
-  const handleCellClick = (cellIndex: number) => {
-    if (gameState === 'INDEX_FOUND' || gameState === 'DRAGGING') {
-      if (currentKey === null) return;
-      const expectedHash = calculateBaseHash(currentKey, currentLevel.tableSize);
-      if (cellIndex === expectedHash) {
-        placeKeyInSlot(cellIndex);
-      } else {
-        soundManager.playDropInvalid();
-      }
-    }
-  };
-
-  const handleDropOnCell = (cellIndex: number) => {
-    if (gameState === 'INDEX_FOUND' || gameState === 'DRAGGING') {
-      if (currentKey === null) return;
-      const expectedHash = calculateBaseHash(currentKey, currentLevel.tableSize);
-      if (cellIndex === expectedHash) {
-        placeKeyInSlot(cellIndex);
-      } else {
-        soundManager.playDropInvalid();
-      }
-    }
-  };
-
-  // Core Key Placement Logic
-  const placeKeyInSlot = (slotIdx: number) => {
-    if (currentKey === null) return;
-    const baseHash = calculateBaseHash(currentKey, currentLevel.tableSize);
-    const slot = slots[slotIdx];
-
-    // Separate Chaining
-    if (currentLevel.technique === 'chaining') {
-      soundManager.playChain();
-      setSlots((prev) =>
-        prev.map((s) => {
-          if (s.index === slotIdx) {
-            return {
-              ...s,
-              status: 'occupied',
-              items: [...s.items, { id: `key-${Date.now()}`, value: currentKey, initialHash: baseHash }],
-            };
-          }
-          return s;
-        })
-      );
-      advanceToNextKey(slotIdx);
-      return;
-    }
-
-    // Open Addressing
-    const isOccupied = slot.items.length > 0;
-
-    if (!isOccupied) {
-      soundManager.playInsert();
-      setSlots((prev) =>
-        prev.map((s) => {
-          if (s.index === slotIdx) {
-            return {
-              ...s,
-              status: 'occupied',
-              items: [{ id: `key-${Date.now()}`, value: currentKey, initialHash: baseHash }],
-            };
-          }
-          return s;
-        })
-      );
-      advanceToNextKey(slotIdx);
-    } else {
-      // Collision detected
-      soundManager.playCollision();
-      setCollidedSlotIndex(slotIdx);
-      setCollidingExistingKey(slot.items[0].value);
-      setGameState('COLLISION_PAUSE');
-
-      if (currentLevel.id === 1) {
-        setShowCollisionModal(true);
-      } else {
-        startProbingSequence(slotIdx, currentKey);
-      }
-    }
-  };
-
-  // Start Probing
-  const startProbingSequence = (_slotIdx: number, keyVal: number) => {
-    setIsProbing(true);
-    setCurrentProbeStepIndex(0);
-    setGameState('PROBING_INTERACTION');
-
-    let sequence: ProbeStep[] = [];
-    if (currentLevel.technique === 'linear') {
-      sequence = computeLinearProbeSequence(keyVal, currentLevel.tableSize, slots);
-    } else if (currentLevel.technique === 'quadratic') {
-      sequence = computeQuadraticProbeSequence(keyVal, currentLevel.tableSize, slots);
-    } else if (currentLevel.technique === 'double_hashing') {
-      sequence = computeDoubleHashSequence(keyVal, currentLevel.tableSize, slots);
-    }
-
-    setProbeSteps(sequence);
-  };
-
-  const handleNextProbeStep = () => {
-    if (currentProbeStepIndex < probeSteps.length - 1) {
-      soundManager.playProbeStep();
-      setCurrentProbeStepIndex((prev) => prev + 1);
-    }
-  };
-
-  const handleAutoSolveProbe = () => {
-    if (probeSteps.length === 0) return;
-    const finalStepIdx = probeSteps.length - 1;
-    setCurrentProbeStepIndex(finalStepIdx);
-    soundManager.playProbeStep();
-  };
-
-  const handleConfirmProbeInsertion = () => {
-    if (currentKey === null || probeSteps.length === 0) return;
-    const finalStep = probeSteps[currentProbeStepIndex];
-    if (finalStep.isOccupied) {
-      soundManager.playDropInvalid();
-      return;
-    }
-
-    const baseHash = calculateBaseHash(currentKey, currentLevel.tableSize);
-    soundManager.playResolution();
-    setSlots((prev) =>
-      prev.map((s) => {
-        if (s.index === finalStep.targetIndex) {
-          return {
-            ...s,
-            status: 'occupied',
-            items: [
-              {
-                id: `key-${Date.now()}`,
-                value: currentKey,
-                probesCount: currentProbeStepIndex,
-                initialHash: baseHash,
-                finalIndex: finalStep.targetIndex,
-              },
-            ],
-          };
-        }
-        return s;
-      })
-    );
-
-    setIsProbing(false);
-    setProbeSteps([]);
-    advanceToNextKey(finalStep.targetIndex);
-  };
-
-  // Advance Sequence
-  const advanceToNextKey = (lastInsertedSlot: number) => {
-    const nextSeqIdx = keySequenceIndex + 1;
-    const seq = currentLevel.keysSequence;
-
-    if (nextSeqIdx < seq.length) {
-      setKeySequenceIndex(nextSeqIdx);
-      const nextKey = seq[nextSeqIdx];
-      setCurrentKey(nextKey);
-      setCalculatedIndex(null);
-      setTargetIndex(null);
-      setCollidedSlotIndex(null);
-      setCollidingExistingKey(null);
-      setGameState('KEY_APPEARS');
-      soundManager.playKeyAppear();
-    } else {
-      // Level Completed
-      setGameState('LEVEL_COMPLETE');
-      soundManager.playLevelVictory();
-      setShowLevelCompleteModal(true);
-
-      progressManager.markLevelCompleted(currentLevel.id, 100, streak >= 3);
-    }
-  };
-
-  const handleProceedFromCollision = () => {
-    setShowCollisionModal(false);
-    progressManager.markLevelCompleted(1, 100, streak >= 3);
-    setCurrentLevelIndex(1); // Advance to Level 2
   };
 
   const handleNextLevel = () => {
@@ -438,7 +127,6 @@ export default function App() {
     if (currentLevelIndex < GAME_LEVELS.length - 1) {
       const nextIndex = currentLevelIndex + 1;
       setCurrentLevelIndex(nextIndex);
-      initLevel(nextIndex);
     } else {
       // All 5 levels completed! Move to Level 6: Completion Milestone
       setCurrentLevelIndex(5);
@@ -519,9 +207,6 @@ export default function App() {
     }
     setActiveTab('GAME');
   };
-
-  const currentStep = probeSteps[currentProbeStepIndex];
-  const h2Val = currentKey !== null ? calculateH2(currentKey) : 1;
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F8FAFC] font-sans flex antialiased selection:bg-[#2563EB] dark:selection:bg-[#3B82F6] selection:text-white transition-colors duration-300">
@@ -752,17 +437,6 @@ export default function App() {
           </div>
         </main>
       </div>
-
-      {/* Collision Discovery Modal (Level 1 collision moment) */}
-      {showCollisionModal && collidingExistingKey !== null && currentKey !== null && (
-        <CollisionModal
-          incomingKey={currentKey}
-          existingKey={collidingExistingKey}
-          index={collidedSlotIndex ?? 3}
-          tableSize={currentLevel.tableSize}
-          onProceedToResolution={handleProceedFromCollision}
-        />
-      )}
 
       {/* Level Completion Modal */}
       {showLevelCompleteModal && (

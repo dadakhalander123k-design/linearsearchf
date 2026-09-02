@@ -28,21 +28,6 @@ export interface VideoLesson {
 
 export type ModuleStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' | 'MASTERED';
 
-export interface KeyItem {
-  id: string;
-  value: number;
-  label?: string;
-  probesCount?: number;
-  initialHash?: number;
-  finalIndex?: number;
-}
-
-export interface TableSlot {
-  index: number;
-  items: KeyItem[]; // multiple for separate chaining, 0 or 1 for open addressing
-  status: 'idle' | 'target' | 'occupied' | 'collided' | 'probed_occupied' | 'probed_success' | 'chain_target';
-}
-
 export interface LevelConfig {
   id: number;
   title: string;
@@ -58,27 +43,6 @@ export interface LevelConfig {
   formulaDisplay: string;
   moduleCode: string;
 }
-
-export interface ProbeStep {
-  stepIndex: number; // i = 0, 1, 2, ...
-  targetIndex: number;
-  isOccupied: boolean;
-  calculationStr: string;
-}
-
-export type GameState =
-  | 'INTRO'
-  | 'KEY_APPEARS'
-  | 'CALCULATING'
-  | 'INDEX_FOUND'
-  | 'DRAGGING'
-  | 'INSERTING'
-  | 'COLLISION_PAUSE'
-  | 'PROBING_INTERACTION'
-  | 'CHAIN_CONNECTING'
-  | 'LEVEL_COMPLETE'
-  | 'MASTER_CHALLENGE'
-  | 'SANDBOX';
 
 export interface ModuleRecord {
   id: string;
