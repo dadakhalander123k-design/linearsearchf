@@ -85,7 +85,7 @@ export interface ModuleRecord {
   number: string;
   code: string;
   title: string;
-  category: 'FOUNDATION' | 'TECHNIQUE' | 'ANALYSIS' | 'EXAMINATION';
+  category: 'FOUNDATION' | 'TECHNIQUE' | 'ANALYSIS' | 'EXAMINATION' | string;
   description: string;
   status: ModuleStatus;
   progressPercent: number; // 0 to 100
