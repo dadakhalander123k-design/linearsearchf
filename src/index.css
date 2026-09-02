@@ -292,43 +292,43 @@
 
 /* Modern Action Buttons */
 .btn-modern-primary {
-  background-color: #2563EB;
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 55%, #6366F1 100%);
   color: #FFFFFF;
-  border: 1px solid #1D4ED8;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   font-weight: 600;
-  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3), 0 0 10px rgba(99, 102, 241, 0.2);
   transition: all 0.15s ease;
   user-select: none;
 }
 
 .dark .btn-modern-primary {
-  background-color: #3B82F6;
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 55%, #6366F1 100%);
   color: #FFFFFF;
-  border: 1px solid #2563EB;
-  box-shadow: 0 0 18px rgba(59, 130, 246, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4), 0 0 16px rgba(99, 102, 241, 0.35);
 }
 
 .btn-modern-primary:hover {
-  background-color: #1D4ED8;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  background: linear-gradient(135deg, #1D4ED8 0%, #4338CA 55%, #4F46E5 100%);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4), 0 0 16px rgba(99, 102, 241, 0.35);
   transform: translateY(-1px);
 }
 
 .dark .btn-modern-primary:hover {
-  background-color: #2563EB;
-  border-color: #1D4ED8;
-  box-shadow: 0 0 24px rgba(59, 130, 246, 0.55);
+  background: linear-gradient(135deg, #1D4ED8 0%, #4338CA 55%, #4F46E5 100%);
+  box-shadow: 0 6px 24px rgba(37, 99, 235, 0.55), 0 0 20px rgba(99, 102, 241, 0.45);
+  transform: translateY(-1px);
 }
 
 .btn-modern-primary:active {
-  background-color: #1E40AF;
+  background: linear-gradient(135deg, #1E40AF 0%, #3730A3 55%, #4338CA 100%);
   transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
 }
 
 .dark .btn-modern-primary:active {
-  background-color: #1D4ED8;
+  background: linear-gradient(135deg, #1E40AF 0%, #3730A3 55%, #4338CA 100%);
   transform: translateY(0);
 }
 
@@ -518,33 +518,33 @@
 }
 
 .btn-editorial-primary {
-  background-color: #2563EB;
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 55%, #6366F1 100%);
   color: #FFFFFF;
-  border: 1px solid #1D4ED8;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   font-weight: 600;
-  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3), 0 0 10px rgba(99, 102, 241, 0.2);
   transition: all 0.15s ease;
   user-select: none;
 }
 
 .dark .btn-editorial-primary {
-  background-color: #3B82F6;
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 55%, #6366F1 100%);
   color: #FFFFFF;
-  border: 1px solid #2563EB;
-  box-shadow: 0 0 18px rgba(59, 130, 246, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4), 0 0 16px rgba(99, 102, 241, 0.35);
 }
 
 .btn-editorial-primary:hover {
-  background-color: #1D4ED8;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  background: linear-gradient(135deg, #1D4ED8 0%, #4338CA 55%, #4F46E5 100%);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4), 0 0 16px rgba(99, 102, 241, 0.35);
   transform: translateY(-1px);
 }
 
 .dark .btn-editorial-primary:hover {
-  background-color: #2563EB;
+  background: linear-gradient(135deg, #1D4ED8 0%, #4338CA 55%, #4F46E5 100%);
   border-color: #1D4ED8;
-  box-shadow: 0 0 24px rgba(59, 130, 246, 0.55);
+  box-shadow: 0 6px 24px rgba(37, 99, 235, 0.55), 0 0 20px rgba(99, 102, 241, 0.45);
 }
 
 .btn-editorial-secondary {

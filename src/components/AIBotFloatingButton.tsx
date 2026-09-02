@@ -30,10 +30,10 @@ export const AIBotFloatingButton: React.FC = () => {
         <defs>
           {/* Main Saturated 3D Blue Badge Gradient */}
           <radialGradient id="masterBadgeGrad" cx="44%" cy="26%" r="74%">
-            <stop offset="0%" stopColor="#2582FF" />
-            <stop offset="38%" stopColor="#1467F5" />
-            <stop offset="72%" stopColor="#0B46C7" />
-            <stop offset="100%" stopColor="#052D92" />
+            <stop offset="0%" stopColor="#2563EB" />
+            <stop offset="45%" stopColor="#1D4ED8" />
+            <stop offset="78%" stopColor="#1E40AF" />
+            <stop offset="100%" stopColor="#172554" />
           </radialGradient>
 
           {/* Top Subtle Gloss Arc */}
@@ -52,14 +52,14 @@ export const AIBotFloatingButton: React.FC = () => {
 
           {/* Left Ear Inset Gradient */}
           <linearGradient id="leftEarInset" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#93C5FD" />
-            <stop offset="100%" stopColor="#3B82F6" />
+            <stop offset="0%" stopColor="#DBEAFE" />
+            <stop offset="100%" stopColor="#2563EB" />
           </linearGradient>
 
           {/* Right Ear Inset Gradient */}
           <linearGradient id="rightEarInset" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#C4B5FD" />
-            <stop offset="100%" stopColor="#818CF8" />
+            <stop offset="0%" stopColor="#DBEAFE" />
+            <stop offset="100%" stopColor="#6366F1" />
           </linearGradient>
 
           {/* Dark Navy Visor Screen */}
@@ -68,19 +68,18 @@ export const AIBotFloatingButton: React.FC = () => {
             <stop offset="100%" stopColor="#040818" />
           </linearGradient>
 
-          {/* Lower Book Base Glowing Cover (Cyan -> Royal Blue -> Radiant Violet) */}
+          {/* Lower Book Base Glowing Cover (Royal Blue -> Subtle Violet) */}
           <linearGradient id="bookBottomCover" x1="16" y1="78" x2="84" y2="92" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#00A2FF" />
-            <stop offset="35%" stopColor="#1E65F6" />
-            <stop offset="70%" stopColor="#6D43F8" />
-            <stop offset="100%" stopColor="#A855F7" />
+            <stop offset="0%" stopColor="#1D4ED8" />
+            <stop offset="60%" stopColor="#2563EB" />
+            <stop offset="100%" stopColor="#6366F1" />
           </linearGradient>
 
-          {/* Middle Cyan Layer */}
+          {/* Middle Transition Layer */}
           <linearGradient id="bookCyanLayer" x1="20" y1="74" x2="80" y2="84" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#00D2FF" />
-            <stop offset="50%" stopColor="#0094FF" />
-            <stop offset="100%" stopColor="#7C3AED" />
+            <stop offset="0%" stopColor="#2563EB" />
+            <stop offset="50%" stopColor="#3B82F6" />
+            <stop offset="100%" stopColor="#4F46E5" />
           </linearGradient>
 
           {/* Soft Depth Filter for Elements */}
@@ -199,7 +198,7 @@ export const AIBotFloatingButton: React.FC = () => {
         {/* 7. Friendly Cyan Smile */}
         <path
           d="M45.2 52.8 C47.2 56 52.8 56 54.8 52.8"
-          stroke="#00C4FF"
+          stroke="#3B82F6"
           strokeWidth="2.9"
           strokeLinecap="round"
           fill="none"

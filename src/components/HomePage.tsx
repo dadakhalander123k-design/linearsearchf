@@ -76,9 +76,9 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div className="relative flex flex-col items-center max-w-full">
               {/* Top Search Icon and Connector Arrow */}
               <div className="relative w-full flex justify-end pr-8 sm:pr-10 mb-1">
-                {/* Search Magnifying Glass Icon Badge */}
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/40 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center shadow-xs shrink-0 z-10">
-                  <Search className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.2]" />
+                {/* Search Magnifying Glass Icon Badge - Styled directly after reference squircle */}
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-[#2563EB] via-[#4F46E5] to-[#6366F1] text-white flex items-center justify-center shadow-md shadow-blue-600/30 dark:shadow-[0_0_20px_rgba(99,102,241,0.4)] shrink-0 z-10">
+                  <Search className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.4] text-white drop-shadow-xs" />
                 </div>
 
                 {/* Connector Line pointing downward to target element (9 at index 3) */}
@@ -611,7 +611,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           <button
             id="btn-home-start-learning"
             onClick={handleStartLearning}
-            className="w-full md:w-auto px-8 py-4 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white font-bold text-sm sm:text-base rounded-xl shadow-md shadow-blue-500/25 dark:shadow-blue-500/25 transition-all flex items-center justify-center gap-2.5 cursor-pointer shrink-0 group hover:scale-[1.02] active:scale-[0.98]"
+            className="btn-modern-primary w-full md:w-auto px-8 py-4 text-white font-bold text-sm sm:text-base rounded-xl transition-all flex items-center justify-center gap-2.5 cursor-pointer shrink-0 group hover:scale-[1.02] active:scale-[0.98]"
           >
             <span>Start Learning</span>
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />

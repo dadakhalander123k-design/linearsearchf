@@ -576,7 +576,7 @@ export const VideoTutorialsView: React.FC = () => {
               <button
                 id="btn-video-try-again"
                 onClick={handleRetry}
-                className="px-5 py-2.5 bg-[#2563EB] dark:bg-blue-600 hover:bg-[#1D4ED8] dark:hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-2 active:scale-95"
+                className="btn-modern-primary px-5 py-2.5 text-xs font-bold flex items-center gap-2 cursor-pointer shadow-md active:scale-95"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>TRY AGAIN</span>

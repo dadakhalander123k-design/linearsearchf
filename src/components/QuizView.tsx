@@ -740,7 +740,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
                           ? optIdx === currentQuestion.correctIndex
                             ? 'bg-emerald-600 text-white border-emerald-600'
                             : 'bg-rose-600 text-white border-rose-600'
-                          : 'bg-[#2563EB] dark:bg-blue-600 text-white border-[#2563EB] dark:border-blue-500'
+                          : 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-blue-500'
                         : 'bg-slate-100 dark:bg-[#111827] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-blue-500/30'
                         }`}
                     >
