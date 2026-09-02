@@ -1,6 +1,6 @@
 {
-  "name": "Hash Quest",
-  "description": "An interactive educational mini-game to master hashing and collision resolution algorithms by playing.",
+  "name": "AlgoLearn – Linear Search Learning Guide",
+  "description": "An interactive educational guide to Linear Search, sequential searching, array traversal, and algorithmic thinking.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
