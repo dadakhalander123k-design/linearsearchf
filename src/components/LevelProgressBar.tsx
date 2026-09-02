@@ -56,16 +56,16 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
             >
               <div
                 className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-200 border-2 ${isCurrent
-                    ? 'bg-[#2563EB] dark:bg-blue-600 text-white border-[#2563EB] dark:border-blue-500 shadow-md dark:shadow-[0_0_15px_rgba(59,130,246,0.4)] ring-4 ring-indigo-100 dark:ring-blue-500/20 scale-110'
+                    ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] shadow-md dark:shadow-[0_0_15px_rgba(59,130,246,0.4)] ring-4 ring-blue-100 dark:ring-blue-500/20 scale-110'
                     : isCompleted
-                      ? 'bg-white dark:bg-[#111827] text-indigo-600 dark:text-blue-400 border-[#2563EB] dark:border-blue-500 shadow-xs hover:bg-indigo-50 dark:hover:bg-blue-950/40'
+                      ? 'bg-white dark:bg-[#111827] text-[#2563EB] dark:text-[#3B82F6] border-[#2563EB] dark:border-[#3B82F6] shadow-xs hover:bg-[#EFF6FF] dark:hover:bg-blue-950/40'
                       : 'bg-white dark:bg-[#0F172A] text-slate-400 dark:text-slate-500 border-slate-300 dark:border-blue-500/30 hover:border-slate-400 dark:hover:border-blue-400'
                   }`}
               >
                 {isMastered ? (
-                  <Star className="w-4 h-4 fill-[#2563EB] text-[#2563EB] dark:fill-blue-400 dark:text-blue-400" />
+                  <Star className="w-4 h-4 fill-[#2563EB] text-[#2563EB] dark:fill-[#3B82F6] dark:text-[#3B82F6]" />
                 ) : isCompleted ? (
-                  <Check className="w-4 h-4 text-[#2563EB] dark:text-blue-400 stroke-[3]" />
+                  <Check className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6] stroke-[3]" />
                 ) : isCurrent ? (
                   <div className="w-2.5 h-2.5 rounded-full bg-white" />
                 ) : (
@@ -74,12 +74,12 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
               </div>
 
               <div className="text-center">
-                <span className={`text-[10px] font-mono font-bold block ${isCurrent ? 'text-[#2563EB] dark:text-blue-400' : 'text-slate-500 dark:text-slate-400'}`}>
+                <span className={`text-[10px] font-mono font-bold block ${isCurrent ? 'text-[#2563EB] dark:text-[#3B82F6]' : 'text-slate-500 dark:text-slate-400'}`}>
                   {step.code}
                 </span>
                 <span
                   className={`text-[11px] font-semibold hidden sm:block max-w-[85px] leading-tight transition-colors ${isCurrent
-                      ? 'text-indigo-700 dark:text-blue-300 font-bold'
+                      ? 'text-[#2563EB] dark:text-[#3B82F6] font-bold'
                       : isCompleted
                         ? 'text-slate-900 dark:text-white'
                         : 'text-slate-500 dark:text-slate-400'
@@ -144,7 +144,7 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
             className="btn-modern-secondary px-4 py-2 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-xs hover:shadow-md transition-all"
             title="Open Interactive Lab (Optional)"
           >
-            <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
+            <Layers className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
             <span>LAB</span>
           </button>
         </div>

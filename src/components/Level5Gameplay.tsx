@@ -126,17 +126,17 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
         <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
           <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-blue-500/15">
             <div className="flex items-center gap-3">
-              <span className="px-3 py-1 bg-indigo-600 dark:bg-blue-600 text-white rounded-lg text-xs font-bold font-mono">
+              <span className="px-3 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-lg text-xs font-bold font-mono">
                 CHALLENGE {challengeIndex + 1} OF 4
               </span>
-              <span className="text-xs font-bold px-2.5 py-1 bg-indigo-50 dark:bg-blue-950/60 text-indigo-700 dark:text-blue-300 rounded-md border border-indigo-200 dark:border-blue-500/30 uppercase font-mono">
+              <span className="text-xs font-bold px-2.5 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-[#3B82F6] rounded-md border border-[#DBEAFE] dark:border-blue-500/30 uppercase font-mono">
                 {currentChallenge.tag}
               </span>
             </div>
 
             <div className="flex items-center gap-2 font-mono text-xs">
               <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
-              <span className="px-3 py-1 bg-indigo-600 dark:bg-blue-600 text-white rounded-lg font-bold text-sm shadow-xs">
+              <span className="px-3 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-lg font-bold text-sm shadow-xs">
                 {comparisons}
               </span>
             </div>
@@ -144,7 +144,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
 
           <div className="pt-4 pb-2 flex items-center justify-between">
             <div className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
-              Target: <span className="font-mono text-indigo-600 dark:text-blue-400 text-lg font-extrabold px-2 py-0.5 bg-indigo-50 dark:bg-blue-900/40 rounded-md border border-indigo-200 dark:border-blue-500/30">{currentChallenge.target}</span>
+              Target: <span className="font-mono text-[#2563EB] dark:text-[#3B82F6] text-lg font-extrabold px-2 py-0.5 bg-[#EFF6FF] dark:bg-blue-900/40 rounded-md border border-[#DBEAFE] dark:border-blue-500/30">{currentChallenge.target}</span>
             </div>
             <div className="text-xs font-mono text-slate-500">
               Pointer: Index {pointer}
@@ -171,7 +171,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                         : isMismatch
                         ? 'bg-slate-50 dark:bg-[#0F172A] border-slate-300 dark:border-blue-500/20 text-slate-400 dark:text-slate-500 opacity-80'
                         : isCurrent
-                        ? 'bg-indigo-50/70 dark:bg-blue-950/40 border-indigo-600 dark:border-blue-500 text-indigo-900 dark:text-white shadow-md scale-105 ring-4 ring-indigo-500/20 cursor-pointer'
+                        ? 'bg-[#EFF6FF]/70 dark:bg-blue-950/40 border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-white shadow-md scale-105 ring-4 ring-blue-500/20 cursor-pointer'
                         : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-blue-500/20 text-slate-700 dark:text-slate-300 opacity-60 cursor-not-allowed'
                     }`}
                   >
@@ -185,7 +185,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                       ) : isMismatch ? (
                         <span className="text-slate-400">≠ {currentChallenge.target}</span>
                       ) : isCurrent ? (
-                        <span className="text-indigo-600 dark:text-blue-300 animate-pulse">CHECK</span>
+                        <span className="text-[#2563EB] dark:text-[#3B82F6] animate-pulse">CHECK</span>
                       ) : (
                         <span className="text-slate-400 dark:text-slate-600">WAIT</span>
                       )}
@@ -239,13 +239,13 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                 FINAL MASTER CHALLENGE
               </span>
               <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
-                Target: <span className="font-mono text-indigo-600 dark:text-blue-400 text-lg font-extrabold px-2 py-0.5 bg-indigo-50 dark:bg-blue-900/40 rounded-md border border-indigo-200 dark:border-blue-500/30">{finalMasterTarget}</span>
+                Target: <span className="font-mono text-[#2563EB] dark:text-[#3B82F6] text-lg font-extrabold px-2 py-0.5 bg-[#EFF6FF] dark:bg-blue-900/40 rounded-md border border-[#DBEAFE] dark:border-blue-500/30">{finalMasterTarget}</span>
               </span>
             </div>
 
             <div className="flex items-center gap-2 font-mono text-xs">
               <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
-              <span className="px-3 py-1 bg-indigo-600 dark:bg-blue-600 text-white rounded-lg font-bold text-sm shadow-xs">
+              <span className="px-3 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-lg font-bold text-sm shadow-xs">
                 {masterComparisons}
               </span>
             </div>
@@ -254,7 +254,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
           <div className="pt-2">
             <div className="text-xs font-bold uppercase font-mono tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center justify-between">
               <span>Array Sequence: [23, 41, 12, 67, 35, 89, 54]</span>
-              <span className="text-indigo-600 dark:text-blue-400">Pointer: Index {masterPointer}</span>
+              <span className="text-[#2563EB] dark:text-[#3B82F6]">Pointer: Index {masterPointer}</span>
             </div>
 
             <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 sm:gap-3">
@@ -276,7 +276,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                         : isMismatch
                         ? 'bg-slate-50 dark:bg-[#0F172A] border-slate-300 dark:border-blue-500/20 text-slate-400 dark:text-slate-500 opacity-80'
                         : isCurrent
-                        ? 'bg-indigo-50/70 dark:bg-blue-950/40 border-indigo-600 dark:border-blue-500 text-indigo-900 dark:text-white shadow-md scale-105 ring-4 ring-indigo-500/20 cursor-pointer'
+                        ? 'bg-[#EFF6FF]/70 dark:bg-blue-950/40 border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-white shadow-md scale-105 ring-4 ring-blue-500/20 cursor-pointer'
                         : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-blue-500/20 text-slate-700 dark:text-slate-300 opacity-60 cursor-not-allowed'
                     }`}
                   >
@@ -290,7 +290,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                       ) : isMismatch ? (
                         <span className="text-slate-400">≠ {finalMasterTarget}</span>
                       ) : isCurrent ? (
-                        <span className="text-indigo-600 dark:text-blue-300 animate-pulse">CHECK</span>
+                        <span className="text-[#2563EB] dark:text-[#3B82F6] animate-pulse">CHECK</span>
                       ) : (
                         <span className="text-slate-400 dark:text-slate-600">WAIT</span>
                       )}
@@ -303,9 +303,9 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
 
           {/* Audit Results */}
           {isMasterFinished && (
-            <div className="p-5 bg-indigo-50/60 dark:bg-blue-950/40 border border-indigo-200 dark:border-blue-500/30 rounded-2xl space-y-4 animate-fadeIn">
-              <div className="flex items-center gap-2 text-xs font-bold text-indigo-700 dark:text-blue-300 uppercase font-mono tracking-wider">
-                <Sparkles className="w-4 h-4 text-indigo-600 dark:text-blue-400" />
+            <div className="p-5 bg-[#EFF6FF]/60 dark:bg-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl space-y-4 animate-fadeIn">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] uppercase font-mono tracking-wider">
+                <Sparkles className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
                 <span>Search Audit Results</span>
               </div>
 
@@ -316,7 +316,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                 </div>
                 <div className="bg-white dark:bg-[#111827] p-3 rounded-xl border border-slate-200 dark:border-blue-500/20">
                   <span className="text-[10px] text-slate-500 block uppercase font-bold">Comparisons</span>
-                  <span className="text-sm font-extrabold text-indigo-600 dark:text-blue-400">5</span>
+                  <span className="text-sm font-extrabold text-[#2563EB] dark:text-[#3B82F6]">5</span>
                 </div>
                 <div className="bg-white dark:bg-[#111827] p-3 rounded-xl border border-slate-200 dark:border-blue-500/20">
                   <span className="text-[10px] text-slate-500 block uppercase font-bold">Position</span>
@@ -324,7 +324,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                 </div>
                 <div className="bg-white dark:bg-[#111827] p-3 rounded-xl border border-slate-200 dark:border-blue-500/20">
                   <span className="text-[10px] text-slate-500 block uppercase font-bold">Search Type</span>
-                  <span className="text-sm font-extrabold text-indigo-600 dark:text-blue-300">SUCCESSFUL</span>
+                  <span className="text-sm font-extrabold text-[#2563EB] dark:text-[#3B82F6]">SUCCESSFUL</span>
                 </div>
               </div>
             </div>

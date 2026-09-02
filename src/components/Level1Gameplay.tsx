@@ -61,12 +61,12 @@ export const Level1Gameplay: React.FC<Level1GameplayProps> = ({
       <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-blue-500/15">
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 bg-indigo-50 dark:bg-blue-950/60 border border-indigo-200 dark:border-blue-500/30 text-indigo-700 dark:text-blue-300 rounded-lg text-xs font-bold font-mono">
+            <span className="px-3 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] rounded-lg text-xs font-bold font-mono">
               MISSION
             </span>
             <span className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100">
               Find target number{' '}
-              <span className="font-mono text-indigo-600 dark:text-blue-400 text-lg font-extrabold px-2 py-0.5 bg-indigo-50 dark:bg-blue-900/40 rounded-md border border-indigo-200 dark:border-blue-500/30">
+              <span className="font-mono text-[#2563EB] dark:text-[#3B82F6] text-lg font-extrabold px-2 py-0.5 bg-[#EFF6FF] dark:bg-blue-900/40 rounded-md border border-[#DBEAFE] dark:border-blue-500/30">
                 {target}
               </span>{' '}
               in the array
@@ -85,7 +85,7 @@ export const Level1Gameplay: React.FC<Level1GameplayProps> = ({
         <div className="pt-6 pb-2">
           <div className="text-xs font-bold uppercase font-mono tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center justify-between">
             <span>Array Elements (Click current active slot to compare)</span>
-            <span className="text-indigo-600 dark:text-blue-400">Pointer: Index {pointer}</span>
+            <span className="text-[#2563EB] dark:text-[#3B82F6]">Pointer: Index {pointer}</span>
           </div>
 
           <div className="grid grid-cols-5 gap-2 sm:gap-4">
@@ -106,7 +106,7 @@ export const Level1Gameplay: React.FC<Level1GameplayProps> = ({
                       : isMismatch
                         ? 'bg-slate-50 dark:bg-[#0F172A] border-slate-300 dark:border-blue-500/20 text-slate-400 dark:text-slate-500 opacity-80'
                         : isCurrent
-                          ? `bg-indigo-50/70 dark:bg-blue-950/40 border-indigo-600 dark:border-blue-500 text-indigo-900 dark:text-white shadow-md scale-105 ring-4 ring-indigo-500/20 cursor-pointer ${hasGuidanceError ? 'animate-shake border-rose-500' : ''
+                          ? `bg-[#EFF6FF]/70 dark:bg-blue-950/40 border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-white shadow-md scale-105 ring-4 ring-blue-500/20 cursor-pointer ${hasGuidanceError ? 'animate-shake border-rose-500' : ''
                           }`
                           : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-blue-500/20 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-blue-500/40 cursor-not-allowed opacity-60'
                     }`}
@@ -123,7 +123,7 @@ export const Level1Gameplay: React.FC<Level1GameplayProps> = ({
                     ) : isMismatch ? (
                       <span className="text-slate-400 dark:text-slate-500">≠ {target}</span>
                     ) : isCurrent ? (
-                      <span className="text-indigo-600 dark:text-blue-300 animate-pulse">CURRENT</span>
+                      <span className="text-[#2563EB] dark:text-[#3B82F6] animate-pulse">CURRENT</span>
                     ) : (
                       <span className="text-slate-400 dark:text-slate-600">UNCHECKED</span>
                     )}
@@ -195,8 +195,8 @@ export const Level1Gameplay: React.FC<Level1GameplayProps> = ({
         </div>
 
         {isFound && (
-          <div className="mt-4 pt-3 border-t border-slate-100 dark:border-blue-500/15 text-xs text-slate-600 dark:text-slate-300 bg-indigo-50/50 dark:bg-blue-950/30 p-3 rounded-xl border border-indigo-100 dark:border-blue-500/20">
-            <strong className="text-indigo-700 dark:text-blue-300 font-semibold block mb-1">
+          <div className="mt-4 pt-3 border-t border-slate-100 dark:border-blue-500/15 text-xs text-slate-600 dark:text-slate-300 bg-[#EFF6FF]/50 dark:bg-blue-950/30 p-3 rounded-xl border border-[#DBEAFE] dark:border-blue-500/20">
+            <strong className="text-[#2563EB] dark:text-[#3B82F6] font-semibold block mb-1">
               Key Concept Learned:
             </strong>
             "Linear Search checks elements sequentially, starting from the first element, until the target is found."

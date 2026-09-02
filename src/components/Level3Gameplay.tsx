@@ -110,12 +110,12 @@ export const Level3Gameplay: React.FC<Level3GameplayProps> = ({
       <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-blue-500/15">
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 bg-indigo-50 dark:bg-blue-950/60 border border-indigo-200 dark:border-blue-500/30 text-indigo-700 dark:text-blue-300 rounded-lg text-xs font-bold font-mono">
+            <span className="px-3 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] rounded-lg text-xs font-bold font-mono">
               ROUND {roundIndex + 1} OF {rounds.length}
             </span>
             <span className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100">
               Search For:{' '}
-              <span className="font-mono text-indigo-600 dark:text-blue-400 text-lg font-extrabold px-2 py-0.5 bg-indigo-50 dark:bg-blue-900/40 rounded-md border border-indigo-200 dark:border-blue-500/30">
+              <span className="font-mono text-[#2563EB] dark:text-[#3B82F6] text-lg font-extrabold px-2 py-0.5 bg-[#EFF6FF] dark:bg-blue-900/40 rounded-md border border-[#DBEAFE] dark:border-blue-500/30">
                 {currentRound.target}
               </span>
             </span>
@@ -133,7 +133,7 @@ export const Level3Gameplay: React.FC<Level3GameplayProps> = ({
         <div className="pt-6 pb-2">
           <div className="text-xs font-bold uppercase font-mono tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center justify-between">
             <span>Array Elements ({currentRound.array.length} items)</span>
-            <span className="text-indigo-600 dark:text-blue-400">Pointer: Index {pointer}</span>
+            <span className="text-[#2563EB] dark:text-[#3B82F6]">Pointer: Index {pointer}</span>
           </div>
 
           <div className="grid grid-cols-5 sm:grid-cols-6 gap-2 sm:gap-3">
@@ -154,7 +154,7 @@ export const Level3Gameplay: React.FC<Level3GameplayProps> = ({
                       : isMismatch
                         ? 'bg-slate-50 dark:bg-[#0F172A] border-slate-300 dark:border-blue-500/20 text-slate-400 dark:text-slate-500 opacity-80'
                         : isCurrent
-                          ? 'bg-indigo-50/70 dark:bg-blue-950/40 border-indigo-600 dark:border-blue-500 text-indigo-900 dark:text-white shadow-md scale-105 ring-4 ring-indigo-500/20 cursor-pointer'
+                          ? 'bg-[#EFF6FF]/70 dark:bg-blue-950/40 border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-white shadow-md scale-105 ring-4 ring-blue-500/20 cursor-pointer'
                           : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-blue-500/20 text-slate-700 dark:text-slate-300 opacity-60 cursor-not-allowed'
                     }`}
                 >
@@ -168,7 +168,7 @@ export const Level3Gameplay: React.FC<Level3GameplayProps> = ({
                     ) : isMismatch ? (
                       <span className="text-slate-400">≠ {currentRound.target}</span>
                     ) : isCurrent ? (
-                      <span className="text-indigo-600 dark:text-blue-300 animate-pulse">CHECK</span>
+                      <span className="text-[#2563EB] dark:text-[#3B82F6] animate-pulse">CHECK</span>
                     ) : (
                       <span className="text-slate-400 dark:text-slate-600">WAIT</span>
                     )}
@@ -181,8 +181,8 @@ export const Level3Gameplay: React.FC<Level3GameplayProps> = ({
 
         {/* Decision Prompt Section */}
         {isDecisionPhase && (
-          <div className="mt-6 p-4 sm:p-5 bg-indigo-50/70 dark:bg-blue-950/40 border border-indigo-200 dark:border-blue-500/30 rounded-xl space-y-3 animate-fadeIn">
-            <div className="text-xs font-bold text-indigo-900 dark:text-blue-200 uppercase font-mono tracking-wider">
+          <div className="mt-6 p-4 sm:p-5 bg-[#EFF6FF]/70 dark:bg-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-xl space-y-3 animate-fadeIn">
+            <div className="text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] uppercase font-mono tracking-wider">
               Result Decision: What is the search outcome?
             </div>
             <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300">

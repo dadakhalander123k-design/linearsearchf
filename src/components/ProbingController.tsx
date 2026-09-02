@@ -35,12 +35,12 @@ export const ProbingController: React.FC<ProbingControllerProps> = ({
       {/* Top Header */}
       <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-100 dark:border-blue-500/15 font-mono">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-blue-400 animate-pulse shadow-xs" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] animate-pulse shadow-xs" />
           <h4 className="text-xs uppercase font-bold text-slate-900 dark:text-white tracking-wider">
             Collision Resolution Probing
           </h4>
         </div>
-        <span className="text-xs font-bold px-2.5 py-1 bg-indigo-50 dark:bg-blue-950/60 border border-indigo-100 dark:border-blue-500/30 text-indigo-700 dark:text-blue-300 rounded-lg shadow-2xs">
+        <span className="text-xs font-bold px-2.5 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] rounded-lg shadow-2xs">
           Probe Attempt #{currentStepIndex}
         </span>
       </div>
@@ -51,14 +51,14 @@ export const ProbingController: React.FC<ProbingControllerProps> = ({
           <div className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase font-mono tracking-wider">
             Calculation Step:
           </div>
-          <div className="text-base sm:text-lg font-mono font-bold text-indigo-950 dark:text-white mt-1">
+          <div className="text-base sm:text-lg font-mono font-bold text-[#2563EB] dark:text-white mt-1">
             {currentStep?.calculationStr || `Step ${currentStepIndex}`}
           </div>
 
           <div className="mt-3 flex items-center justify-between text-xs pt-3 border-t border-slate-200/80 dark:border-blue-500/15 font-mono">
             <span className="text-slate-700 dark:text-slate-300 font-medium">
               Target Slot:{' '}
-              <strong className="bg-[#2563EB] dark:bg-blue-600 text-white px-2 py-0.5 rounded-md font-bold shadow-2xs">
+              <strong className="bg-[#2563EB] dark:bg-[#3B82F6] text-white px-2 py-0.5 rounded-md font-bold shadow-2xs">
                 [{currentStep?.targetIndex < 10 ? `0${currentStep?.targetIndex}` : currentStep?.targetIndex}]
               </strong>
             </span>
@@ -94,7 +94,7 @@ export const ProbingController: React.FC<ProbingControllerProps> = ({
                 onClick={onAutoSolveProbe}
                 className="btn-modern-secondary py-2.5 px-4 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs"
               >
-                <SkipForward className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
+                <SkipForward className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
                 Auto-Probe
               </button>
             </>

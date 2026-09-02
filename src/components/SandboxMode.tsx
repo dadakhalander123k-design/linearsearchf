@@ -21,9 +21,9 @@ export const SandboxMode: React.FC<SandboxModeProps> = ({ onExit, onOpenTheory }
             soundManager.playClick();
             onExit();
           }}
-          className="btn-modern-secondary px-4 sm:px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-xs select-none hover:border-indigo-300 dark:hover:border-blue-500/40 transition-all group"
+          className="btn-modern-secondary px-4 sm:px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-xs select-none hover:border-[#2563EB] dark:hover:border-blue-500/40 transition-all group"
         >
-          <ArrowLeft className="w-4 h-4 text-indigo-600 dark:text-blue-400 group-hover:-translate-x-1 transition-transform" />
+          <ArrowLeft className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6] group-hover:-translate-x-1 transition-transform" />
           <span>← Back to Game Completion</span>
         </button>
       </div>

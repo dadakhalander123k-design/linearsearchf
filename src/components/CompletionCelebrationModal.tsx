@@ -113,7 +113,7 @@ export const CompletionCelebrationModal: React.FC<CompletionCelebrationModalProp
         <div className="my-6 p-5 sm:p-6 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/20 rounded-2xl">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-blue-500/15">
             <div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-indigo-600 dark:text-blue-400 uppercase font-mono">
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] uppercase font-mono">
                 <ShieldCheck className="w-4 h-4" />
                 <span>Official DSA Certification</span>
               </div>
@@ -146,7 +146,7 @@ export const CompletionCelebrationModal: React.FC<CompletionCelebrationModalProp
             </div>
             <div className="p-3 bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-xl shadow-2xs">
               <div className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase font-mono">MASTERY</div>
-              <div className="text-lg font-bold text-indigo-600 dark:text-blue-400 font-mono">100% COMPLETE</div>
+              <div className="text-lg font-bold text-[#2563EB] dark:text-[#3B82F6] font-mono">100% COMPLETE</div>
             </div>
             <div className="p-3 bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-xl shadow-2xs">
               <div className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase font-mono">STATUS</div>
@@ -157,7 +157,7 @@ export const CompletionCelebrationModal: React.FC<CompletionCelebrationModalProp
           {/* Mastered Competencies Checklist */}
           <div className="mt-4">
             <div className="text-xs font-bold text-slate-900 dark:text-slate-200 mb-2 uppercase font-mono flex items-center gap-1.5">
-              <Award className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
+              <Award className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
               <span>Verified Competencies:</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
@@ -189,7 +189,7 @@ export const CompletionCelebrationModal: React.FC<CompletionCelebrationModalProp
             onClick={handlePrint}
             className="w-full sm:w-auto btn-modern-secondary px-4 py-2.5 text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
           >
-            <Printer className="w-4 h-4 text-indigo-600 dark:text-blue-400" />
+            <Printer className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
             <span>Print / Save Certificate</span>
           </button>
 
@@ -204,7 +204,7 @@ export const CompletionCelebrationModal: React.FC<CompletionCelebrationModalProp
                 }}
                 className="flex-1 sm:flex-initial btn-modern-secondary px-3.5 py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
               >
-                <Sliders className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
+                <Sliders className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
                 <span>Sandbox Lab</span>
               </button>
             )}

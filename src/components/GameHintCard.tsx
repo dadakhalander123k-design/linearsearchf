@@ -105,8 +105,8 @@ export const GameHintCard: React.FC<GameHintCardProps> = ({
           aria-expanded={isExpanded}
         >
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-6 h-6 rounded-lg bg-indigo-50 dark:bg-blue-950/50 text-indigo-600 dark:text-blue-400 border border-indigo-100 dark:border-blue-500/30">
-              <Lightbulb className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
+            <span className="flex items-center justify-center w-6 h-6 rounded-lg bg-[#EFF6FF] dark:bg-blue-950/50 text-[#2563EB] dark:text-[#3B82F6] border border-[#DBEAFE] dark:border-blue-500/30">
+              <Lightbulb className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
             </span>
             <span className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider font-mono">
               Field Hint // What should I do next?
@@ -129,7 +129,7 @@ export const GameHintCard: React.FC<GameHintCardProps> = ({
         {isExpanded && (
           <div className="p-4 space-y-3 border-t border-slate-100 dark:border-blue-500/15 bg-white dark:bg-[#111827] animate-chapter-switch">
             <div className="flex items-center justify-between font-mono">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 dark:text-blue-300 px-2 py-0.5 bg-indigo-50 dark:bg-blue-950/60 rounded-md border border-indigo-100 dark:border-blue-500/30">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6] px-2 py-0.5 bg-[#EFF6FF] dark:bg-blue-950/60 rounded-md border border-[#DBEAFE] dark:border-blue-500/30">
                 {hint.stage}
               </span>
               <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold">Level {level.id} Assistant</span>

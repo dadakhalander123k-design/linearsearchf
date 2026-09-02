@@ -168,7 +168,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
       <div className="border border-slate-200 dark:border-blue-500/20 rounded-2xl pt-5 pb-6 px-6 sm:px-8 bg-white dark:bg-[#111827] shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-0.5 bg-indigo-50 dark:bg-blue-950/60 text-indigo-700 dark:text-blue-300 border border-indigo-100 dark:border-blue-500/30 rounded-md text-xs font-semibold uppercase tracking-wider font-mono">
+            <span className="px-2.5 py-0.5 bg-[#EFF6FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-[#3B82F6] border border-[#DBEAFE] dark:border-blue-500/30 rounded-md text-xs font-semibold uppercase tracking-wider font-mono">
               THEORY CURRICULUM // VOL. 01
             </span>
             <span className="text-xs font-medium text-slate-500 dark:text-slate-400 font-sans">
@@ -177,7 +177,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
           </div>
           <div className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[#0F172A] px-3 py-1 rounded-lg border border-slate-200 dark:border-blue-500/20 flex items-center gap-2">
             <span>Progress:</span>
-            <span className="text-indigo-600 dark:text-blue-400 font-bold">{totalCompletedCount}</span> / 12 Modules
+            <span className="text-[#2563EB] dark:text-[#3B82F6] font-bold">{totalCompletedCount}</span> / 12 Modules
             <span className="font-bold text-slate-900 dark:text-white">({theoryPercentage}%)</span>
           </div>
         </div>
@@ -192,7 +192,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
         {/* Global Progress Bar */}
         <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden mt-4">
           <div
-            className="bg-indigo-600 dark:bg-blue-600 h-full transition-all duration-300 rounded-full"
+            className="bg-[#2563EB] dark:bg-[#3B82F6] h-full transition-all duration-300 rounded-full"
             style={{ width: `${theoryPercentage}%` }}
           />
         </div>
@@ -231,8 +231,8 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                   onClick={() => handleSelectModule(mod.id)}
                   className={`w-full text-left px-5 py-3.5 sm:px-6 sm:py-3.5 transition-all flex items-center justify-between gap-3 cursor-pointer group select-none ${
                     isSelected
-                      ? 'bg-indigo-50/85 dark:bg-blue-950/60 text-indigo-700 dark:text-blue-300 font-semibold border-l-4 border-l-indigo-600 dark:border-l-blue-600'
-                      : 'bg-white dark:bg-[#111827] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#172033] font-medium'
+                      ? 'bg-[#EFF6FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-[#3B82F6] font-semibold border-l-4 border-l-[#2563EB] dark:border-l-[#3B82F6]'
+                      : 'bg-white dark:bg-[#111827] text-slate-700 dark:text-slate-300 hover:bg-[#EFF6FF] dark:hover:bg-[#172033] hover:text-[#2563EB] font-medium'
                   }`}
                 >
                   {/* Left: Fixed-width 2-digit Number & Center: Title */}
@@ -240,8 +240,8 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                     <span
                       className={`text-xs font-mono font-bold w-6 shrink-0 text-left ${
                         isSelected
-                          ? 'text-indigo-600 dark:text-blue-400'
-                          : 'text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200'
+                          ? 'text-[#2563EB] dark:text-[#3B82F6]'
+                          : 'text-slate-400 dark:text-slate-500 group-hover:text-[#2563EB] dark:group-hover:text-slate-200'
                       }`}
                     >
                       {mod.number}
@@ -249,8 +249,8 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                     <span
                       className={`text-sm leading-snug font-sans truncate ${
                         isSelected
-                          ? 'text-indigo-900 dark:text-blue-300 font-bold'
-                          : 'text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white'
+                          ? 'text-[#2563EB] dark:text-[#3B82F6] font-bold'
+                          : 'text-slate-800 dark:text-slate-200 group-hover:text-[#2563EB] dark:group-hover:text-white'
                       }`}
                     >
                       {mod.title}
@@ -264,7 +264,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                         ✓
                       </span>
                     ) : isSelected ? (
-                      <span className="text-indigo-600 dark:text-blue-400 text-xs font-bold" title="Current">
+                      <span className="text-[#2563EB] dark:text-[#3B82F6] text-xs font-bold" title="Current">
                         ●
                       </span>
                     ) : (
@@ -298,7 +298,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
           <div className="border-b border-slate-100 dark:border-blue-500/15 pb-5 space-y-2">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 bg-indigo-50 dark:bg-blue-950/60 border border-indigo-100 dark:border-blue-500/30 text-indigo-700 dark:text-blue-300 rounded-md text-xs font-semibold uppercase tracking-wider font-mono">
+                <span className="px-2.5 py-0.5 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] rounded-md text-xs font-semibold uppercase tracking-wider font-mono">
                   Module {activeModule.number} // {activeModule.category}
                 </span>
                 {isCurrentModuleCompleted && (
@@ -309,7 +309,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                 )}
               </div>
               <div className="text-xs font-sans text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
+                <Clock className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
                 <span>Est. Read: {activeModule.readTime}</span>
               </div>
             </div>
@@ -318,7 +318,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight pt-1">
               {parseInt(activeModule.number, 10)}. {activeModule.title}
             </h2>
-            <p className="text-sm font-semibold text-indigo-600 dark:text-blue-300">
+            <p className="text-sm font-semibold text-[#2563EB] dark:text-[#3B82F6]">
               {activeModule.subtitle}
             </p>
 
@@ -331,9 +331,9 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
 
           {/* Everyday Real-Life Analogy Card */}
           {activeModule.analogyContent && (
-            <div className="bg-indigo-50/60 dark:bg-blue-950/30 border-l-4 border-l-indigo-600 dark:border-l-blue-600 border border-indigo-100 dark:border-blue-500/20 rounded-r-xl p-4 sm:p-5 text-slate-800 dark:text-slate-200 leading-relaxed space-y-1.5 shadow-xs reveal-on-scroll">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-blue-300 font-mono">
-                <Lightbulb className="w-4 h-4 text-indigo-600 dark:text-blue-400" />
+            <div className="bg-[#EFF6FF]/60 dark:bg-blue-950/30 border-l-4 border-l-[#2563EB] dark:border-l-[#3B82F6] border border-[#DBEAFE] dark:border-blue-500/20 rounded-r-xl p-4 sm:p-5 text-slate-800 dark:text-slate-200 leading-relaxed space-y-1.5 shadow-xs reveal-on-scroll">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6] font-mono">
+                <Lightbulb className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
                 <span>Everyday Analogy: {activeModule.analogyTitle || 'Intuitive Real-Life Model'}</span>
               </div>
               <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed italic pt-1">
@@ -354,7 +354,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                     key={aIdx}
                     className="p-3.5 bg-white dark:bg-[#172033] border border-slate-200 dark:border-blue-500/20 rounded-xl text-xs text-slate-700 dark:text-slate-300 leading-relaxed flex items-start gap-2 shadow-2xs"
                   >
-                    <span className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-blue-400 mt-1 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] mt-1 shrink-0" />
                     <span>{app}</span>
                   </div>
                 ))}
@@ -371,7 +371,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
               <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
                 {activeModule.coreTopics.map((topic, tIdx) => (
                   <li key={tIdx} className="flex items-start gap-2.5 leading-relaxed">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-blue-400 mt-2 shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] mt-2 shrink-0" />
                     <span>{topic}</span>
                   </li>
                 ))}
@@ -382,11 +382,11 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
           {/* Formal Pseudocode Display (Module 04) */}
           {activeModule.pseudocode && (
             <div className="bg-[#0F172A] dark:bg-[#0B1120] text-slate-100 rounded-xl p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-md border border-slate-800 dark:border-blue-500/20 space-y-2 reveal-on-scroll">
-              <div className="flex items-center justify-between text-indigo-400 dark:text-blue-400 text-xs font-bold pb-2 border-b border-slate-800">
+              <div className="flex items-center justify-between text-[#93C5FD] dark:text-[#3B82F6] text-xs font-bold pb-2 border-b border-slate-800">
                 <span>FORMAL PSEUDOCODE SPECIFICATION</span>
                 <span>Language-Agnostic</span>
               </div>
-              <pre className="overflow-x-auto leading-relaxed text-indigo-100 dark:text-blue-200 py-2">
+              <pre className="overflow-x-auto leading-relaxed text-[#DBEAFE] dark:text-[#93C5FD] py-2">
                 <code>{activeModule.pseudocode}</code>
               </pre>
             </div>
@@ -404,7 +404,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                     key={cIdx}
                     className="p-4 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/20 rounded-xl space-y-1.5"
                   >
-                    <span className="text-xs font-bold text-indigo-600 dark:text-blue-400 uppercase font-mono block">
+                    <span className="text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] uppercase font-mono block">
                       {item.caseType}
                     </span>
                     <span className="text-xl font-extrabold text-slate-900 dark:text-white font-mono block">
@@ -413,7 +413,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                     <p className="text-xs text-slate-600 dark:text-slate-300 leading-snug">
                       {item.description}
                     </p>
-                    <code className="text-[11px] font-mono font-bold text-slate-700 dark:text-blue-300 block pt-1">
+                    <code className="text-[11px] font-mono font-bold text-slate-700 dark:text-[#3B82F6] block pt-1">
                       {item.formula}
                     </code>
                   </div>
@@ -434,7 +434,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                     key={sIdx}
                     className="p-4 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/20 rounded-xl space-y-1"
                   >
-                    <span className="text-xs font-bold text-indigo-600 dark:text-blue-400 uppercase font-mono block">
+                    <span className="text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] uppercase font-mono block">
                       {item.type}
                     </span>
                     <span className="text-lg font-bold text-slate-900 dark:text-white font-mono block">
@@ -600,7 +600,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
                   <div className="space-y-1.5 text-xs font-mono">
                     {activeModule.codeExplanations.map((exp, eIdx) => (
                       <div key={eIdx} className="flex items-start gap-2.5 text-slate-300">
-                        <span className="text-indigo-400 dark:text-blue-400 font-bold shrink-0">
+                        <span className="text-[#93C5FD] dark:text-[#3B82F6] font-bold shrink-0">
                           [{exp.lineNum}]
                         </span>
                         <code className="text-slate-200 font-semibold shrink-0 bg-slate-800/60 px-1.5 py-0.5 rounded">
@@ -623,17 +623,17 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2 font-mono">
                 {activeModule.keyFormulaLabel || 'Mathematical & Algorithmic Formula'}
               </span>
-              <div className="bg-[#F8FAFC] dark:bg-[#0B1120] text-[#111827] dark:text-blue-300 p-3 rounded-lg text-xs sm:text-sm font-semibold overflow-x-auto border border-[#E5E7EB] dark:border-blue-500/20 border-l-4 border-l-[#2563EB] dark:border-l-blue-600">
+              <div className="bg-[#F8FAFC] dark:bg-[#0B1120] text-[#111827] dark:text-[#93C5FD] p-3 rounded-lg text-xs sm:text-sm font-semibold overflow-x-auto border border-[#E5E7EB] dark:border-blue-500/20 border-l-4 border-l-[#2563EB] dark:border-l-[#3B82F6]">
                 <code>{activeModule.keyFormula}</code>
               </div>
             </div>
           )}
 
           {/* Key Takeaway Banner */}
-          <div className="p-4 bg-indigo-50 dark:bg-blue-950/40 border border-indigo-200 dark:border-blue-500/30 rounded-xl flex items-start gap-3 shadow-2xs reveal-on-scroll">
-            <Sparkles className="w-5 h-5 text-indigo-600 dark:text-blue-400 shrink-0 mt-0.5" />
+          <div className="p-4 bg-[#EFF6FF] dark:bg-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-xl flex items-start gap-3 shadow-2xs reveal-on-scroll">
+            <Sparkles className="w-5 h-5 text-[#2563EB] dark:text-[#3B82F6] shrink-0 mt-0.5" />
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-blue-300 font-mono block">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6] font-mono block">
                 Key Takeaway
               </span>
               <p className="text-sm font-semibold text-slate-800 dark:text-white mt-0.5">

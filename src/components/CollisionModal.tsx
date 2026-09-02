@@ -46,11 +46,11 @@ export const CollisionModal: React.FC<CollisionModalProps> = ({
           <div className="text-rose-600 dark:text-rose-400 font-black text-sm px-1 font-mono">VS</div>
 
           <div className="flex flex-col items-center">
-            <span className="text-[10px] uppercase font-bold text-indigo-600 dark:text-blue-400 font-mono">New Key</span>
-            <div className="w-14 h-14 rounded-xl bg-[#2563EB] dark:bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-2xl shadow-xs mt-1 shadow-blue-200 dark:shadow-[0_0_14px_rgba(37,99,235,0.4)]">
+            <span className="text-[10px] uppercase font-bold text-[#2563EB] dark:text-[#3B82F6] font-mono">New Key</span>
+            <div className="w-14 h-14 rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white flex items-center justify-center font-mono font-bold text-2xl shadow-xs mt-1 shadow-blue-200 dark:shadow-[0_0_14px_rgba(37,99,235,0.4)]">
               {incomingKey}
             </div>
-            <span className="text-[10px] text-indigo-600 dark:text-blue-400 font-mono font-bold mt-1.5">{incomingKey} % {tableSize} = {index}</span>
+            <span className="text-[10px] text-[#2563EB] dark:text-[#3B82F6] font-mono font-bold mt-1.5">{incomingKey} % {tableSize} = {index}</span>
           </div>
         </div>
 

@@ -77,14 +77,14 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
       <div className="space-y-4 font-sans text-slate-900 dark:text-white animate-fadeIn">
         <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-blue-500/15 pb-3 mb-4">
-            <div className="text-xs font-bold uppercase text-indigo-600 dark:text-blue-400 tracking-wider flex items-center gap-1.5 font-mono">
+            <div className="text-xs font-bold uppercase text-[#2563EB] dark:text-[#3B82F6] tracking-wider flex items-center gap-1.5 font-mono">
               <Search className="w-4 h-4" />
               <span>Interactive Visual Array Search (Target = 9)</span>
             </div>
             <button
               onClick={runM1Simulation}
               disabled={m1Searching}
-              className="px-3.5 py-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all disabled:opacity-50"
+              className="px-3.5 py-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all disabled:opacity-50"
             >
               <Play className="w-3 h-3 fill-current" />
               <span>{m1Searching ? 'Scanning...' : 'Run Simulation'}</span>
@@ -108,7 +108,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
                           <Check className="w-3 h-3 stroke-[3]" /> FOUND
                         </span>
                       ) : isInspecting ? (
-                        <span className="text-indigo-600 dark:text-blue-400 animate-pulse font-bold">
+                        <span className="text-[#2563EB] dark:text-[#3B82F6] animate-pulse font-bold">
                           CHECKING
                         </span>
                       ) : isPassed ? (
@@ -123,7 +123,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
                       className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center font-mono font-bold text-base transition-all duration-300 ${isMatch
                           ? 'bg-[#DCFCE7] dark:bg-emerald-950/70 border-2 border-[#22C55E] dark:border-emerald-400 text-[#16A34A] dark:text-emerald-300 shadow-md scale-110'
                           : isInspecting
-                            ? 'bg-indigo-50 dark:bg-blue-950/70 border-2 border-[#2563EB] dark:border-blue-400 text-[#2563EB] dark:text-blue-300 shadow-md scale-105 ring-2 ring-indigo-300/40'
+                            ? 'bg-[#EFF6FF] dark:bg-blue-950/70 border-2 border-[#2563EB] dark:border-blue-400 text-[#2563EB] dark:text-[#3B82F6] shadow-md scale-105 ring-2 ring-blue-300/40'
                             : isPassed
                               ? 'bg-slate-100 dark:bg-[#0F172A] border border-slate-300 dark:border-blue-500/20 text-slate-400 dark:text-slate-500 opacity-60'
                               : 'bg-white dark:bg-[#172033] border-2 border-slate-200 dark:border-blue-500/30 text-slate-800 dark:text-slate-200'
@@ -172,13 +172,13 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
       <div className="space-y-4 font-sans text-slate-900 dark:text-white animate-fadeIn">
         <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-blue-500/15 pb-3 mb-4">
-            <div className="text-xs font-bold uppercase text-indigo-600 dark:text-blue-400 tracking-wider flex items-center gap-1.5 font-mono">
+            <div className="text-xs font-bold uppercase text-[#2563EB] dark:text-[#3B82F6] tracking-wider flex items-center gap-1.5 font-mono">
               <ListOrdered className="w-4 h-4" />
               <span>Step-by-Step Traversal on [29, 10, 14, 37, 13] (Target = 37)</span>
             </div>
             <button
               onClick={() => setM2Step((prev) => (prev < 3 ? prev + 1 : 0))}
-              className="px-3.5 py-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all"
+              className="px-3.5 py-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all"
             >
               <span>{m2Step < 3 ? `Advance to Step ${m2Step + 2}` : 'Reset Simulation'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -197,7 +197,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
                     {isFound ? (
                       <span className="text-emerald-600 dark:text-emerald-400">FOUND</span>
                     ) : isCurrent ? (
-                      <span className="text-indigo-600 dark:text-blue-400 animate-bounce">POINTER</span>
+                      <span className="text-[#2563EB] dark:text-[#3B82F6] animate-bounce">POINTER</span>
                     ) : isDone ? (
                       <span className="text-slate-400 dark:text-slate-500">MISMATCH</span>
                     ) : (
@@ -208,7 +208,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
                     className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center font-mono font-extrabold text-base border-2 transition-all ${isFound
                         ? 'bg-emerald-100 dark:bg-emerald-950/70 border-emerald-500 text-emerald-700 dark:text-emerald-300 scale-110 shadow-md'
                         : isCurrent
-                          ? 'bg-indigo-50 dark:bg-blue-950/70 border-indigo-600 dark:border-blue-400 text-indigo-700 dark:text-blue-300 scale-105 shadow-md'
+                          ? 'bg-[#EFF6FF] dark:bg-blue-950/70 border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-[#3B82F6] scale-105 shadow-md'
                           : 'bg-white dark:bg-[#172033] border-slate-200 dark:border-blue-500/30 text-slate-700 dark:text-slate-300'
                       }`}
                   >
@@ -239,7 +239,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
       <div className="space-y-4 font-sans text-slate-900 dark:text-white animate-fadeIn">
         <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-blue-500/15 pb-3 mb-4">
-            <span className="text-xs font-bold uppercase text-indigo-600 dark:text-blue-400 font-mono flex items-center gap-1.5">
+            <span className="text-xs font-bold uppercase text-[#2563EB] dark:text-[#3B82F6] font-mono flex items-center gap-1.5">
               <Sparkles className="w-4 h-4" />
               <span>Interactive Step-by-Step Execution Matrix</span>
             </span>
@@ -254,7 +254,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
               <button
                 onClick={() => setM3Step((prev) => Math.min(3, prev + 1))}
                 disabled={m3Step === 3}
-                className="px-3 py-1 bg-[#2563EB] dark:bg-blue-600 text-white rounded-lg text-xs font-semibold disabled:opacity-40 cursor-pointer"
+                className="px-3 py-1 bg-[#2563EB] dark:bg-[#2563EB] text-white rounded-lg text-xs font-semibold disabled:opacity-40 cursor-pointer"
               >
                 Next Step
               </button>
@@ -295,7 +295,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
                       className={`transition-colors ${isActive
                           ? row.match
                             ? 'bg-emerald-50 dark:bg-emerald-950/50 font-bold text-emerald-800 dark:text-emerald-300'
-                            : 'bg-indigo-50 dark:bg-blue-950/50 font-bold text-indigo-900 dark:text-blue-300'
+                            : 'bg-[#EFF6FF] dark:bg-blue-950/50 font-bold text-[#2563EB] dark:text-[#3B82F6]'
                           : 'text-slate-600 dark:text-slate-400'
                         }`}
                     >
@@ -328,11 +328,11 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
       <div className="space-y-4 font-sans text-slate-900 dark:text-white animate-fadeIn">
         <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-blue-500/15 pb-3 mb-4">
-            <span className="text-xs font-bold uppercase text-indigo-600 dark:text-blue-400 font-mono flex items-center gap-1.5">
+            <span className="text-xs font-bold uppercase text-[#2563EB] dark:text-[#3B82F6] font-mono flex items-center gap-1.5">
               <TrendingUp className="w-4 h-4" />
               <span>Interactive Time Complexity Simulator</span>
             </span>
-            <span className="text-xs font-mono font-bold text-indigo-600 dark:text-blue-400">
+            <span className="text-xs font-mono font-bold text-[#2563EB] dark:text-[#3B82F6]">
               n = {m5Size.toLocaleString()} elements
             </span>
           </div>
@@ -349,7 +349,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
                 step="50"
                 value={m5Size}
                 onChange={(e) => setM5Size(Number(e.target.value))}
-                className="w-full accent-indigo-600 dark:accent-blue-500 cursor-pointer"
+                className="w-full accent-[#2563EB] dark:accent-[#3B82F6] cursor-pointer"
               />
             </div>
 
@@ -368,11 +368,11 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
               </div>
 
               {/* Average Case */}
-              <div className="p-4 bg-indigo-50 dark:bg-blue-950/40 border border-indigo-200 dark:border-blue-500/30 rounded-xl">
-                <span className="text-[10px] uppercase font-bold text-indigo-700 dark:text-blue-300 block font-mono">
+              <div className="p-4 bg-[#EFF6FF] dark:bg-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-xl">
+                <span className="text-[10px] uppercase font-bold text-[#2563EB] dark:text-[#3B82F6] block font-mono">
                   Average Case (O(n))
                 </span>
-                <span className="text-xl font-black text-indigo-800 dark:text-blue-300 font-mono">
+                <span className="text-xl font-black text-[#1D4ED8] dark:text-[#3B82F6] font-mono">
                   {((m5Size + 1) / 2).toLocaleString()} comparisons
                 </span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 block mt-1">
@@ -406,7 +406,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
     return (
       <div className="space-y-4 font-sans text-slate-900 dark:text-white animate-fadeIn">
         <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-          <div className="text-xs font-bold uppercase text-indigo-600 dark:text-blue-400 font-mono mb-4 flex items-center gap-1.5">
+          <div className="text-xs font-bold uppercase text-[#2563EB] dark:text-[#3B82F6] font-mono mb-4 flex items-center gap-1.5">
             <AlertTriangle className="w-4 h-4" />
             <span>Interactive Edge Cases Behavior Explorer</span>
           </div>
@@ -415,7 +415,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             <button
               onClick={() => setM11Case('empty')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${m11Case === 'empty'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-[#2563EB] text-white'
                   : 'bg-slate-100 dark:bg-[#0F172A] text-slate-700 dark:text-slate-300'
                 }`}
             >
@@ -424,7 +424,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             <button
               onClick={() => setM11Case('single')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${m11Case === 'single'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-[#2563EB] text-white'
                   : 'bg-slate-100 dark:bg-[#0F172A] text-slate-700 dark:text-slate-300'
                 }`}
             >
@@ -433,7 +433,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             <button
               onClick={() => setM11Case('duplicates')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${m11Case === 'duplicates'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-[#2563EB] text-white'
                   : 'bg-slate-100 dark:bg-[#0F172A] text-slate-700 dark:text-slate-300'
                 }`}
             >
@@ -442,7 +442,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             <button
               onClick={() => setM11Case('absent')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${m11Case === 'absent'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-[#2563EB] text-white'
                   : 'bg-slate-100 dark:bg-[#0F172A] text-slate-700 dark:text-slate-300'
                 }`}
             >
@@ -454,7 +454,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
           <div className="p-4 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/20 rounded-xl space-y-2 text-xs font-mono">
             {m11Case === 'empty' && (
               <>
-                <div className="font-bold text-indigo-600 dark:text-blue-400">Input: arr = [], target = 5, n = 0</div>
+                <div className="font-bold text-[#2563EB] dark:text-[#3B82F6]">Input: arr = [], target = 5, n = 0</div>
                 <div className="text-slate-700 dark:text-slate-300">
                   Execution: Loop condition (0 &lt; 0) is false on entry. Loop terminates immediately without any memory reads.
                 </div>
@@ -463,7 +463,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             )}
             {m11Case === 'single' && (
               <>
-                <div className="font-bold text-indigo-600 dark:text-blue-400">Input: arr = [9], target = 9, n = 1</div>
+                <div className="font-bold text-[#2563EB] dark:text-[#3B82F6]">Input: arr = [9], target = 9, n = 1</div>
                 <div className="text-slate-700 dark:text-slate-300">
                   Execution: Performs exactly 1 comparison (arr[0] == 9). Match found immediately.
                 </div>
@@ -472,7 +472,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             )}
             {m11Case === 'duplicates' && (
               <>
-                <div className="font-bold text-indigo-600 dark:text-blue-400">Input: arr = [4, 7, 4, 9, 4], target = 4</div>
+                <div className="font-bold text-[#2563EB] dark:text-[#3B82F6]">Input: arr = [4, 7, 4, 9, 4], target = 4</div>
                 <div className="text-slate-700 dark:text-slate-300">
                   Standard Mode: Returns first occurrence index [0]. Multi-Match Mode: Collects indices [0, 2, 4].
                 </div>
@@ -481,7 +481,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
             )}
             {m11Case === 'absent' && (
               <>
-                <div className="font-bold text-indigo-600 dark:text-blue-400">Input: arr = [10, 20, 30], target = 99</div>
+                <div className="font-bold text-[#2563EB] dark:text-[#3B82F6]">Input: arr = [10, 20, 30], target = 99</div>
                 <div className="text-slate-700 dark:text-slate-300">
                   Execution: Evaluates index 0, index 1, index 2. None equal 99. Loop boundary (3 &lt; 3) triggers loop exit.
                 </div>
@@ -501,7 +501,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
     return (
       <div className="space-y-4 font-sans text-slate-900 dark:text-white animate-fadeIn">
         <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-          <div className="text-xs font-bold uppercase text-indigo-600 dark:text-blue-400 font-mono mb-4 flex items-center gap-1.5">
+          <div className="text-xs font-bold uppercase text-[#2563EB] dark:text-[#3B82F6] font-mono mb-4 flex items-center gap-1.5">
             <Scale className="w-4 h-4" />
             <span>Head-to-Head Comparison: Linear Search vs. Binary Search</span>
           </div>
@@ -511,8 +511,8 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
               <thead>
                 <tr className="border-b border-slate-200 dark:border-blue-500/20 text-slate-500 dark:text-slate-400">
                   <th className="py-2 px-3">Feature / Metric</th>
-                  <th className="py-2 px-3 text-indigo-600 dark:text-blue-400 font-bold">Linear Search</th>
-                  <th className="py-2 px-3 text-[#6366F1] dark:text-indigo-400 font-bold">Binary Search</th>
+                  <th className="py-2 px-3 text-[#2563EB] dark:text-[#3B82F6] font-bold">Linear Search</th>
+                  <th className="py-2 px-3 text-[#6366F1] dark:text-[#7C5CFC] font-bold">Binary Search</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-blue-500/10 text-slate-700 dark:text-slate-300">

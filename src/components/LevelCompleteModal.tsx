@@ -38,11 +38,11 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-editorial-fade font-sans">
       <div className="bg-white dark:bg-[#111827] w-full max-w-md border border-slate-200 dark:border-blue-500/30 rounded-2xl shadow-xl dark:shadow-[0_0_30px_rgba(59,130,246,0.3)] overflow-hidden p-6 sm:p-8 flex flex-col items-center text-center">
         {/* Victory Icon */}
-        <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-blue-950/50 border border-indigo-100 dark:border-blue-500/30 text-indigo-600 dark:text-blue-400 flex items-center justify-center mb-3 shadow-xs">
+        <div className="w-14 h-14 rounded-2xl bg-[#EFF6FF] dark:bg-blue-950/50 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center mb-3 shadow-xs">
           <Award className="w-8 h-8" />
         </div>
 
-        <span className="text-[11px] font-bold font-mono uppercase tracking-widest text-indigo-700 dark:text-blue-300 bg-indigo-50 dark:bg-blue-950/60 px-3 py-1 rounded-md border border-indigo-100 dark:border-blue-500/30 mb-2">
+        <span className="text-[11px] font-bold font-mono uppercase tracking-widest text-[#2563EB] dark:text-[#3B82F6] bg-[#EFF6FF] dark:bg-blue-950/60 px-3 py-1 rounded-md border border-[#DBEAFE] dark:border-blue-500/30 mb-2">
           Module Verified // State Saved
         </span>
 
@@ -57,7 +57,7 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
           </p>
           <div className="mt-3 pt-3 border-t border-slate-200 dark:border-blue-500/20 flex items-center justify-between text-xs font-mono">
             <span className="text-slate-500 dark:text-slate-400 font-semibold">Core Formula:</span>
-            <span className="font-bold text-indigo-700 dark:text-blue-300 bg-white dark:bg-[#0B1120] px-2.5 py-1 rounded-md border border-slate-200 dark:border-blue-500/30">
+            <span className="font-bold text-[#2563EB] dark:text-[#3B82F6] bg-white dark:bg-[#0B1120] px-2.5 py-1 rounded-md border border-slate-200 dark:border-blue-500/30">
               {level.formulaDisplay}
             </span>
           </div>
@@ -116,7 +116,7 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
                   }}
                   className="flex-1 btn-modern-secondary py-2.5 px-4 text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
+                  <Layers className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
                   <span>Open Lab</span>
                 </button>
               )}

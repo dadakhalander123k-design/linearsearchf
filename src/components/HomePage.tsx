@@ -53,7 +53,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div className="lg:col-span-6 flex flex-col gap-3.5">
             {/* Small Curriculum Label */}
             <div className="flex items-center">
-              <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider text-[#2563EB] dark:text-blue-400 uppercase">
+              <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider text-[#2563EB] dark:text-[#3B82F6] uppercase">
                 THEORY CURRICULUM &nbsp;•&nbsp; MODULE 01 &nbsp;•&nbsp; CHAPTER 01
               </span>
             </div>
@@ -77,20 +77,20 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Top Search Icon and Connector Arrow */}
               <div className="relative w-full flex justify-end pr-8 sm:pr-10 mb-1">
                 {/* Search Magnifying Glass Icon Badge */}
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/40 text-[#2563EB] dark:text-blue-300 flex items-center justify-center shadow-xs shrink-0 z-10">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/40 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center shadow-xs shrink-0 z-10">
                   <Search className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.2]" />
                 </div>
 
-                {/* Dashed Purple Connector Line pointing downward to target element (9 at index 3) */}
+                {/* Connector Line pointing downward to target element (9 at index 3) */}
                 <div className="absolute top-6 right-[60px] sm:right-[68px] w-36 sm:w-44 h-12 pointer-events-none z-0">
                   <svg className="w-full h-full" viewBox="0 0 160 48" fill="none">
                     <path
                       d="M 150 0 C 130 0, 10 0, 10 32"
-                      stroke="#60A5FA"
+                      stroke="#4F46E5"
                       strokeWidth="2"
                       strokeDasharray="4 4"
                       strokeLinecap="round"
-                      className="dark:stroke-blue-400"
+                      className="dark:stroke-[#3B82F6]"
                     />
                     {/* Downward Arrowhead pointing directly at index 3 cell */}
                     <path
@@ -99,7 +99,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       strokeWidth="2.2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="dark:stroke-blue-400"
+                      className="dark:stroke-[#3B82F6]"
                     />
                   </svg>
                 </div>
@@ -108,18 +108,18 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Horizontal Array Cells (12, 7, 23, 9, 16, 4) */}
               <div className="flex items-center gap-2 sm:gap-2.5 pt-1">
                 {/* Cell 0: 12 */}
-                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#D5DEFD] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
-                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-blue-300">12</span>
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#DBEAFE] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
+                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-[#3B82F6]">12</span>
                 </div>
 
                 {/* Cell 1: 7 */}
-                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#D5DEFD] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
-                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-blue-300">7</span>
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#DBEAFE] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
+                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-[#3B82F6]">7</span>
                 </div>
 
                 {/* Cell 2: 23 */}
-                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#D5DEFD] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
-                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-blue-300">23</span>
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#DBEAFE] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
+                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-[#3B82F6]">23</span>
                 </div>
 
                 {/* Cell 3: 9 (TARGET MATCH - Highlighted in Green) */}
@@ -128,13 +128,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </div>
 
                 {/* Cell 4: 16 */}
-                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#D5DEFD] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
-                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-blue-300">16</span>
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#DBEAFE] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
+                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-[#3B82F6]">16</span>
                 </div>
 
                 {/* Cell 5: 4 */}
-                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#D5DEFD] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
-                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-blue-300">4</span>
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl bg-white dark:bg-[#172033] border-2 border-[#DBEAFE] dark:border-blue-500/40 flex items-center justify-center shadow-xs">
+                  <span className="font-mono font-bold text-sm sm:text-base text-[#2563EB] dark:text-[#3B82F6]">4</span>
                 </div>
               </div>
 
@@ -156,8 +156,8 @@ export const HomePage: React.FC<HomePageProps> = ({
             ========================================================================= */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-100 dark:border-blue-500/15">
           {/* Card 1: Core Idea */}
-          <div className="bg-white dark:bg-[#0F172A] border border-slate-200/90 dark:border-blue-500/20 rounded-2xl p-4.5 flex items-start gap-3.5 shadow-2xs hover:border-indigo-300 dark:hover:border-blue-500/40 transition-all">
-            <div className="w-11 h-11 rounded-2xl bg-[#EEF2FF] dark:bg-blue-950/70 border border-[#E0E7FF] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-300 shrink-0">
+          <div className="bg-white dark:bg-[#0F172A] border border-slate-200/90 dark:border-blue-500/20 rounded-2xl p-4.5 flex items-start gap-3.5 shadow-2xs hover:border-[#2563EB] dark:hover:border-blue-500/40 transition-all">
+            <div className="w-11 h-11 rounded-2xl bg-[#EFF6FF] dark:bg-blue-950/70 border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6] shrink-0">
               <Target className="w-5 h-5" />
             </div>
             <div>
@@ -169,8 +169,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
 
           {/* Card 2: Key Formula */}
-          <div className="bg-white dark:bg-[#0F172A] border border-slate-200/90 dark:border-blue-500/20 rounded-2xl p-4.5 flex items-start gap-3.5 shadow-2xs hover:border-indigo-300 dark:hover:border-blue-500/40 transition-all">
-            <div className="w-11 h-11 rounded-2xl bg-[#EEF2FF] dark:bg-blue-950/70 border border-[#E0E7FF] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-300 shrink-0 font-serif font-bold text-xl">
+          <div className="bg-white dark:bg-[#0F172A] border border-slate-200/90 dark:border-blue-500/20 rounded-2xl p-4.5 flex items-start gap-3.5 shadow-2xs hover:border-[#2563EB] dark:hover:border-blue-500/40 transition-all">
+            <div className="w-11 h-11 rounded-2xl bg-[#EFF6FF] dark:bg-blue-950/70 border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6] shrink-0 font-serif font-bold text-xl">
               <span>Σ</span>
             </div>
             <div>
@@ -182,8 +182,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
 
           {/* Card 3: Main Challenge */}
-          <div className="bg-white dark:bg-[#0F172A] border border-slate-200/90 dark:border-blue-500/20 rounded-2xl p-4.5 flex items-start gap-3.5 shadow-2xs hover:border-indigo-300 dark:hover:border-blue-500/40 transition-all">
-            <div className="w-11 h-11 rounded-2xl bg-[#EEF2FF] dark:bg-blue-950/70 border border-[#E0E7FF] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-300 shrink-0">
+          <div className="bg-white dark:bg-[#0F172A] border border-slate-200/90 dark:border-blue-500/20 rounded-2xl p-4.5 flex items-start gap-3.5 shadow-2xs hover:border-[#2563EB] dark:hover:border-blue-500/40 transition-all">
+            <div className="w-11 h-11 rounded-2xl bg-[#EFF6FF] dark:bg-blue-950/70 border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6] shrink-0">
               <Puzzle className="w-5 h-5" />
             </div>
             <div>
@@ -202,7 +202,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className="reveal-on-scroll bg-white dark:bg-[#111827] p-6 sm:p-9 rounded-2xl border border-slate-200/90 dark:border-blue-500/20 shadow-xs dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
         {/* Section Header */}
         <div className="flex items-center gap-2.5 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#EEF2FF] dark:bg-blue-950/70 border border-[#E0E7FF] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-400">
+          <div className="w-8 h-8 rounded-full bg-[#EFF6FF] dark:bg-blue-950/70 border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6]">
             <Lightbulb className="w-4 h-4" />
           </div>
           <h2 className="text-lg sm:text-xl font-bold text-[#0F172A] dark:text-white">
@@ -213,7 +213,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           {/* Left Column: Question & Explanation */}
           <div className="lg:col-span-4 flex flex-col gap-2">
-            <h3 className="text-base sm:text-lg font-bold text-[#2563EB] dark:text-blue-300 leading-snug">
+            <h3 className="text-base sm:text-lg font-bold text-[#2563EB] dark:text-[#3B82F6] leading-snug">
               How does linear<br />
               search work?
             </h3>
@@ -228,27 +228,27 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div className="grid grid-cols-2 gap-x-4 gap-y-6 items-start sm:flex sm:flex-nowrap sm:items-center sm:justify-between sm:gap-2">
               {/* Step 1: Start */}
               <div className="flex flex-col items-center text-center w-full sm:w-auto sm:flex-1 sm:min-w-[85px]">
-                <div className="w-13 h-13 rounded-full bg-white dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/30 text-[#2563EB] dark:text-blue-400 flex items-center justify-center shadow-xs mb-2.5 shrink-0">
-                  <Key className="w-6 h-6 text-[#2563EB] dark:text-blue-400 -rotate-45" />
+                <div className="w-13 h-13 rounded-full bg-white dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center shadow-xs mb-2.5 shrink-0">
+                  <Key className="w-6 h-6 text-[#2563EB] dark:text-[#3B82F6] -rotate-45" />
                 </div>
                 <span className="text-sm font-bold text-[#0F172A] dark:text-white">Start</span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Begin from the first element</span>
               </div>
 
               {/* Arrow 1 */}
-              <ArrowRight className="w-4 h-4 text-[#60A5FA] dark:text-blue-400 shrink-0 hidden sm:block" />
+              <ArrowRight className="w-4 h-4 text-[#4F46E5] dark:text-[#6366F1] shrink-0 hidden sm:block" />
 
               {/* Step 2: Compare */}
               <div className="flex flex-col items-center text-center w-full sm:w-auto sm:flex-1 sm:min-w-[85px]">
-                <div className="w-13 h-13 rounded-full bg-white dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/30 text-[#2563EB] dark:text-blue-400 flex items-center justify-center shadow-xs mb-2.5 shrink-0">
-                  <List className="w-6 h-6 text-[#2563EB] dark:text-blue-400" />
+                <div className="w-13 h-13 rounded-full bg-white dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center shadow-xs mb-2.5 shrink-0">
+                  <List className="w-6 h-6 text-[#2563EB] dark:text-[#3B82F6]" />
                 </div>
                 <span className="text-sm font-bold text-[#0F172A] dark:text-white">Compare</span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Check current element</span>
               </div>
 
               {/* Arrow 2 */}
-              <ArrowRight className="w-4 h-4 text-[#60A5FA] dark:text-blue-400 shrink-0 hidden sm:block" />
+              <ArrowRight className="w-4 h-4 text-[#4F46E5] dark:text-[#6366F1] shrink-0 hidden sm:block" />
 
               {/* Step 3: Match? */}
               <div className="flex flex-col items-center text-center w-full sm:w-auto sm:flex-1 sm:min-w-[85px]">
@@ -260,12 +260,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               {/* Arrow 3 */}
-              <ArrowRight className="w-4 h-4 text-[#60A5FA] dark:text-blue-400 shrink-0 hidden sm:block" />
+              <ArrowRight className="w-4 h-4 text-[#4F46E5] dark:text-[#6366F1] shrink-0 hidden sm:block" />
 
               {/* Step 4: Result */}
               <div className="flex flex-col items-center text-center w-full sm:w-auto sm:flex-1 sm:min-w-[85px]">
-                <div className="w-13 h-13 rounded-full bg-white dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/30 text-[#2563EB] dark:text-blue-400 flex items-center justify-center shadow-xs mb-2.5 shrink-0">
-                  <Flag className="w-5 h-5 fill-[#2563EB] text-[#2563EB] dark:fill-blue-400 dark:text-blue-400" />
+                <div className="w-13 h-13 rounded-full bg-white dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center shadow-xs mb-2.5 shrink-0">
+                  <Flag className="w-5 h-5 fill-[#2563EB] text-[#2563EB] dark:fill-[#3B82F6] dark:text-[#3B82F6]" />
                 </div>
                 <span className="text-sm font-bold text-[#0F172A] dark:text-white">Result</span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Found = return index, else -1</span>
@@ -281,7 +281,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className="reveal-on-scroll bg-white dark:bg-[#111827] p-6 sm:p-9 rounded-2xl border border-slate-200/90 dark:border-blue-500/20 shadow-xs dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
         {/* Section Header */}
         <div className="flex items-center gap-2.5 mb-8">
-          <div className="w-8 h-8 rounded-full bg-[#EEF2FF] dark:bg-blue-950/70 border border-[#E0E7FF] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-400">
+          <div className="w-8 h-8 rounded-full bg-[#EFF6FF] dark:bg-blue-950/70 border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6]">
             <BookOpen className="w-4 h-4" />
           </div>
           <h2 className="text-lg sm:text-xl font-bold text-[#0F172A] dark:text-white">
@@ -292,7 +292,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         {/* 5-Stage Progression */}
         <div className="relative">
           {/* Connected Dashed Line Across the 5 Steps (desktop) */}
-          <div className="hidden md:block absolute top-5 left-[10%] right-[10%] h-0.5 border-t-2 border-dashed border-[#BFDBFE] dark:border-blue-500/30 z-0" />
+          <div className="hidden md:block absolute top-5 left-[10%] right-[10%] h-0.5 border-t-2 border-dashed border-[#DBEAFE] dark:border-blue-500/30 z-0" />
 
           <div className="flex flex-col items-center md:grid md:grid-cols-5 md:gap-4 md:items-start relative z-10">
             {/* Stage 01: What is Linear Search? */}
@@ -303,10 +303,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               }}
               className="flex flex-col items-center text-center group cursor-pointer w-full max-w-[220px] md:max-w-none"
             >
-              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-blue-300 border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
+              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-[#3B82F6] border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
                 01
               </div>
-              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-400 mb-2.5 shadow-2xs group-hover:border-blue-400 transition-all">
+              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6] mb-2.5 shadow-2xs group-hover:border-[#2563EB] transition-all">
                 <Search className="w-5 h-5" />
               </div>
               <h3 className="text-xs sm:text-sm font-bold text-[#0F172A] dark:text-white leading-snug">
@@ -315,7 +315,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             {/* Mobile Connector Line: 01 -> 02 */}
-            <div className="md:hidden w-0.5 h-6 border-l-2 border-dashed border-[#BFDBFE] dark:border-blue-500/40 my-2" />
+            <div className="md:hidden w-0.5 h-6 border-l-2 border-dashed border-[#DBEAFE] dark:border-blue-500/40 my-2" />
 
             {/* Stage 02: Search Algorithm */}
             <div
@@ -325,10 +325,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               }}
               className="flex flex-col items-center text-center group cursor-pointer w-full max-w-[220px] md:max-w-none"
             >
-              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-blue-300 border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
+              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-[#3B82F6] border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
                 02
               </div>
-              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-400 mb-2.5 shadow-2xs group-hover:border-blue-400 transition-all">
+              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6] mb-2.5 shadow-2xs group-hover:border-[#2563EB] transition-all">
                 <List className="w-5 h-5" />
               </div>
               <h3 className="text-xs sm:text-sm font-bold text-[#0F172A] dark:text-white leading-snug">
@@ -337,7 +337,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             {/* Mobile Connector Line: 02 -> 03 */}
-            <div className="md:hidden w-0.5 h-6 border-l-2 border-dashed border-[#BFDBFE] dark:border-blue-500/40 my-2" />
+            <div className="md:hidden w-0.5 h-6 border-l-2 border-dashed border-[#DBEAFE] dark:border-blue-500/40 my-2" />
 
             {/* Stage 03: Time Complexity */}
             <div
@@ -347,10 +347,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               }}
               className="flex flex-col items-center text-center group cursor-pointer w-full max-w-[220px] md:max-w-none"
             >
-              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-blue-300 border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
+              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-[#3B82F6] border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
                 03
               </div>
-              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-400 mb-2.5 shadow-2xs group-hover:border-blue-400 transition-all">
+              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6] mb-2.5 shadow-2xs group-hover:border-[#2563EB] transition-all">
                 <Clock className="w-5 h-5" />
               </div>
               <h3 className="text-xs sm:text-sm font-bold text-[#0F172A] dark:text-white leading-snug">
@@ -359,7 +359,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             {/* Mobile Connector Line: 03 -> 04 */}
-            <div className="md:hidden w-0.5 h-6 border-l-2 border-dashed border-[#BFDBFE] dark:border-blue-500/40 my-2" />
+            <div className="md:hidden w-0.5 h-6 border-l-2 border-dashed border-[#DBEAFE] dark:border-blue-500/40 my-2" />
 
             {/* Stage 04: Best, Worst & Average Case */}
             <div
@@ -369,10 +369,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               }}
               className="flex flex-col items-center text-center group cursor-pointer w-full max-w-[220px] md:max-w-none"
             >
-              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-blue-300 border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
+              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-[#3B82F6] border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
                 04
               </div>
-              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-400 mb-2.5 shadow-2xs group-hover:border-blue-400 transition-all">
+              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6] mb-2.5 shadow-2xs group-hover:border-[#2563EB] transition-all">
                 <TrendingUp className="w-5 h-5" />
               </div>
               <h3 className="text-xs sm:text-sm font-bold text-[#0F172A] dark:text-white leading-snug">
@@ -381,7 +381,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             {/* Mobile Connector Line: 04 -> 05 */}
-            <div className="md:hidden w-0.5 h-6 border-l-2 border-dashed border-[#BFDBFE] dark:border-blue-500/40 my-2" />
+            <div className="md:hidden w-0.5 h-6 border-l-2 border-dashed border-[#DBEAFE] dark:border-blue-500/40 my-2" />
 
             {/* Stage 05: Implementation Examples */}
             <div
@@ -391,10 +391,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               }}
               className="flex flex-col items-center text-center group cursor-pointer w-full max-w-[220px] md:max-w-none"
             >
-              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-blue-300 border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
+              <div className="w-10 h-10 rounded-full bg-[#DBEAFE] dark:bg-blue-950 text-[#1D4ED8] dark:text-[#3B82F6] border-2 border-white dark:border-[#111827] shadow-xs flex items-center justify-center font-mono font-extrabold text-xs mb-3 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
                 05
               </div>
-              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#BFDBFE] dark:border-blue-500/30 flex items-center justify-center text-[#6366F1] dark:text-indigo-400 mb-2.5 shadow-2xs group-hover:border-indigo-400 transition-all">
+              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#6366F1] dark:text-[#7C5CFC] mb-2.5 shadow-2xs group-hover:border-[#6366F1] transition-all">
                 <Code2 className="w-5 h-5" />
               </div>
               <h3 className="text-xs sm:text-sm font-bold text-[#0F172A] dark:text-white leading-snug">
@@ -411,7 +411,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className="reveal-on-scroll bg-white dark:bg-[#111827] p-6 sm:p-9 rounded-2xl border border-slate-200/90 dark:border-blue-500/20 shadow-xs dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
         {/* Section Header */}
         <div className="flex items-center gap-2.5 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#EEF2FF] dark:bg-blue-950/70 border border-[#E0E7FF] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-blue-400">
+          <div className="w-8 h-8 rounded-full bg-[#EFF6FF] dark:bg-blue-950/70 border border-[#DBEAFE] dark:border-blue-500/30 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6]">
             <Star className="w-4 h-4" />
           </div>
           <h2 className="text-lg sm:text-xl font-bold text-[#0F172A] dark:text-white">
@@ -448,7 +448,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
 
           {/* Card 3: Real-World Use (Subtle Royal-Blue/Violet Tint) */}
-          <div className="bg-[#EEF2FF] dark:bg-[#172033] border border-[#E0E7FF] dark:border-blue-500/25 rounded-2xl p-5 sm:p-6 flex flex-col justify-between gap-4 shadow-2xs">
+          <div className="bg-[#EFF6FF] dark:bg-[#172033] border border-[#DBEAFE] dark:border-blue-500/25 rounded-2xl p-5 sm:p-6 flex flex-col justify-between gap-4 shadow-2xs">
             <div className="w-11 h-11 rounded-full bg-[#2563EB] text-white flex items-center justify-center shadow-xs">
               <Globe className="w-5 h-5" />
             </div>
@@ -465,7 +465,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* =========================================================================
           SECTION 05: 4. READY TO START?
           ========================================================================= */}
-      <section className="reveal-on-scroll bg-gradient-to-r from-[#EFF6FF] via-[#F8FAFF] to-[#EFF6FF] dark:from-[#111827] dark:via-[#172033] dark:to-[#111827] border border-[#BFDBFE] dark:border-blue-500/30 p-6 sm:p-8 rounded-2xl shadow-xs dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
+      <section className="reveal-on-scroll bg-gradient-to-r from-[#EFF6FF] via-[#F8FAFF] to-[#EFF6FF] dark:from-[#111827] dark:via-[#172033] dark:to-[#111827] border border-[#DBEAFE] dark:border-blue-500/30 p-6 sm:p-8 rounded-2xl shadow-xs dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Left Side: Educational Rocket Visual & Supporting Text */}
           <div className="flex items-center gap-5 sm:gap-6">
@@ -480,13 +480,15 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <stop offset="100%" stopColor="#CBD5E1" />
                   </linearGradient>
                   <linearGradient id="purpleNoseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#6366F1" />
-                    <stop offset="50%" stopColor="#2563EB" />
-                    <stop offset="100%" stopColor="#1E40AF" />
+                    <stop offset="0%" stopColor="#2563EB" />
+                    <stop offset="55%" stopColor="#4F46E5" />
+                    <stop offset="100%" stopColor="#6366F1" />
                   </linearGradient>
                   <linearGradient id="purpleFinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#2563EB" />
-                    <stop offset="100%" stopColor="#1D4ED8" />
+                    <stop offset="0%" stopColor="#1D4ED8" />
+                    <stop offset="45%" stopColor="#2563EB" />
+                    <stop offset="70%" stopColor="#4F46E5" />
+                    <stop offset="100%" stopColor="#6366F1" />
                   </linearGradient>
                   <linearGradient id="exhaustBeamGrad" x1="100%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stopColor="#FFEDD5" stopOpacity="0.95" />

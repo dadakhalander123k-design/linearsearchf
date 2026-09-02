@@ -78,10 +78,10 @@ export const CurrentKeyCard: React.FC<CurrentKeyCardProps> = ({
         {/* Top bar with level formula indicator */}
         <div className="px-5 py-3.5 bg-slate-50/80 dark:bg-[#0F172A] border-b border-slate-100 dark:border-blue-500/15 flex items-center justify-between text-xs">
           <span className="font-bold text-slate-900 dark:text-white flex items-center gap-2 uppercase tracking-wider font-mono">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] dark:bg-blue-400 animate-pulse shadow-xs" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] animate-pulse shadow-xs" />
             Active Key Processor
           </span>
-          <span className="bg-white dark:bg-[#111827] px-2.5 py-1 rounded-lg border border-indigo-100 dark:border-blue-500/30 font-mono font-bold text-xs text-indigo-700 dark:text-blue-300 shadow-2xs">
+          <span className="bg-white dark:bg-[#111827] px-2.5 py-1 rounded-lg border border-[#DBEAFE] dark:border-blue-500/30 font-mono font-bold text-xs text-[#2563EB] dark:text-[#3B82F6] shadow-2xs">
             Formula: {level.formulaDisplay}
           </span>
         </div>
@@ -124,17 +124,17 @@ export const CurrentKeyCard: React.FC<CurrentKeyCardProps> = ({
               {!isCalculated ? (
                 <>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs uppercase font-bold tracking-widest text-indigo-700 dark:text-blue-300 bg-indigo-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-lg border border-indigo-100 dark:border-blue-500/30 font-mono shadow-2xs">
+                    <span className="text-xs uppercase font-bold tracking-widest text-[#2563EB] dark:text-[#3B82F6] bg-[#EFF6FF] dark:bg-blue-950/60 px-2.5 py-1 rounded-lg border border-[#DBEAFE] dark:border-blue-500/30 font-mono shadow-2xs">
                       Step 1: Compute Modulo Index
                     </span>
                   </div>
 
                   <div className="text-2xl sm:text-3xl font-mono font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <span>{currentKey}</span>
-                    <span className="text-indigo-600 dark:text-blue-400 font-black">%</span>
+                    <span className="text-[#2563EB] dark:text-[#3B82F6] font-black">%</span>
                     <span>{level.tableSize}</span>
                     <span className="text-slate-400 dark:text-slate-500">=</span>
-                    <span className="text-indigo-600 dark:text-blue-400 font-extrabold">?</span>
+                    <span className="text-[#2563EB] dark:text-[#3B82F6] font-extrabold">?</span>
                   </div>
 
                   {/* Manual calculation form or Auto Calculate */}
@@ -147,7 +147,7 @@ export const CurrentKeyCard: React.FC<CurrentKeyCardProps> = ({
                       placeholder="Remainder"
                       value={manualInput}
                       onChange={(e) => setManualInput(e.target.value)}
-                      className="w-28 px-3 py-2 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/30 rounded-xl text-slate-900 dark:text-white font-mono text-center font-bold text-base focus:border-indigo-500 dark:focus:border-blue-400 focus:outline-hidden shadow-2xs"
+                      className="w-28 px-3 py-2 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/30 rounded-xl text-slate-900 dark:text-white font-mono text-center font-bold text-base focus:border-[#2563EB] dark:focus:border-blue-400 focus:outline-hidden shadow-2xs"
                     />
                     <button
                       id="btn-submit-modulus"
@@ -166,7 +166,7 @@ export const CurrentKeyCard: React.FC<CurrentKeyCardProps> = ({
                       disabled={isCalculating}
                       className="btn-modern-secondary px-3.5 py-2 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs"
                     >
-                      <Calculator className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
+                      <Calculator className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
                       {isCalculating ? 'Computing...' : 'Auto-Compute'}
                     </button>
                   </form>
@@ -186,15 +186,15 @@ export const CurrentKeyCard: React.FC<CurrentKeyCardProps> = ({
 
                   <div className="text-xl sm:text-2xl font-mono font-bold text-slate-900 dark:text-white flex items-center flex-wrap gap-2">
                     <span className="text-slate-500 dark:text-slate-400 font-medium">{currentKey} % {level.tableSize}</span>
-                    <ArrowRight className="w-4 h-4 text-indigo-600 dark:text-blue-400 shrink-0" />
-                    <span className="px-3.5 py-1 bg-[#2563EB] dark:bg-blue-600 text-white font-bold text-lg rounded-xl shadow-xs dark:shadow-[0_0_15px_rgba(37,99,235,0.4)] border border-blue-700/50">
+                    <ArrowRight className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6] shrink-0" />
+                    <span className="px-3.5 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white font-bold text-lg rounded-xl shadow-xs dark:shadow-[0_0_15px_rgba(37,99,235,0.4)] border border-blue-700/50">
                       Index [{calculatedIndex < 10 ? `0${calculatedIndex}` : calculatedIndex}]
                     </span>
                   </div>
 
                   {isProbing && probeFormulaStr && (
-                    <div className="bg-indigo-50/80 dark:bg-blue-950/40 border border-indigo-100 dark:border-blue-500/30 rounded-xl p-3 w-full text-xs text-slate-900 dark:text-slate-200 shadow-2xs">
-                      <div className="font-bold flex items-center gap-1.5 text-indigo-700 dark:text-blue-300 uppercase font-mono">
+                    <div className="bg-[#EFF6FF]/80 dark:bg-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-xl p-3 w-full text-xs text-slate-900 dark:text-slate-200 shadow-2xs">
+                      <div className="font-bold flex items-center gap-1.5 text-[#2563EB] dark:text-[#3B82F6] uppercase font-mono">
                         <Sparkles className="w-3.5 h-3.5" />
                         Probe Step #{probeStepNumber}
                       </div>
@@ -228,7 +228,7 @@ export const CurrentKeyCard: React.FC<CurrentKeyCardProps> = ({
 
                   {showHint && (
                     <p className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[#0F172A] p-3 rounded-xl border border-slate-200 dark:border-blue-500/20">
-                      Tip: Click on cell <strong className="text-indigo-600 dark:text-blue-300 font-mono">[{targetIndex ?? calculatedIndex}]</strong> directly or drag the key into it!
+                      Tip: Click on cell <strong className="text-[#2563EB] dark:text-[#3B82F6] font-mono">[{targetIndex ?? calculatedIndex}]</strong> directly or drag the key into it!
                     </p>
                   )}
                 </>

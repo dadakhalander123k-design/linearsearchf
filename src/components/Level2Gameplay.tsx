@@ -83,12 +83,12 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
       <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-blue-500/15">
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 bg-indigo-50 dark:bg-blue-950/60 border border-indigo-200 dark:border-blue-500/30 text-indigo-700 dark:text-blue-300 rounded-lg text-xs font-bold font-mono">
+            <span className="px-3 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] rounded-lg text-xs font-bold font-mono">
               ROUND {roundIndex + 1} OF {rounds.length}
             </span>
             <span className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100">
               Target:{' '}
-              <span className="font-mono text-indigo-600 dark:text-blue-400 text-lg font-extrabold px-2 py-0.5 bg-indigo-50 dark:bg-blue-900/40 rounded-md border border-indigo-200 dark:border-blue-500/30">
+              <span className="font-mono text-[#2563EB] dark:text-[#3B82F6] text-lg font-extrabold px-2 py-0.5 bg-[#EFF6FF] dark:bg-blue-900/40 rounded-md border border-[#DBEAFE] dark:border-blue-500/30">
                 {currentRound.target}
               </span>
             </span>
@@ -106,7 +106,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
         <div className="pt-6 pb-2">
           <div className="text-xs font-bold uppercase font-mono tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center justify-between">
             <span>Array Elements</span>
-            <span className="text-indigo-600 dark:text-blue-400">Pointer: Index {pointer}</span>
+            <span className="text-[#2563EB] dark:text-[#3B82F6]">Pointer: Index {pointer}</span>
           </div>
 
           <div className="grid grid-cols-5 gap-2 sm:gap-4">
@@ -127,7 +127,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
                       : isMismatch
                         ? 'bg-slate-50 dark:bg-[#0F172A] border-slate-300 dark:border-blue-500/20 text-slate-400 dark:text-slate-500 opacity-80'
                         : isCurrent
-                          ? 'bg-indigo-50/70 dark:bg-blue-950/40 border-indigo-600 dark:border-blue-500 text-indigo-900 dark:text-white shadow-md scale-105 ring-4 ring-indigo-500/20 cursor-pointer'
+                          ? 'bg-[#EFF6FF]/70 dark:bg-blue-950/40 border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-white shadow-md scale-105 ring-4 ring-blue-500/20 cursor-pointer'
                           : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-blue-500/20 text-slate-700 dark:text-slate-300 opacity-60 cursor-not-allowed'
                     }`}
                 >
@@ -141,7 +141,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
                     ) : isMismatch ? (
                       <span className="text-slate-400">≠ {currentRound.target}</span>
                     ) : isCurrent ? (
-                      <span className="text-indigo-600 dark:text-blue-300 animate-pulse">CHECK</span>
+                      <span className="text-[#2563EB] dark:text-[#3B82F6] animate-pulse">CHECK</span>
                     ) : (
                       <span className="text-slate-400 dark:text-slate-600">WAIT</span>
                     )}
@@ -174,7 +174,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
             <button
               id="btn-lvl2-next-round"
               onClick={handleNextRound}
-              className="btn-modern-primary bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
+              className="btn-modern-primary bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#2563EB] dark:hover:bg-[#1D4ED8] text-white px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
             >
               <span>{isAllRoundsComplete ? 'Complete Level 2' : 'Next Round'}</span>
               <ArrowRight className="w-4 h-4" />
@@ -184,12 +184,12 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
       </div>
 
       {/* Position Rule Principle Card */}
-      <div className="bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-blue-500/10 dark:from-blue-950/40 dark:to-indigo-950/40 border border-indigo-200 dark:border-blue-500/30 rounded-2xl p-5 shadow-xs">
-        <div className="text-xs font-bold uppercase font-mono tracking-widest text-indigo-700 dark:text-blue-300 mb-2">
+      <div className="bg-gradient-to-r from-blue-500/10 via-[#4F46E5]/10 to-blue-500/10 dark:from-blue-950/40 dark:to-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl p-5 shadow-xs">
+        <div className="text-xs font-bold uppercase font-mono tracking-widest text-[#2563EB] dark:text-[#3B82F6] mb-2">
           Target Position Principle
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div className="bg-white/80 dark:bg-[#111827]/80 p-3 rounded-xl border border-indigo-100 dark:border-blue-500/20">
+          <div className="bg-white/80 dark:bg-[#111827]/80 p-3 rounded-xl border border-[#DBEAFE] dark:border-blue-500/20">
             <span className="font-bold text-emerald-600 dark:text-emerald-400 block mb-1">
               EARLY TARGET (Best Case)
             </span>
@@ -197,7 +197,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
               Target at index 0 requires only <strong>1 comparison</strong>.
             </p>
           </div>
-          <div className="bg-white/80 dark:bg-[#111827]/80 p-3 rounded-xl border border-indigo-100 dark:border-blue-500/20">
+          <div className="bg-white/80 dark:bg-[#111827]/80 p-3 rounded-xl border border-[#DBEAFE] dark:border-blue-500/20">
             <span className="font-bold text-amber-600 dark:text-amber-400 block mb-1">
               LATE TARGET (Worst Case)
             </span>

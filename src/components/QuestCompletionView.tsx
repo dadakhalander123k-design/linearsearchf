@@ -92,19 +92,19 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
               Linear Search Mastered!
             </h1>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl font-normal">
-              Congratulations! You have completed all 5 foundational and advanced Linear Search levels. You have verified how sequential scanning inspects elements one by one from Best Case <code className="font-bold text-indigo-600 dark:text-blue-400 font-mono">O(1)</code> to Worst Case <code className="font-bold text-indigo-600 dark:text-blue-400 font-mono">O(n)</code>.
+              Congratulations! You have completed all 5 foundational and advanced Linear Search levels. You have verified how sequential scanning inspects elements one by one from Best Case <code className="font-bold text-[#2563EB] dark:text-[#3B82F6] font-mono">O(1)</code> to Worst Case <code className="font-bold text-[#2563EB] dark:text-[#3B82F6] font-mono">O(n)</code>.
             </p>
           </div>
 
           {/* Quick Mastery Status Card */}
-          <div className="lg:col-span-4 bg-indigo-50/70 dark:bg-blue-950/40 border border-indigo-100 dark:border-blue-500/30 rounded-2xl p-5 text-center shadow-2xs space-y-2">
-            <span className="text-[10px] font-bold text-indigo-600 dark:text-blue-300 uppercase font-mono tracking-widest block">
+          <div className="lg:col-span-4 bg-[#EFF6FF]/70 dark:bg-blue-950/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl p-5 text-center shadow-2xs space-y-2">
+            <span className="text-[10px] font-bold text-[#2563EB] dark:text-[#3B82F6] uppercase font-mono tracking-widest block">
               Quest Mastery
             </span>
-            <div className="text-4xl sm:text-5xl font-bold font-mono text-indigo-700 dark:text-blue-300">
+            <div className="text-4xl sm:text-5xl font-bold font-mono text-[#2563EB] dark:text-[#3B82F6]">
               5 / 5 <span className="text-xl">Levels</span>
             </div>
-            <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 pt-2 border-t border-indigo-200 dark:border-blue-500/20 font-mono">
+            <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 pt-2 border-t border-[#DBEAFE] dark:border-blue-500/20 font-mono">
               Accuracy Streak: {pState?.streak ?? 0}
             </div>
           </div>
@@ -115,7 +115,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
       <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-slate-200 dark:border-blue-500/20 pb-2">
           <span className="text-xs font-bold text-slate-900 dark:text-white uppercase font-mono tracking-wider flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-indigo-600 dark:text-blue-400" />
+            <Sparkles className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
             <span>5 Completed Linear Search Modules</span>
           </span>
           <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">Click any level to replay</span>
@@ -129,19 +129,19 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
                 soundManager.playSelect();
                 onReplayLevel(algo.id);
               }}
-              className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 shadow-2xs hover:shadow-md hover:border-indigo-200 dark:hover:border-blue-500/40 transition-all cursor-pointer flex flex-col justify-between group select-none"
+              className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 shadow-2xs hover:shadow-md hover:border-[#2563EB] dark:hover:border-blue-500/40 transition-all cursor-pointer flex flex-col justify-between group select-none"
             >
               <div>
                 <div className="flex items-center justify-between mb-3 font-mono">
-                  <span className="px-2.5 py-1 bg-indigo-600 dark:bg-blue-600 text-white rounded-md text-xs font-bold shadow-xs">
+                  <span className="px-2.5 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-md text-xs font-bold shadow-xs">
                     Lvl {algo.code}
                   </span>
-                  <span className="text-[10px] font-bold text-indigo-600 dark:text-blue-300 uppercase tracking-wider">
+                  <span className="text-[10px] font-bold text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider">
                     {algo.tag}
                   </span>
                 </div>
 
-                <h3 className="font-bold text-base text-slate-900 dark:text-white tracking-tight mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-blue-300 transition-colors">
+                <h3 className="font-bold text-base text-slate-900 dark:text-white tracking-tight mb-1.5 group-hover:text-[#2563EB] dark:group-hover:text-[#3B82F6] transition-colors">
                   {algo.title}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
@@ -149,7 +149,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-slate-100 dark:border-blue-500/15 flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-blue-400 font-mono">
+              <div className="mt-5 pt-3 border-t border-slate-100 dark:border-blue-500/15 flex items-center justify-between text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] font-mono">
                 <span>Replay Level {algo.code}</span>
                 <RotateCcw className="w-3.5 h-3.5 group-hover:-rotate-45 transition-transform" />
               </div>
@@ -163,19 +163,19 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
               soundManager.playSelect();
               onOpenSandbox();
             }}
-            className="bg-indigo-50/50 dark:bg-blue-950/30 border border-indigo-200 dark:border-blue-500/30 rounded-2xl p-5 shadow-2xs hover:shadow-md hover:border-indigo-400 dark:hover:border-blue-500/50 transition-all cursor-pointer flex flex-col justify-between group select-none ring-2 ring-indigo-500/10"
+            className="bg-[#EFF6FF]/50 dark:bg-blue-950/30 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl p-5 shadow-2xs hover:shadow-md hover:border-[#2563EB] dark:hover:border-blue-500/50 transition-all cursor-pointer flex flex-col justify-between group select-none ring-2 ring-blue-500/10"
           >
             <div>
               <div className="flex items-center justify-between mb-3 font-mono">
-                <span className="px-2.5 py-1 bg-indigo-600 dark:bg-blue-600 text-white rounded-md text-xs font-bold">
+                <span className="px-2.5 py-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-md text-xs font-bold">
                   Interactive Lab
                 </span>
-                <span className="text-[10px] font-bold text-indigo-800 dark:text-blue-200 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-[#2563EB] dark:text-blue-200 uppercase tracking-wider">
                   Custom Arrays
                 </span>
               </div>
 
-              <h3 className="font-bold text-base text-slate-900 dark:text-white tracking-tight mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-blue-300 transition-colors">
+              <h3 className="font-bold text-base text-slate-900 dark:text-white tracking-tight mb-1.5 group-hover:text-[#2563EB] dark:group-hover:text-[#3B82F6] transition-colors">
                 Linear Search Lab
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
@@ -183,9 +183,9 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
               </p>
             </div>
 
-            <div className="mt-5 pt-3 border-t border-indigo-100 dark:border-blue-500/20 flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-blue-400 font-mono">
+            <div className="mt-5 pt-3 border-t border-[#DBEAFE] dark:border-blue-500/20 flex items-center justify-between text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] font-mono">
               <span>Open Linear Search Lab</span>
-              <ArrowRight className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6] group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
         </div>
@@ -194,7 +194,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
       {/* 3. Next Steps & Certification Actions */}
       <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <span className="text-xs font-bold text-indigo-600 dark:text-blue-400 uppercase font-mono tracking-widest block">
+          <span className="text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] uppercase font-mono tracking-widest block">
             Next Recommended Milestones
           </span>
           <p className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -211,7 +211,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
             }}
             className="btn-modern-secondary px-4 sm:px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer select-none"
           >
-            <Layers className="w-4 h-4 text-indigo-600 dark:text-blue-400" />
+            <Layers className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
             <span>Open Lab</span>
           </button>
 
@@ -235,7 +235,7 @@ export const QuestCompletionView: React.FC<QuestCompletionViewProps> = ({
             }}
             className="btn-modern-secondary px-4 sm:px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer select-none"
           >
-            <Award className="w-4 h-4 text-indigo-600 dark:text-blue-400" />
+            <Award className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
             <span>View Progress</span>
           </button>
         </div>
