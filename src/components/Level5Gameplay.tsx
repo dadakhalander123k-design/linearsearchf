@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Sparkles, Award, CheckCircle2, XCircle, Lightbulb } from 'lucide-react';
+import { ArrowRight, Sparkles, Award } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 interface Level5Challenge {
@@ -30,7 +30,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
     { id: 4, title: 'Challenge 4: Absent Target Handling', tag: 'TARGET ABSENT O(n)', array: [13, 26, 39, 52, 65], target: 40, expectedComparisons: 5, isAbsent: true },
   ];
 
-  const [phase, setPhase] = useState<'challenges' | 'concept_q1' | 'concept_q2' | 'final_master' | 'final_question'>('challenges');
+  const [phase, setPhase] = useState<'challenges' | 'final_master'>('challenges');
   const [challengeIndex, setChallengeIndex] = useState<number>(0);
   const [pointer, setPointer] = useState<number>(0);
   const [comparisons, setComparisons] = useState<number>(0);
@@ -43,11 +43,6 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
   const [masterPointer, setMasterPointer] = useState<number>(0);
   const [masterComparisons, setMasterComparisons] = useState<number>(0);
   const [masterStatus, setMasterStatus] = useState<'searching' | 'completed'>('searching');
-
-  // Conceptual Questions
-  const [q1Selected, setQ1Selected] = useState<number | null>(null);
-  const [q2Selected, setQ2Selected] = useState<number | null>(null);
-  const [finalQSelected, setFinalQSelected] = useState<string | null>(null);
 
   const currentChallenge = challenges[challengeIndex];
 
@@ -95,7 +90,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
       setFeedback(`Challenge ${nextIdx + 1}: ${challenges[nextIdx].title}`);
     } else {
       soundManager.playSelect();
-      setPhase('concept_q1');
+      setPhase('final_master');
     }
   };
 
@@ -122,7 +117,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
     }
   };
 
-  // 1. Progressive Challenges
+  // 1. Progressive Challenges Phase
   if (phase === 'challenges') {
     const isChallengeDone = status === 'challenge_completed';
 
@@ -148,16 +143,16 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
           </div>
 
           <div className="pt-4 pb-2 flex items-center justify-between">
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-              {currentChallenge.title}
-            </h3>
-            <div className="font-mono text-xs font-bold bg-slate-100 dark:bg-[#080D1F] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-purple-500/30">
-              Target: <span className="text-indigo-600 dark:text-purple-400 text-sm font-extrabold">{currentChallenge.target}</span>
+            <div className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+              Target: <span className="font-mono text-indigo-600 dark:text-purple-400 text-lg font-extrabold px-2 py-0.5 bg-indigo-50 dark:bg-purple-900/40 rounded-md border border-indigo-200 dark:border-purple-500/30">{currentChallenge.target}</span>
+            </div>
+            <div className="text-xs font-mono text-slate-500">
+              Pointer: Index {pointer}
             </div>
           </div>
 
-          <div className="pt-4 pb-2">
-            <div className="grid grid-cols-5 sm:grid-cols-6 gap-2 sm:gap-3">
+          <div className="py-4">
+            <div className="grid grid-cols-5 gap-2 sm:gap-3">
               {currentChallenge.array.map((val, idx) => {
                 const isChecked = idx < pointer || (idx === pointer && isChallengeDone);
                 const isCurrent = idx === pointer && !isChallengeDone;
@@ -167,7 +162,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                 return (
                   <button
                     key={idx}
-                    id={`lvl5-array-cell-${idx}`}
+                    id={`l5-c${challengeIndex}-cell-${idx}`}
                     onClick={() => handleCheck(idx)}
                     disabled={isChallengeDone || idx < pointer}
                     className={`relative flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all duration-200 select-none ${
@@ -201,28 +196,27 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 dark:border-purple-500/15 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
-              <Lightbulb className="w-4 h-4 text-amber-500 shrink-0" />
-              <span>{feedback}</span>
-            </div>
+          <div className="p-3 bg-slate-50 dark:bg-[#080D1F] border border-slate-200 dark:border-purple-500/20 rounded-xl text-xs font-mono text-slate-600 dark:text-slate-300 mb-4">
+            {feedback}
+          </div>
 
+          <div className="flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-purple-500/15">
             {!isChallengeDone ? (
               <button
-                id="btn-lvl5-check-next"
+                id="btn-l5-check-next"
                 onClick={() => handleCheck()}
-                className="btn-modern-primary px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-sm w-full sm:w-auto justify-center"
+                className="btn-modern-primary px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-sm"
               >
                 <span>Compare [{pointer}] with {currentChallenge.target}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             ) : (
               <button
-                id="btn-lvl5-next-challenge"
+                id="btn-l5-next-challenge"
                 onClick={handleNextChallenge}
-                className="btn-modern-primary bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
+                className="btn-modern-primary px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-sm animate-bounce"
               >
-                <span>{challengeIndex < challenges.length - 1 ? 'Next Challenge' : 'Master Conceptual Checks'}</span>
+                <span>{challengeIndex < challenges.length - 1 ? `Proceed to Challenge ${challengeIndex + 2}` : 'Proceed to Final Master Challenge'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             )}
@@ -232,155 +226,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
     );
   }
 
-  // 2. Concept Check 1
-  if (phase === 'concept_q1') {
-    const q1Options = [
-      { id: 0, text: 'The first element (Index 0)', isCorrect: true },
-      { id: 1, text: 'The middle element', isCorrect: false },
-      { id: 2, text: 'The largest element', isCorrect: false },
-      { id: 3, text: 'A random element chosen dynamically', isCorrect: false },
-    ];
-
-    return (
-      <div className="w-full max-w-3xl mx-auto flex flex-col gap-6 animate-page-enter">
-        <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/20 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-purple-500/15 pb-4">
-            <span className="px-3 py-1 bg-indigo-50 dark:bg-purple-950/60 text-indigo-700 dark:text-purple-300 rounded-lg text-xs font-bold font-mono border border-indigo-200 dark:border-purple-500/30">
-              MASTER CONCEPT CHECK 1/2
-            </span>
-            <span className="text-xs font-mono text-slate-500">Algorithm Foundation</span>
-          </div>
-
-          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-            Where does Linear Search always begin?
-          </h3>
-
-          <div className="grid grid-cols-1 gap-3">
-            {q1Options.map((opt) => {
-              const isSelected = q1Selected === opt.id;
-              return (
-                <button
-                  key={opt.id}
-                  id={`btn-concept-q1-${opt.id}`}
-                  onClick={() => {
-                    setQ1Selected(opt.id);
-                    if (opt.isCorrect) {
-                      soundManager.playCalcSuccess();
-                    } else {
-                      soundManager.playError();
-                    }
-                  }}
-                  className={`p-4 rounded-xl border text-sm font-semibold transition-all text-left flex items-center justify-between cursor-pointer ${
-                    isSelected && opt.isCorrect
-                      ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-800 dark:text-emerald-200'
-                      : isSelected && !opt.isCorrect
-                      ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-400 text-rose-800 dark:text-rose-200'
-                      : 'bg-white dark:bg-[#0B1228] border-slate-200 dark:border-purple-500/20 text-slate-800 dark:text-slate-200 hover:border-indigo-400'
-                  }`}
-                >
-                  <span>{opt.text}</span>
-                  {isSelected && opt.isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-600" />}
-                  {isSelected && !opt.isCorrect && <XCircle className="w-5 h-5 text-rose-500" />}
-                </button>
-              );
-            })}
-          </div>
-
-          {q1Selected !== null && q1Options.find((o) => o.id === q1Selected)?.isCorrect && (
-            <div className="pt-4 border-t border-slate-100 dark:border-purple-500/15 flex justify-end">
-              <button
-                id="btn-concept-q1-next"
-                onClick={() => {
-                  soundManager.playSelect();
-                  setPhase('concept_q2');
-                }}
-                className="btn-modern-primary px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-sm"
-              >
-                <span>Next Question</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  // 3. Concept Check 2
-  if (phase === 'concept_q2') {
-    const q2Options = [
-      { id: 0, text: 'The search stops immediately and returns the position', isCorrect: true },
-      { id: 1, text: 'It continues checking the remaining array elements', isCorrect: false },
-      { id: 2, text: 'It restarts searching from the first element', isCorrect: false },
-      { id: 3, text: 'It sorts the remaining array', isCorrect: false },
-    ];
-
-    return (
-      <div className="w-full max-w-3xl mx-auto flex flex-col gap-6 animate-page-enter">
-        <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/20 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-purple-500/15 pb-4">
-            <span className="px-3 py-1 bg-indigo-50 dark:bg-purple-950/60 text-indigo-700 dark:text-purple-300 rounded-lg text-xs font-bold font-mono border border-indigo-200 dark:border-purple-500/30">
-              MASTER CONCEPT CHECK 2/2
-            </span>
-            <span className="text-xs font-mono text-slate-500">Stopping Conditions</span>
-          </div>
-
-          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-            What happens immediately after Linear Search finds the target?
-          </h3>
-
-          <div className="grid grid-cols-1 gap-3">
-            {q2Options.map((opt) => {
-              const isSelected = q2Selected === opt.id;
-              return (
-                <button
-                  key={opt.id}
-                  id={`btn-concept-q2-${opt.id}`}
-                  onClick={() => {
-                    setQ2Selected(opt.id);
-                    if (opt.isCorrect) {
-                      soundManager.playCalcSuccess();
-                    } else {
-                      soundManager.playError();
-                    }
-                  }}
-                  className={`p-4 rounded-xl border text-sm font-semibold transition-all text-left flex items-center justify-between cursor-pointer ${
-                    isSelected && opt.isCorrect
-                      ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-800 dark:text-emerald-200'
-                      : isSelected && !opt.isCorrect
-                      ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-400 text-rose-800 dark:text-rose-200'
-                      : 'bg-white dark:bg-[#0B1228] border-slate-200 dark:border-purple-500/20 text-slate-800 dark:text-slate-200 hover:border-indigo-400'
-                  }`}
-                >
-                  <span>{opt.text}</span>
-                  {isSelected && opt.isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-600" />}
-                  {isSelected && !opt.isCorrect && <XCircle className="w-5 h-5 text-rose-500" />}
-                </button>
-              );
-            })}
-          </div>
-
-          {q2Selected !== null && q2Options.find((o) => o.id === q2Selected)?.isCorrect && (
-            <div className="pt-4 border-t border-slate-100 dark:border-purple-500/15 flex justify-end">
-              <button
-                id="btn-concept-q2-next"
-                onClick={() => {
-                  soundManager.playSelect();
-                  setPhase('final_master');
-                }}
-                className="btn-modern-primary px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-sm"
-              >
-                <span>Proceed to Final Master Challenge</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  // 4. Final Master Challenge
+  // 2. Final Master Challenge Phase (Game Only)
   if (phase === 'final_master') {
     const isMasterFinished = masterStatus === 'completed';
 
@@ -484,9 +330,9 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
             </div>
           )}
 
-          <div className="pt-4 border-t border-slate-100 dark:border-purple-500/15 flex justify-between items-center">
+          <div className="pt-4 border-t border-slate-100 dark:border-purple-500/15 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300">
-              {!isMasterFinished ? 'Click each element in sequence to complete the search.' : 'Search complete! Proceed to the final master validation question.'}
+              {!isMasterFinished ? 'Click each element in sequence to complete the search.' : 'Search complete! Master challenge verified.'}
             </div>
 
             {!isMasterFinished ? (
@@ -500,97 +346,18 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
               </button>
             ) : (
               <button
-                id="btn-master-proceed-final-q"
-                onClick={() => {
-                  soundManager.playSelect();
-                  setPhase('final_question');
-                }}
-                className="btn-modern-primary px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md animate-bounce"
-              >
-                <span>Final Validation Question</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // 5. Final Validation Question
-  if (phase === 'final_question') {
-    const finalOptions = [
-      { id: 'a', text: 'It always searches starting from the middle element.', isCorrect: false },
-      { id: 'b', text: 'It checks elements sequentially until the target is found or the sequence ends.', isCorrect: true },
-      { id: 'c', text: 'It requires the input data to be sorted in advance.', isCorrect: false },
-      { id: 'd', text: 'It checks random elements simultaneously.', isCorrect: false },
-    ];
-
-    return (
-      <div className="w-full max-w-3xl mx-auto flex flex-col gap-6 animate-page-enter">
-        <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/20 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-purple-500/15 pb-4">
-            <span className="px-3 py-1 bg-amber-500 text-white rounded-lg text-xs font-bold font-mono shadow-xs">
-              FINAL MASTERY VALIDATION
-            </span>
-            <span className="text-xs font-mono text-slate-500">Linear Search Synthesis</span>
-          </div>
-
-          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-            Which statement best describes Linear Search?
-          </h3>
-
-          <div className="grid grid-cols-1 gap-3">
-            {finalOptions.map((opt) => {
-              const isSelected = finalQSelected === opt.id;
-              return (
-                <button
-                  key={opt.id}
-                  id={`btn-final-q-${opt.id}`}
-                  onClick={() => {
-                    setFinalQSelected(opt.id);
-                    if (opt.isCorrect) {
-                      soundManager.playCalcSuccess();
-                    } else {
-                      soundManager.playError();
-                    }
-                  }}
-                  className={`p-4 rounded-xl border text-sm font-semibold transition-all text-left flex items-center justify-between cursor-pointer ${
-                    isSelected && opt.isCorrect
-                      ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-800 dark:text-emerald-200 shadow-xs'
-                      : isSelected && !opt.isCorrect
-                      ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-400 text-rose-800 dark:text-rose-200'
-                      : 'bg-white dark:bg-[#0B1228] border-slate-200 dark:border-purple-500/20 text-slate-800 dark:text-slate-200 hover:border-indigo-400'
-                  }`}
-                >
-                  <span><strong>{opt.id.toUpperCase()}.</strong> {opt.text}</span>
-                  {isSelected && opt.isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />}
-                  {isSelected && !opt.isCorrect && <XCircle className="w-5 h-5 text-rose-500 shrink-0" />}
-                </button>
-              );
-            })}
-          </div>
-
-          {finalQSelected === 'b' && (
-            <div className="pt-6 border-t border-slate-100 dark:border-purple-500/15 flex flex-col sm:flex-row items-center justify-between gap-4 animate-fadeIn">
-              <div className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold font-mono flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4" />
-                <span>All 5 Learning Levels & Concept Verifications Mastered!</span>
-              </div>
-
-              <button
                 id="btn-complete-level-5"
                 onClick={() => {
                   soundManager.playLevelVictory();
                   onLevelComplete(5, 100);
                 }}
-                className="btn-modern-primary bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 text-xs font-bold flex items-center gap-2 cursor-pointer shadow-md animate-bounce"
+                className="btn-modern-primary bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 text-xs font-bold flex items-center gap-2 cursor-pointer shadow-md animate-bounce"
               >
                 <Award className="w-4 h-4" />
-                <span>Unlock Level 06 // Quest Completion</span>
+                <span>Complete Level 5</span>
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     );
