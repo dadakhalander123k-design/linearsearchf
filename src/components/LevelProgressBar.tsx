@@ -37,7 +37,7 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
     <div className="w-full max-w-4xl mx-auto px-4 py-4 flex flex-col items-center">
       <div className="w-full flex items-center justify-between relative font-sans">
         {/* Connecting Line */}
-        <div className="absolute left-6 right-6 top-4.5 h-[2px] bg-slate-200 dark:bg-purple-500/25 -z-0" />
+        <div className="absolute left-6 right-6 top-4.5 h-[2px] bg-slate-200 dark:bg-blue-500/25 -z-0" />
 
         {steps.map((step) => {
           const isMastered = pState.levelsMastered.includes(step.id);
@@ -55,18 +55,17 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
               className="group flex flex-col items-center gap-2 relative z-10 focus:outline-hidden cursor-pointer"
             >
               <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-200 border-2 ${
-                  isCurrent
-                    ? 'bg-indigo-600 dark:bg-purple-600 text-white border-indigo-600 dark:border-purple-500 shadow-md dark:shadow-[0_0_15px_rgba(124,58,237,0.4)] ring-4 ring-indigo-100 dark:ring-purple-500/20 scale-110'
+                className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-200 border-2 ${isCurrent
+                    ? 'bg-[#2563EB] dark:bg-blue-600 text-white border-[#2563EB] dark:border-blue-500 shadow-md dark:shadow-[0_0_15px_rgba(59,130,246,0.4)] ring-4 ring-indigo-100 dark:ring-blue-500/20 scale-110'
                     : isCompleted
-                    ? 'bg-white dark:bg-[#0B1228] text-indigo-600 dark:text-purple-400 border-indigo-600 dark:border-purple-500 shadow-xs hover:bg-indigo-50 dark:hover:bg-purple-950/40'
-                    : 'bg-white dark:bg-[#080D1F] text-slate-400 dark:text-slate-500 border-slate-300 dark:border-purple-500/30 hover:border-slate-400 dark:hover:border-purple-400'
-                }`}
+                      ? 'bg-white dark:bg-[#111827] text-indigo-600 dark:text-blue-400 border-[#2563EB] dark:border-blue-500 shadow-xs hover:bg-indigo-50 dark:hover:bg-blue-950/40'
+                      : 'bg-white dark:bg-[#0F172A] text-slate-400 dark:text-slate-500 border-slate-300 dark:border-blue-500/30 hover:border-slate-400 dark:hover:border-blue-400'
+                  }`}
               >
                 {isMastered ? (
-                  <Star className="w-4 h-4 fill-indigo-600 text-indigo-600 dark:fill-purple-400 dark:text-purple-400" />
+                  <Star className="w-4 h-4 fill-[#2563EB] text-[#2563EB] dark:fill-blue-400 dark:text-blue-400" />
                 ) : isCompleted ? (
-                  <Check className="w-4 h-4 text-indigo-600 dark:text-purple-400 stroke-[3]" />
+                  <Check className="w-4 h-4 text-[#2563EB] dark:text-blue-400 stroke-[3]" />
                 ) : isCurrent ? (
                   <div className="w-2.5 h-2.5 rounded-full bg-white" />
                 ) : (
@@ -75,17 +74,16 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
               </div>
 
               <div className="text-center">
-                <span className={`text-[10px] font-mono font-bold block ${isCurrent ? 'text-indigo-600 dark:text-purple-400' : 'text-slate-500 dark:text-slate-400'}`}>
+                <span className={`text-[10px] font-mono font-bold block ${isCurrent ? 'text-[#2563EB] dark:text-blue-400' : 'text-slate-500 dark:text-slate-400'}`}>
                   {step.code}
                 </span>
                 <span
-                  className={`text-[11px] font-semibold hidden sm:block max-w-[85px] leading-tight transition-colors ${
-                    isCurrent
-                      ? 'text-indigo-700 dark:text-purple-300 font-bold'
+                  className={`text-[11px] font-semibold hidden sm:block max-w-[85px] leading-tight transition-colors ${isCurrent
+                      ? 'text-indigo-700 dark:text-blue-300 font-bold'
                       : isCompleted
-                      ? 'text-slate-900 dark:text-white'
-                      : 'text-slate-500 dark:text-slate-400'
-                  }`}
+                        ? 'text-slate-900 dark:text-white'
+                        : 'text-slate-500 dark:text-slate-400'
+                    }`}
                 >
                   {step.name}
                 </span>
@@ -105,13 +103,12 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
           title="Completion Milestone"
         >
           <div
-            className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-200 border-2 ${
-              isLevel6Active
+            className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-200 border-2 ${isLevel6Active
                 ? 'bg-amber-500 text-white border-amber-500 shadow-md ring-4 ring-amber-100 dark:ring-amber-500/20 scale-110'
                 : isAllQuestCompleted
-                ? 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border-amber-500 dark:border-amber-400 shadow-xs hover:bg-amber-100 dark:hover:bg-amber-900/40'
-                : 'bg-slate-100 dark:bg-[#080D1F] text-slate-400 dark:text-slate-500 border-slate-300 dark:border-purple-500/30'
-            }`}
+                  ? 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border-amber-500 dark:border-amber-400 shadow-xs hover:bg-amber-100 dark:hover:bg-amber-900/40'
+                  : 'bg-slate-100 dark:bg-[#0F172A] text-slate-400 dark:text-slate-500 border-slate-300 dark:border-blue-500/30'
+              }`}
           >
             {isAllQuestCompleted || isLevel6Active ? (
               <Trophy className={`w-4 h-4 ${isLevel6Active ? 'text-white' : 'text-amber-500 dark:text-amber-400'}`} />
@@ -124,11 +121,10 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
               06
             </span>
             <span
-              className={`text-[11px] font-semibold hidden sm:block max-w-[85px] leading-tight transition-colors ${
-                isLevel6Active
+              className={`text-[11px] font-semibold hidden sm:block max-w-[85px] leading-tight transition-colors ${isLevel6Active
                   ? 'text-amber-700 dark:text-amber-300 font-bold'
                   : 'text-slate-700 dark:text-slate-300'
-              }`}
+                }`}
             >
               Completion
             </span>
@@ -148,7 +144,7 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
             className="btn-modern-secondary px-4 py-2 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-xs hover:shadow-md transition-all"
             title="Open Interactive Lab (Optional)"
           >
-            <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-purple-400" />
+            <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
             <span>LAB</span>
           </button>
         </div>

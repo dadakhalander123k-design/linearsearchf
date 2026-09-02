@@ -92,7 +92,7 @@ export const GameHintCard: React.FC<GameHintCardProps> = ({
 
   return (
     <div className="w-full max-w-2xl mx-auto font-sans">
-      <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/25 rounded-2xl shadow-2xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] overflow-hidden transition-all">
+      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-2xl shadow-2xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] overflow-hidden transition-all">
         {/* Hint Header / Toggle Button */}
         <button
           type="button"
@@ -101,12 +101,12 @@ export const GameHintCard: React.FC<GameHintCardProps> = ({
             else soundManager.playPanelClose();
             setIsExpanded(!isExpanded);
           }}
-          className="w-full px-4 py-3 flex items-center justify-between gap-2 bg-slate-50 dark:bg-[#080D1F] hover:bg-slate-100/70 dark:hover:bg-[#0F1733] transition-colors cursor-pointer text-left select-none"
+          className="w-full px-4 py-3 flex items-center justify-between gap-2 bg-slate-50 dark:bg-[#0F172A] hover:bg-slate-100/70 dark:hover:bg-[#172033] transition-colors cursor-pointer text-left select-none"
           aria-expanded={isExpanded}
         >
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-6 h-6 rounded-lg bg-indigo-50 dark:bg-purple-950/50 text-indigo-600 dark:text-purple-400 border border-indigo-100 dark:border-purple-500/30">
-              <Lightbulb className="w-3.5 h-3.5 text-indigo-600 dark:text-purple-400" />
+            <span className="flex items-center justify-center w-6 h-6 rounded-lg bg-indigo-50 dark:bg-blue-950/50 text-indigo-600 dark:text-blue-400 border border-indigo-100 dark:border-blue-500/30">
+              <Lightbulb className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
             </span>
             <span className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider font-mono">
               Field Hint // What should I do next?
@@ -127,9 +127,9 @@ export const GameHintCard: React.FC<GameHintCardProps> = ({
 
         {/* Expandable Hint Body */}
         {isExpanded && (
-          <div className="p-4 space-y-3 border-t border-slate-100 dark:border-purple-500/15 bg-white dark:bg-[#0B1228] animate-chapter-switch">
+          <div className="p-4 space-y-3 border-t border-slate-100 dark:border-blue-500/15 bg-white dark:bg-[#111827] animate-chapter-switch">
             <div className="flex items-center justify-between font-mono">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 dark:text-purple-300 px-2 py-0.5 bg-indigo-50 dark:bg-purple-950/60 rounded-md border border-indigo-100 dark:border-purple-500/30">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 dark:text-blue-300 px-2 py-0.5 bg-indigo-50 dark:bg-blue-950/60 rounded-md border border-indigo-100 dark:border-blue-500/30">
                 {hint.stage}
               </span>
               <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold">Level {level.id} Assistant</span>
@@ -140,7 +140,7 @@ export const GameHintCard: React.FC<GameHintCardProps> = ({
             </p>
 
             {hint.formulaTip && (
-              <div className="bg-[#F8FAFC] dark:bg-[#050816] text-[#111827] dark:text-cyan-300 px-3 py-2 rounded-xl text-xs font-mono font-bold border border-[#E5E7EB] dark:border-purple-500/20 border-l-4 border-l-[#4F46E5] dark:border-l-purple-500 overflow-x-auto">
+              <div className="bg-[#F8FAFC] dark:bg-[#0F172A] text-[#111827] dark:text-blue-300 px-3 py-2 rounded-xl text-xs font-mono font-bold border border-[#E5E7EB] dark:border-blue-500/20 border-l-4 border-l-[#2563EB] dark:border-l-blue-500 overflow-x-auto">
                 <code>{hint.formulaTip}</code>
               </div>
             )}

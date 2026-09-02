@@ -53,9 +53,9 @@ export const ExplanationPanel: React.FC<ExplanationPanelProps> = ({
 
   return (
     <div className="w-full max-w-5xl mx-auto font-sans">
-      <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/25 rounded-2xl p-4 sm:p-5 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-2xl p-4 sm:p-5 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
         <div className="flex items-start gap-3.5">
-          <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-purple-950/50 border border-indigo-100 dark:border-purple-500/30 flex items-center justify-center shrink-0 mt-0.5">
+          <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-blue-950/50 border border-indigo-100 dark:border-blue-500/30 flex items-center justify-center shrink-0 mt-0.5">
             {icon}
           </div>
           <div className="flex-1">

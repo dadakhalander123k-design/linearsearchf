@@ -27,7 +27,7 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
         particleCount: 50,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#7C3AED', '#4F46E5', '#06B6D4', '#10B981'],
+        colors: ['#2563EB', '#1D4ED8', '#6366F1', '#10B981'],
       });
     } catch {
       // Ignore
@@ -36,13 +36,13 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-editorial-fade font-sans">
-      <div className="bg-white dark:bg-[#0B1228] w-full max-w-md border border-slate-200 dark:border-purple-500/30 rounded-2xl shadow-xl dark:shadow-[0_0_30px_rgba(124,58,237,0.3)] overflow-hidden p-6 sm:p-8 flex flex-col items-center text-center">
+      <div className="bg-white dark:bg-[#111827] w-full max-w-md border border-slate-200 dark:border-blue-500/30 rounded-2xl shadow-xl dark:shadow-[0_0_30px_rgba(59,130,246,0.3)] overflow-hidden p-6 sm:p-8 flex flex-col items-center text-center">
         {/* Victory Icon */}
-        <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-purple-950/50 border border-indigo-100 dark:border-purple-500/30 text-indigo-600 dark:text-purple-400 flex items-center justify-center mb-3 shadow-xs">
+        <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-blue-950/50 border border-indigo-100 dark:border-blue-500/30 text-indigo-600 dark:text-blue-400 flex items-center justify-center mb-3 shadow-xs">
           <Award className="w-8 h-8" />
         </div>
 
-        <span className="text-[11px] font-bold font-mono uppercase tracking-widest text-indigo-700 dark:text-purple-300 bg-indigo-50 dark:bg-purple-950/60 px-3 py-1 rounded-md border border-indigo-100 dark:border-purple-500/30 mb-2">
+        <span className="text-[11px] font-bold font-mono uppercase tracking-widest text-indigo-700 dark:text-blue-300 bg-indigo-50 dark:bg-blue-950/60 px-3 py-1 rounded-md border border-indigo-100 dark:border-blue-500/30 mb-2">
           Module Verified // State Saved
         </span>
 
@@ -50,14 +50,14 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
           {level.title} Completed
         </h3>
 
-        <div className="my-4 p-4 bg-slate-50 dark:bg-[#080D1F] border border-slate-200 dark:border-purple-500/20 rounded-xl w-full text-left">
+        <div className="my-4 p-4 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/20 rounded-xl w-full text-left">
           <div className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 font-mono mb-1">Field Summary</div>
           <p className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 leading-snug">
             "{level.techniqueSummary}"
           </p>
-          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-purple-500/20 flex items-center justify-between text-xs font-mono">
+          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-blue-500/20 flex items-center justify-between text-xs font-mono">
             <span className="text-slate-500 dark:text-slate-400 font-semibold">Core Formula:</span>
-            <span className="font-bold text-indigo-700 dark:text-cyan-300 bg-white dark:bg-[#050816] px-2.5 py-1 rounded-md border border-slate-200 dark:border-purple-500/30">
+            <span className="font-bold text-indigo-700 dark:text-blue-300 bg-white dark:bg-[#0B1120] px-2.5 py-1 rounded-md border border-slate-200 dark:border-blue-500/30">
               {level.formulaDisplay}
             </span>
           </div>
@@ -116,7 +116,7 @@ export const LevelCompleteModal: React.FC<LevelCompleteModalProps> = ({
                   }}
                   className="flex-1 btn-modern-secondary py-2.5 px-4 text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-purple-400" />
+                  <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
                   <span>Open Lab</span>
                 </button>
               )}

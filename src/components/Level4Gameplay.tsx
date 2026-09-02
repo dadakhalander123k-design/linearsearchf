@@ -152,15 +152,15 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
 
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 animate-page-enter">
-      <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-purple-500/15">
+      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-xs">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-blue-500/15">
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 bg-indigo-50 dark:bg-purple-950/60 border border-indigo-200 dark:border-purple-500/30 text-indigo-700 dark:text-purple-300 rounded-lg text-xs font-bold font-mono">
+            <span className="px-3 py-1 bg-indigo-50 dark:bg-blue-950/60 border border-indigo-200 dark:border-blue-500/30 text-indigo-700 dark:text-blue-300 rounded-lg text-xs font-bold font-mono">
               CHALLENGE {challengeIndex + 1} OF {challenges.length}
             </span>
             <span className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100">
               Target:{' '}
-              <span className="font-mono text-indigo-600 dark:text-purple-400 text-lg font-extrabold px-2 py-0.5 bg-indigo-50 dark:bg-purple-900/40 rounded-md border border-indigo-200 dark:border-purple-500/30">
+              <span className="font-mono text-indigo-600 dark:text-blue-400 text-lg font-extrabold px-2 py-0.5 bg-indigo-50 dark:bg-blue-900/40 rounded-md border border-indigo-200 dark:border-blue-500/30">
                 {currentChallenge.target}
               </span>
             </span>
@@ -168,7 +168,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
 
           <div className="flex items-center gap-2 font-mono text-xs">
             <span className="font-semibold text-slate-600 dark:text-slate-400">COMPARISONS:</span>
-            <span className="px-3 py-1 bg-indigo-600 text-white rounded-lg font-bold text-sm shadow-xs">
+            <span className="px-3 py-1 bg-[#2563EB] text-white rounded-lg font-bold text-sm shadow-xs">
               {comparisons}
             </span>
           </div>
@@ -178,7 +178,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
         <div className="pt-6 pb-2">
           <div className="text-xs font-bold uppercase font-mono tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center justify-between">
             <span>Array Scan</span>
-            <span className="text-indigo-600 dark:text-purple-400">Pointer: Index {pointer}</span>
+            <span className="text-indigo-600 dark:text-blue-400">Pointer: Index {pointer}</span>
           </div>
 
           <div className="grid grid-cols-5 sm:grid-cols-6 gap-2 sm:gap-3">
@@ -194,15 +194,14 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
                   id={`lvl4-array-cell-${idx}`}
                   onClick={() => handleCheck(idx)}
                   disabled={!isSearching || idx < pointer}
-                  className={`relative flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all duration-200 select-none ${
-                    isMatch
+                  className={`relative flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all duration-200 select-none ${isMatch
                       ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-500 text-emerald-700 dark:text-emerald-300 shadow-md scale-105 ring-4 ring-emerald-500/20'
                       : isMismatch
-                      ? 'bg-slate-50 dark:bg-[#080D1F] border-slate-300 dark:border-purple-500/20 text-slate-400 dark:text-slate-500 opacity-80'
-                      : isCurrent
-                      ? 'bg-indigo-50/70 dark:bg-purple-950/40 border-indigo-600 dark:border-purple-500 text-indigo-900 dark:text-white shadow-md scale-105 ring-4 ring-indigo-500/20 cursor-pointer'
-                      : 'bg-white dark:bg-[#0B1228] border-slate-200 dark:border-purple-500/20 text-slate-700 dark:text-slate-300 opacity-60 cursor-not-allowed'
-                  }`}
+                        ? 'bg-slate-50 dark:bg-[#0F172A] border-slate-300 dark:border-blue-500/20 text-slate-400 dark:text-slate-500 opacity-80'
+                        : isCurrent
+                          ? 'bg-indigo-50/70 dark:bg-blue-950/40 border-indigo-600 dark:border-blue-500 text-indigo-900 dark:text-white shadow-md scale-105 ring-4 ring-indigo-500/20 cursor-pointer'
+                          : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-blue-500/20 text-slate-700 dark:text-slate-300 opacity-60 cursor-not-allowed'
+                    }`}
                 >
                   <span className="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 mb-1">
                     [{idx}]
@@ -214,7 +213,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
                     ) : isMismatch ? (
                       <span className="text-slate-400">≠ {currentChallenge.target}</span>
                     ) : isCurrent ? (
-                      <span className="text-indigo-600 dark:text-purple-300 animate-pulse">CHECK</span>
+                      <span className="text-indigo-600 dark:text-blue-300 animate-pulse">CHECK</span>
                     ) : (
                       <span className="text-slate-400 dark:text-slate-600">WAIT</span>
                     )}
@@ -227,9 +226,9 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
 
         {/* Analysis Question Options */}
         {isQuestionActive && (
-          <div className="mt-6 p-4 sm:p-5 bg-indigo-50/70 dark:bg-purple-950/40 border border-indigo-200 dark:border-purple-500/30 rounded-xl space-y-4 animate-fadeIn">
-            <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 dark:text-purple-200 uppercase font-mono tracking-wider">
-              <HelpCircle className="w-4 h-4 text-indigo-600 dark:text-purple-400" />
+          <div className="mt-6 p-4 sm:p-5 bg-indigo-50/70 dark:bg-blue-950/40 border border-indigo-200 dark:border-blue-500/30 rounded-xl space-y-4 animate-fadeIn">
+            <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 dark:text-blue-200 uppercase font-mono tracking-wider">
+              <HelpCircle className="w-4 h-4 text-indigo-600 dark:text-blue-400" />
               <span>Algorithm Analysis Question</span>
             </div>
             <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
@@ -248,15 +247,14 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
                     id={`lvl4-opt-${opt.id}`}
                     onClick={() => handleOptionSelect(opt.id)}
                     disabled={isChallengeDone}
-                    className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-between cursor-pointer ${
-                      showSuccess
+                    className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-between cursor-pointer ${showSuccess
                         ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-800 dark:text-emerald-200 shadow-xs'
                         : showError
-                        ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-400 text-rose-800 dark:text-rose-200'
-                        : isChallengeDone && opt.isCorrect
-                        ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-800 dark:text-emerald-200'
-                        : 'bg-white dark:bg-[#0B1228] border-slate-200 dark:border-purple-500/20 text-slate-800 dark:text-slate-200 hover:border-indigo-400 dark:hover:border-purple-400'
-                    }`}
+                          ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-400 text-rose-800 dark:text-rose-200'
+                          : isChallengeDone && opt.isCorrect
+                            ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-800 dark:text-emerald-200'
+                            : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-blue-500/20 text-slate-800 dark:text-slate-200 hover:border-indigo-400 dark:hover:border-blue-400'
+                      }`}
                   >
                     <span>{opt.label}</span>
                     {showSuccess && (
@@ -271,7 +269,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
         )}
 
         {/* Footer Controls */}
-        <div className="mt-6 pt-4 border-t border-slate-100 dark:border-purple-500/15 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-6 pt-4 border-t border-slate-100 dark:border-blue-500/15 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
             <Lightbulb className="w-4 h-4 text-amber-500 shrink-0" />
             <span>{feedback}</span>
@@ -294,7 +292,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
             <button
               id="btn-lvl4-next-challenge"
               onClick={handleNextChallenge}
-              className="btn-modern-primary bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
+              className="btn-modern-primary bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center"
             >
               <span>{isAllChallengesComplete ? 'Complete Level 4' : 'Next Challenge'}</span>
               <ArrowRight className="w-4 h-4" />

@@ -28,7 +28,7 @@ export const ResetProgressModal: React.FC<ResetProgressModalProps> = ({
       aria-modal="true"
       aria-labelledby="reset-modal-title"
     >
-      <div className="relative w-full max-w-md bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/30 rounded-2xl p-6 sm:p-7 shadow-2xl dark:shadow-[0_0_50px_rgba(0,0,0,0.9)] text-center animate-scale-enter font-sans">
+      <div className="relative w-full max-w-md bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/30 rounded-2xl p-6 sm:p-7 shadow-2xl dark:shadow-[0_0_50px_rgba(0,0,0,0.9)] text-center animate-scale-enter font-sans">
         {/* Warning Icon Badge */}
         <div className="w-12 h-12 mx-auto mb-4 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-500/40 text-rose-600 dark:text-rose-400 flex items-center justify-center shadow-xs">
           <AlertTriangle className="w-6 h-6 stroke-[2.2]" />

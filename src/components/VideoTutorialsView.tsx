@@ -95,7 +95,7 @@ export const VideoTutorialsView: React.FC = () => {
     if (selectedLesson?.id === lesson.id && videoRef.current) {
       if (!isPlaying && autoPlay) {
         soundManager.playVideoPlay();
-        videoRef.current.play().catch(() => {});
+        videoRef.current.play().catch(() => { });
         setIsPlaying(true);
       }
       return;
@@ -213,7 +213,7 @@ export const VideoTutorialsView: React.FC = () => {
           setIsFullscreen(true);
           setIsFullscreenControlsVisible(true);
         })
-        .catch(() => {});
+        .catch(() => { });
     } else {
       document
         .exitFullscreen()
@@ -221,7 +221,7 @@ export const VideoTutorialsView: React.FC = () => {
           setIsFullscreen(false);
           setIsFullscreenControlsVisible(true);
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   }, []);
 
@@ -411,22 +411,20 @@ export const VideoTutorialsView: React.FC = () => {
                 key={lesson.id}
                 id={`video-card-${lesson.id}`}
                 onClick={() => handleSelectLesson(lesson, true)}
-                className={`p-6 sm:p-7 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col justify-between border ${
-                  isSelected
-                    ? 'bg-white dark:bg-[#0B1228] border-[#4F46E5] dark:border-purple-500 shadow-md dark:shadow-[0_0_24px_rgba(124,58,237,0.25)] ring-2 ring-[#4F46E5]/20 dark:ring-purple-500/30'
-                    : 'bg-white dark:bg-[#0B1228]/85 border-[#E5E7EB] dark:border-purple-500/20 hover:border-[#C7D2FE] dark:hover:border-purple-500/50 shadow-xs'
-                }`}
+                className={`p-6 sm:p-7 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col justify-between border ${isSelected
+                    ? 'bg-white dark:bg-[#111827] border-[#2563EB] dark:border-blue-500 shadow-md dark:shadow-[0_0_24px_rgba(59,130,246,0.25)] ring-2 ring-[#2563EB]/20 dark:ring-blue-500/30'
+                    : 'bg-white dark:bg-[#111827]/85 border-[#E2E8F0] dark:border-blue-500/20 hover:border-[#DBEAFE] dark:hover:border-blue-500/50 shadow-xs'
+                  }`}
               >
                 <div>
                   {/* Lesson Header Pill & Completion Indicator */}
                   <div className="flex items-center justify-between mb-3.5">
                     <div className="flex items-center gap-2.5">
                       <span
-                        className={`px-3 py-1 rounded-md text-xs font-bold font-mono border tracking-wide transition-colors ${
-                          isSelected
-                            ? 'bg-[#EEF2FF] dark:bg-purple-950/80 text-[#4F46E5] dark:text-purple-300 border-[#C7D2FE] dark:border-purple-500/40'
-                            : 'bg-[#F8FAFC] dark:bg-purple-950/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-purple-500/20'
-                        }`}
+                        className={`px-3 py-1 rounded-md text-xs font-bold font-mono border tracking-wide transition-colors ${isSelected
+                            ? 'bg-[#EFF6FF] dark:bg-blue-950/80 text-[#2563EB] dark:text-blue-300 border-[#DBEAFE] dark:border-blue-500/40'
+                            : 'bg-[#F8FAFC] dark:bg-blue-950/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-blue-500/20'
+                          }`}
                       >
                         {lesson.lessonNumber}
                       </span>
@@ -441,11 +439,10 @@ export const VideoTutorialsView: React.FC = () => {
                     </div>
 
                     <div
-                      className={`p-2 rounded-xl transition-colors ${
-                        isSelected
-                          ? 'bg-[#4F46E5] dark:bg-purple-600 text-white shadow-xs'
-                          : 'bg-[#EEF2FF] dark:bg-purple-950/30 text-[#4F46E5] dark:text-purple-400'
-                      }`}
+                      className={`p-2 rounded-xl transition-colors ${isSelected
+                          ? 'bg-[#2563EB] dark:bg-blue-600 text-white shadow-xs'
+                          : 'bg-[#EFF6FF] dark:bg-blue-950/30 text-[#2563EB] dark:text-blue-400'
+                        }`}
                     >
                       <VideoIcon className="w-4 h-4" />
                     </div>
@@ -464,7 +461,7 @@ export const VideoTutorialsView: React.FC = () => {
                     {lesson.topics.map((topic, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 rounded-lg text-xs font-semibold bg-[#F1F5F9] dark:bg-[#070B18] text-[#334155] dark:text-slate-200 border border-slate-200/90 dark:border-purple-500/25 tracking-normal"
+                        className="px-3 py-1 rounded-lg text-xs font-semibold bg-[#F1F5F9] dark:bg-[#0F172A] text-[#334155] dark:text-slate-200 border border-slate-200/90 dark:border-blue-500/25 tracking-normal"
                       >
                         {topic}
                       </span>
@@ -479,11 +476,10 @@ export const VideoTutorialsView: React.FC = () => {
                     e.stopPropagation();
                     handleSelectLesson(lesson, true);
                   }}
-                  className={`w-full py-3 px-4 rounded-xl font-bold text-xs tracking-wider uppercase transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-[0.98] ${
-                    isSelected
-                      ? 'bg-[#4F46E5] dark:bg-purple-600 hover:bg-[#4338CA] dark:hover:bg-purple-500 text-white shadow-md'
-                      : 'bg-[#EEF2FF] dark:bg-purple-950/50 hover:bg-[#E0E7FF] dark:hover:bg-purple-900/60 text-[#4F46E5] dark:text-purple-300 border border-[#E0E7FF] dark:border-purple-500/30'
-                  }`}
+                  className={`w-full py-3 px-4 rounded-xl font-bold text-xs tracking-wider uppercase transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-[0.98] ${isSelected
+                      ? 'bg-[#2563EB] dark:bg-blue-600 hover:bg-[#1D4ED8] dark:hover:bg-blue-500 text-white shadow-md'
+                      : 'bg-[#EFF6FF] dark:bg-blue-950/50 hover:bg-[#DBEAFE] dark:hover:bg-blue-900/60 text-[#2563EB] dark:text-blue-300 border border-[#DBEAFE] dark:border-blue-500/30'
+                    }`}
                   aria-label={`Click to watch ${lesson.title}`}
                 >
                   <Play className="w-4 h-4 fill-current" />
@@ -500,12 +496,12 @@ export const VideoTutorialsView: React.FC = () => {
           ========================================================================= */}
       <section
         aria-label="Video Player Area"
-        className="p-4 sm:p-8 rounded-2xl bg-white dark:bg-[#0B1228]/90 border border-slate-200 dark:border-purple-500/20 shadow-[0_4px_24px_rgba(15,23,42,0.06)] dark:shadow-[0_0_32px_rgba(124,58,237,0.12)] space-y-4 sm:space-y-6"
+        className="p-4 sm:p-8 rounded-2xl bg-white dark:bg-[#111827]/90 border border-slate-200 dark:border-blue-500/20 shadow-[0_4px_24px_rgba(15,23,42,0.06)] dark:shadow-[0_0_32px_rgba(59,130,246,0.12)] space-y-4 sm:space-y-6"
       >
         {/* Now Playing Header Indicator */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-slate-100 dark:border-purple-500/20">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-slate-100 dark:border-blue-500/20">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="p-2.5 rounded-xl bg-[#EEF2FF] dark:bg-purple-950/50 text-[#4F46E5] dark:text-purple-400 border border-[#E0E7FF] dark:border-purple-500/30 shrink-0 shadow-xs">
+            <div className="p-2.5 rounded-xl bg-[#EFF6FF] dark:bg-blue-950/50 text-[#2563EB] dark:text-blue-400 border border-[#DBEAFE] dark:border-blue-500/30 shrink-0 shadow-xs">
               <Tv className="w-5 h-5" />
             </div>
             <div className="min-w-0 flex-1">
@@ -528,7 +524,7 @@ export const VideoTutorialsView: React.FC = () => {
                   <span>Completed</span>
                 </span>
               )}
-              <span className="px-3 py-1 bg-slate-100 dark:bg-[#070B18] border border-slate-200 dark:border-purple-500/25 text-slate-700 dark:text-slate-300 text-xs font-medium rounded-lg font-mono">
+              <span className="px-3 py-1 bg-slate-100 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/25 text-slate-700 dark:text-slate-300 text-xs font-medium rounded-lg font-mono">
                 {selectedLesson.filename}
               </span>
             </div>
@@ -542,18 +538,16 @@ export const VideoTutorialsView: React.FC = () => {
           onPointerMove={triggerFullscreenActivity}
           onTouchStart={triggerFullscreenActivity}
           onClick={triggerFullscreenActivity}
-          className={`relative w-full bg-slate-950 rounded-2xl overflow-hidden border border-slate-800/80 dark:border-purple-500/30 shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_24px_rgba(124,58,237,0.15)] flex items-center justify-center group select-none ${
-            isFullscreen
-              ? `fixed inset-0 z-50 rounded-none w-screen h-screen ${
-                  !isFullscreenControlsVisible ? 'cursor-none' : 'cursor-default'
-                }`
+          className={`relative w-full bg-slate-950 rounded-2xl overflow-hidden border border-slate-800/80 dark:border-blue-500/30 shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_24px_rgba(59,130,246,0.15)] flex items-center justify-center group select-none ${isFullscreen
+              ? `fixed inset-0 z-50 rounded-none w-screen h-screen ${!isFullscreenControlsVisible ? 'cursor-none' : 'cursor-default'
+              }`
               : 'aspect-video'
-          }`}
+            }`}
         >
           {/* Case 1: No lesson selected yet (Initial instructional state) */}
           {!selectedLesson && (
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-slate-900 to-[#070B18] text-slate-300 space-y-3.5 select-none">
-              <div className="w-16 h-16 rounded-2xl bg-indigo-950/50 dark:bg-purple-950/60 border border-indigo-500/30 dark:border-purple-500/30 flex items-center justify-center text-indigo-400 dark:text-purple-400 shadow-md">
+            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-slate-900 to-[#0F172A] text-slate-300 space-y-3.5 select-none">
+              <div className="w-16 h-16 rounded-2xl bg-indigo-950/50 dark:bg-blue-950/60 border border-indigo-500/30 dark:border-blue-500/30 flex items-center justify-center text-indigo-400 dark:text-blue-400 shadow-md">
                 <VideoIcon className="w-8 h-8" />
               </div>
               <h4 className="text-lg font-bold text-white font-sans">
@@ -567,7 +561,7 @@ export const VideoTutorialsView: React.FC = () => {
 
           {/* Case 2: Error State (Provided video genuinely cannot load) */}
           {selectedLesson && hasError && (
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-slate-900 to-[#070B18] text-slate-200 space-y-4">
+            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-slate-900 to-[#0F172A] text-slate-200 space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-rose-950/60 border border-rose-500/40 flex items-center justify-center text-rose-400 shadow-md">
                 <AlertCircle className="w-7 h-7" />
               </div>
@@ -582,7 +576,7 @@ export const VideoTutorialsView: React.FC = () => {
               <button
                 id="btn-video-try-again"
                 onClick={handleRetry}
-                className="px-5 py-2.5 bg-[#4F46E5] dark:bg-purple-600 hover:bg-[#4338CA] dark:hover:bg-purple-500 text-white text-xs font-bold rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-2 active:scale-95"
+                className="px-5 py-2.5 bg-[#2563EB] dark:bg-blue-600 hover:bg-[#1D4ED8] dark:hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-2 active:scale-95"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>TRY AGAIN</span>
@@ -595,9 +589,8 @@ export const VideoTutorialsView: React.FC = () => {
             ref={videoRef}
             preload="metadata"
             playsInline
-            className={`w-full h-full object-contain ${
-              selectedLesson && !hasError ? 'block' : 'hidden'
-            }`}
+            className={`w-full h-full object-contain ${selectedLesson && !hasError ? 'block' : 'hidden'
+              }`}
             onLoadedMetadata={handleLoadedMetadata}
             onTimeUpdate={handleTimeUpdate}
             onEnded={handleEnded}
@@ -610,7 +603,7 @@ export const VideoTutorialsView: React.FC = () => {
           {/* Clean Professional Loading State */}
           {selectedLesson && isLoading && !hasError && (
             <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center gap-3 pointer-events-none text-white">
-              <Loader2 className="w-8 h-8 text-[#4F46E5] dark:text-purple-400 animate-spin" />
+              <Loader2 className="w-8 h-8 text-[#2563EB] dark:text-blue-400 animate-spin" />
               <span className="text-xs font-bold font-mono tracking-wider uppercase">
                 LOADING VIDEO...
               </span>
@@ -626,11 +619,10 @@ export const VideoTutorialsView: React.FC = () => {
               onMouseEnter={handleControlsInteraction}
               onTouchStart={handleControlsInteraction}
               onClick={(e) => e.stopPropagation()}
-              className={`absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 z-50 bg-slate-900/65 dark:bg-[#070B18]/75 backdrop-blur-xl border border-white/15 dark:border-purple-500/30 rounded-2xl p-3 sm:p-4 shadow-2xl space-y-3 transition-all duration-300 ease-out ${
-                isFullscreenControlsVisible
+              className={`absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 z-50 bg-slate-900/65 dark:bg-[#0F172A]/75 backdrop-blur-xl border border-white/15 dark:border-blue-500/30 rounded-2xl p-3 sm:p-4 shadow-2xl space-y-3 transition-all duration-300 ease-out ${isFullscreenControlsVisible
                   ? 'opacity-100 translate-y-0 pointer-events-auto'
                   : 'opacity-0 translate-y-4 pointer-events-none'
-              }`}
+                }`}
             >
               {/* Progress Scrubber & Timestamp */}
               <div className="space-y-1">
@@ -642,7 +634,7 @@ export const VideoTutorialsView: React.FC = () => {
                     step={0.1}
                     value={currentTime}
                     onChange={handleSeek}
-                    className="w-full h-2.5 bg-white/20 dark:bg-slate-700/60 rounded-full appearance-none cursor-pointer accent-[#4F46E5] dark:accent-purple-500 focus:outline-none"
+                    className="w-full h-2.5 bg-white/20 dark:bg-slate-700/60 rounded-full appearance-none cursor-pointer accent-[#2563EB] dark:accent-blue-500 focus:outline-none"
                     aria-label="Seek video progress"
                   />
                 </div>
@@ -659,7 +651,7 @@ export const VideoTutorialsView: React.FC = () => {
                   {/* 1. REWIND BUTTON */}
                   <button
                     onClick={handleRewind}
-                    className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-white/10 hover:bg-white/20 dark:bg-purple-950/40 text-slate-200 hover:text-white transition-colors cursor-pointer active:scale-95 flex items-center justify-center shrink-0"
+                    className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-white/10 hover:bg-white/20 dark:bg-blue-950/40 text-slate-200 hover:text-white transition-colors cursor-pointer active:scale-95 flex items-center justify-center shrink-0"
                     title="Rewind 10s (J)"
                   >
                     <RotateCcw className="w-4 h-4" />
@@ -668,7 +660,7 @@ export const VideoTutorialsView: React.FC = () => {
                   {/* 2. PLAY / PAUSE BUTTON */}
                   <button
                     onClick={togglePlay}
-                    className="h-11 sm:h-10 px-5 sm:px-6 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-purple-600 dark:hover:bg-purple-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95 transition-all"
+                    className="h-11 sm:h-10 px-5 sm:px-6 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95 transition-all"
                     title={isPlaying ? 'Pause video (Space/K)' : 'Play video (Space)'}
                   >
                     {isPlaying ? <Pause className="w-4 h-4 sm:w-4.5 sm:h-4.5" /> : <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current" />}
@@ -678,7 +670,7 @@ export const VideoTutorialsView: React.FC = () => {
                   {/* 3. FORWARD BUTTON */}
                   <button
                     onClick={handleForward}
-                    className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-white/10 hover:bg-white/20 dark:bg-purple-950/40 text-slate-200 hover:text-white transition-colors cursor-pointer active:scale-95 flex items-center justify-center shrink-0"
+                    className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-white/10 hover:bg-white/20 dark:bg-blue-950/40 text-slate-200 hover:text-white transition-colors cursor-pointer active:scale-95 flex items-center justify-center shrink-0"
                     title="Forward 10s (L)"
                   >
                     <RotateCw className="w-4 h-4" />
@@ -688,16 +680,15 @@ export const VideoTutorialsView: React.FC = () => {
                 {/* Right Side: Speed Selector + Volume + Fullscreen */}
                 <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 border-t sm:border-t-0 border-white/10 pt-2 sm:pt-0">
                   {/* 4. PLAYBACK SPEED SELECTOR */}
-                  <div className="flex items-center gap-0.5 sm:gap-1 bg-black/40 border border-white/10 dark:border-purple-500/30 rounded-xl p-1 shadow-inner shrink-0">
+                  <div className="flex items-center gap-0.5 sm:gap-1 bg-black/40 border border-white/10 dark:border-blue-500/30 rounded-xl p-1 shadow-inner shrink-0">
                     {[0.5, 1, 1.5, 2].map((spd) => (
                       <button
                         key={spd}
                         onClick={() => handleChangeSpeed(spd)}
-                        className={`px-2 sm:px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono font-bold transition-all cursor-pointer ${
-                          playbackSpeed === spd
-                            ? 'bg-[#4F46E5] dark:bg-purple-600 text-white shadow-xs'
+                        className={`px-2 sm:px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono font-bold transition-all cursor-pointer ${playbackSpeed === spd
+                            ? 'bg-[#2563EB] dark:bg-blue-600 text-white shadow-xs'
                             : 'text-slate-400 hover:text-white'
-                        }`}
+                          }`}
                       >
                         {spd}x
                       </button>
@@ -721,7 +712,7 @@ export const VideoTutorialsView: React.FC = () => {
                       step={0.05}
                       value={isMuted ? 0 : volume}
                       onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-                      className="w-14 sm:w-20 h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#4F46E5] dark:accent-purple-500 hidden min-[380px]:inline-block"
+                      className="w-14 sm:w-20 h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#2563EB] dark:accent-blue-500 hidden min-[380px]:inline-block"
                       aria-label="Volume slider"
                     />
 
@@ -749,7 +740,7 @@ export const VideoTutorialsView: React.FC = () => {
         {selectedLesson && !isFullscreen && (
           <div
             id="video-controls-container"
-            className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#0B1228] border border-slate-200/90 dark:border-purple-500/25 shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] space-y-3 sm:space-y-4"
+            className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-blue-500/25 shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] space-y-3 sm:space-y-4"
           >
             {/* Horizontal Progress Bar & Time Display */}
             <div className="space-y-1.5">
@@ -763,7 +754,7 @@ export const VideoTutorialsView: React.FC = () => {
                   value={currentTime}
                   onChange={handleSeek}
                   disabled={hasError || duration === 0}
-                  className="w-full h-3 sm:h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full appearance-none cursor-pointer accent-[#4F46E5] dark:accent-purple-500 focus:outline-none transition-all disabled:opacity-50"
+                  className="w-full h-3 sm:h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full appearance-none cursor-pointer accent-[#2563EB] dark:accent-blue-500 focus:outline-none transition-all disabled:opacity-50"
                   aria-label="Seek video progress"
                 />
               </div>
@@ -783,7 +774,7 @@ export const VideoTutorialsView: React.FC = () => {
                   id="btn-video-rewind"
                   onClick={handleRewind}
                   disabled={hasError}
-                  className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#070B18] dark:hover:bg-purple-950/40 border border-slate-200/90 dark:border-purple-500/25 text-slate-700 dark:text-slate-300 transition-all cursor-pointer active:scale-95 shadow-xs flex items-center justify-center shrink-0"
+                  className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#0F172A] dark:hover:bg-blue-950/40 border border-slate-200/90 dark:border-blue-500/25 text-slate-700 dark:text-slate-300 transition-all cursor-pointer active:scale-95 shadow-xs flex items-center justify-center shrink-0"
                   title="Rewind 10 seconds (J)"
                   aria-label="Rewind 10 seconds"
                 >
@@ -795,7 +786,7 @@ export const VideoTutorialsView: React.FC = () => {
                   id="btn-video-play-pause"
                   onClick={togglePlay}
                   disabled={hasError}
-                  className="h-11 sm:h-10 px-5 sm:px-6 rounded-xl bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-purple-600 dark:hover:bg-purple-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer disabled:opacity-50"
+                  className="h-11 sm:h-10 px-5 sm:px-6 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer disabled:opacity-50"
                   title={isPlaying ? 'Pause video (Space/K)' : 'Play video (Space)'}
                   aria-label={isPlaying ? 'Pause' : 'Play'}
                 >
@@ -808,7 +799,7 @@ export const VideoTutorialsView: React.FC = () => {
                   id="btn-video-forward"
                   onClick={handleForward}
                   disabled={hasError}
-                  className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#070B18] dark:hover:bg-purple-950/40 border border-slate-200/90 dark:border-purple-500/25 text-slate-700 dark:text-slate-300 transition-all cursor-pointer active:scale-95 shadow-xs flex items-center justify-center shrink-0"
+                  className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#0F172A] dark:hover:bg-blue-950/40 border border-slate-200/90 dark:border-blue-500/25 text-slate-700 dark:text-slate-300 transition-all cursor-pointer active:scale-95 shadow-xs flex items-center justify-center shrink-0"
                   title="Forward 10 seconds (L)"
                   aria-label="Forward 10 seconds"
                 >
@@ -817,19 +808,18 @@ export const VideoTutorialsView: React.FC = () => {
               </div>
 
               {/* SECONDARY CONTROLS: Speed Selector + Volume + Fullscreen */}
-              <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3.5 border-t sm:border-t-0 border-slate-100 dark:border-purple-500/15 pt-2.5 sm:pt-0">
+              <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3.5 border-t sm:border-t-0 border-slate-100 dark:border-blue-500/15 pt-2.5 sm:pt-0">
                 {/* 4. PLAYBACK SPEED (0.5x | 1x | 1.5x | 2x) */}
-                <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-100 dark:bg-[#070B18] border border-slate-200/90 dark:border-purple-500/25 rounded-xl p-1 shadow-inner shrink-0">
+                <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-100 dark:bg-[#0F172A] border border-slate-200/90 dark:border-blue-500/25 rounded-xl p-1 shadow-inner shrink-0">
                   {[0.5, 1, 1.5, 2].map((spd) => (
                     <button
                       key={spd}
                       id={`btn-video-speed-${spd}`}
                       onClick={() => handleChangeSpeed(spd)}
-                      className={`px-2 sm:px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono font-bold transition-all cursor-pointer ${
-                        playbackSpeed === spd
-                          ? 'bg-[#4F46E5] dark:bg-purple-600 text-white shadow-xs'
+                      className={`px-2 sm:px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono font-bold transition-all cursor-pointer ${playbackSpeed === spd
+                          ? 'bg-[#2563EB] dark:bg-blue-600 text-white shadow-xs'
                           : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                      }`}
+                        }`}
                       aria-label={`Set speed to ${spd}x`}
                     >
                       {spd}x
@@ -843,14 +833,14 @@ export const VideoTutorialsView: React.FC = () => {
                   <button
                     id="btn-video-mute"
                     onClick={toggleMute}
-                    className="p-2 sm:p-2.5 hover:bg-slate-100 dark:hover:bg-purple-950/40 rounded-xl text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
+                    className="p-2 sm:p-2.5 hover:bg-slate-100 dark:hover:bg-blue-950/40 rounded-xl text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
                     title={isMuted ? 'Unmute' : 'Mute'}
                     aria-label={isMuted ? 'Unmute' : 'Mute'}
                   >
                     {isMuted || volume === 0 ? (
                       <VolumeX className="w-4 h-4 text-slate-400" />
                     ) : (
-                      <Volume2 className="w-4 h-4 text-[#4F46E5] dark:text-purple-400" />
+                      <Volume2 className="w-4 h-4 text-[#2563EB] dark:text-blue-400" />
                     )}
                   </button>
 
@@ -863,7 +853,7 @@ export const VideoTutorialsView: React.FC = () => {
                     step={0.05}
                     value={isMuted ? 0 : volume}
                     onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-                    className="w-14 sm:w-20 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#4F46E5] dark:accent-purple-500 hidden min-[380px]:inline-block"
+                    className="w-14 sm:w-20 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#2563EB] dark:accent-blue-500 hidden min-[380px]:inline-block"
                     aria-label="Volume slider"
                   />
 
@@ -871,7 +861,7 @@ export const VideoTutorialsView: React.FC = () => {
                   <button
                     id="btn-video-fullscreen"
                     onClick={toggleFullscreen}
-                    className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#070B18] dark:hover:bg-purple-950/40 border border-slate-200/90 dark:border-purple-500/25 text-slate-700 dark:text-slate-300 transition-all cursor-pointer active:scale-95 shadow-xs flex items-center justify-center shrink-0"
+                    className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#0F172A] dark:hover:bg-blue-950/40 border border-slate-200/90 dark:border-blue-500/25 text-slate-700 dark:text-slate-300 transition-all cursor-pointer active:scale-95 shadow-xs flex items-center justify-center shrink-0"
                     title={isFullscreen ? 'Exit Fullscreen (F / ESC)' : 'Enter Fullscreen (F)'}
                     aria-label={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
                   >

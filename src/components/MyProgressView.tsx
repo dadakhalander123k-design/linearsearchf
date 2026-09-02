@@ -76,15 +76,15 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
         );
       case 'IN_PROGRESS':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-indigo-50 dark:bg-purple-950/50 text-indigo-700 dark:text-purple-300 border border-indigo-200 dark:border-purple-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-purple-400 animate-pulse" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-indigo-50 dark:bg-blue-950/50 text-indigo-700 dark:text-blue-300 border border-indigo-200 dark:border-blue-500/30">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-blue-400 animate-pulse" />
             <span>In Progress</span>
           </span>
         );
       case 'NOT_STARTED':
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full bg-slate-50 dark:bg-[#080D1F] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-purple-500/20">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full bg-slate-50 dark:bg-[#0F172A] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-blue-500/20">
             <Circle className="w-3 h-3 text-slate-400 dark:text-slate-500" />
             <span>Not Started</span>
           </span>
@@ -110,10 +110,10 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 font-sans text-slate-900 dark:text-white animate-page-enter pb-24">
       {/* Header Section */}
-      <div className="border-b border-slate-200 dark:border-purple-500/20 pb-6 mb-8">
+      <div className="border-b border-slate-200 dark:border-blue-500/20 pb-6 mb-8">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-2">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-bold font-mono uppercase tracking-widest text-indigo-600 dark:text-purple-300 bg-indigo-50 dark:bg-purple-950/60 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-purple-500/30">
+            <span className="text-xs font-bold font-mono uppercase tracking-widest text-indigo-600 dark:text-blue-300 bg-indigo-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-blue-500/30">
               Curriculum Progress Tracker
             </span>
             <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
@@ -145,14 +145,14 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
         {is100Percent && (
           <div
             id="progress-100-percent-banner"
-            className="mt-6 p-5 bg-gradient-to-r from-indigo-50 to-indigo-100/60 dark:from-purple-950/50 dark:to-indigo-950/40 border border-indigo-200 dark:border-purple-500/30 rounded-2xl shadow-xs dark:shadow-[0_0_20px_rgba(124,58,237,0.25)] flex flex-col sm:flex-row items-center justify-between gap-4 animate-editorial-scale"
+            className="mt-6 p-5 bg-gradient-to-r from-indigo-50 to-indigo-100/60 dark:from-blue-950/50 dark:to-indigo-950/40 border border-indigo-200 dark:border-blue-500/30 rounded-2xl shadow-xs dark:shadow-[0_0_20px_rgba(59,130,246,0.25)] flex flex-col sm:flex-row items-center justify-between gap-4 animate-editorial-scale"
           >
             <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-indigo-600 dark:bg-purple-600 text-white flex items-center justify-center font-bold shadow-xs">
+              <div className="w-11 h-11 rounded-xl bg-indigo-600 dark:bg-blue-600 text-white flex items-center justify-center font-bold shadow-xs">
                 <Sparkles className="w-6 h-6 text-amber-300" />
               </div>
               <div>
-                <div className="text-xs font-bold font-mono text-indigo-700 dark:text-purple-300 uppercase tracking-wider">
+                <div className="text-xs font-bold font-mono text-indigo-700 dark:text-blue-300 uppercase tracking-wider">
                   ★ Congratulations! 100% Curriculum Completed
                 </div>
                 <div className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
@@ -179,7 +179,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
       {/* Progress Summary Cards & Next Action */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* Card 1: Main Progress Metric */}
-        <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/25 rounded-2xl p-6 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] relative overflow-hidden reveal-on-scroll">
+        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-2xl p-6 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] relative overflow-hidden reveal-on-scroll">
           <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
             Overall Completion
           </div>
@@ -195,7 +195,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
           {/* Clean Segmented Progress Bar */}
           <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
             <div
-              className="bg-indigo-600 dark:bg-gradient-to-r dark:from-purple-600 dark:to-cyan-400 h-full rounded-full transition-all duration-500 ease-out"
+              className="bg-indigo-600 dark:bg-gradient-to-r dark:from-blue-600 dark:to-indigo-500 h-full rounded-full transition-all duration-500 ease-out"
               style={{ width: `${stats.percentage}%` }}
             />
           </div>
@@ -207,38 +207,38 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
         </div>
 
         {/* Card 2: Stats Breakdown */}
-        <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/25 rounded-2xl p-6 flex flex-col justify-between shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll stagger-1">
+        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-2xl p-6 flex flex-col justify-between shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll stagger-1">
           <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
             Performance Stats
           </div>
 
-          <div className="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 dark:border-purple-500/15 text-center">
+          <div className="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 dark:border-blue-500/15 text-center">
             <div>
               <div className="text-2xl font-extrabold text-amber-600 dark:text-amber-400 font-mono">{stats.mastered}</div>
               <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Mastered ★</div>
             </div>
-            <div className="border-x border-slate-100 dark:border-purple-500/15">
+            <div className="border-x border-slate-100 dark:border-blue-500/15">
               <div className="text-2xl font-extrabold text-slate-900 dark:text-white font-mono">{stats.completed} / {stats.total}</div>
               <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Activities</div>
             </div>
             <div>
-              <div className="text-2xl font-extrabold text-indigo-600 dark:text-cyan-400 font-mono">{progressState.levelsCompleted.length} / 5</div>
+              <div className="text-2xl font-extrabold text-indigo-600 dark:text-blue-400 font-mono">{progressState.levelsCompleted.length} / 5</div>
               <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Levels Won</div>
             </div>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-3 font-medium">
-            <Trophy className="w-4 h-4 text-indigo-600 dark:text-purple-400 shrink-0" />
+            <Trophy className="w-4 h-4 text-indigo-600 dark:text-blue-400 shrink-0" />
             <span className="truncate">Master Challenges: {progressState.masterChallengesCompleted.length >= 4 ? 'All Clear (Master)' : `${progressState.masterChallengesCompleted.length} / 4 Challenges`}</span>
           </div>
         </div>
 
         {/* Card 3: Next Recommended Step */}
-        <div className="bg-gradient-to-br from-indigo-50/60 to-white dark:from-purple-950/40 dark:to-[#0B1228] border border-indigo-100 dark:border-purple-500/30 rounded-2xl p-6 flex flex-col justify-between shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll stagger-2">
+        <div className="bg-gradient-to-br from-indigo-50/60 to-white dark:from-blue-950/40 dark:to-[#111827] border border-indigo-100 dark:border-blue-500/30 rounded-2xl p-6 flex flex-col justify-between shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll stagger-2">
           <div>
-            <div className="flex items-center justify-between text-xs font-bold font-mono uppercase tracking-wider text-indigo-600 dark:text-cyan-300 mb-1">
+            <div className="flex items-center justify-between text-xs font-bold font-mono uppercase tracking-wider text-indigo-600 dark:text-blue-300 mb-1">
               <span>Recommended Next Step</span>
-              <span className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-cyan-400 animate-ping" />
+              <span className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-blue-400 animate-ping" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white line-clamp-1">
               {stats.nextModule.title}
@@ -260,10 +260,10 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
       </div>
 
       {/* Video Learning Lessons Progress Card */}
-      <div className="bg-white dark:bg-[#0B1228] border border-slate-200 dark:border-purple-500/25 rounded-2xl p-5 mb-8 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll">
+      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-2xl p-5 mb-8 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-purple-950/50 text-indigo-600 dark:text-purple-400 border border-indigo-100 dark:border-purple-500/30">
+            <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-blue-950/50 text-indigo-600 dark:text-blue-400 border border-indigo-100 dark:border-blue-500/30">
               <Video className="w-5 h-5" />
             </div>
             <div>
@@ -281,16 +281,16 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
               soundManager.playNav();
               onNavigateToTab('VIDEO');
             }}
-            className="text-xs font-semibold text-indigo-600 dark:text-purple-300 hover:text-indigo-700 dark:hover:text-purple-200 flex items-center gap-1.5 self-start sm:self-auto cursor-pointer transition-colors"
+            className="text-xs font-semibold text-indigo-600 dark:text-blue-300 hover:text-indigo-700 dark:hover:text-blue-200 flex items-center gap-1.5 self-start sm:self-auto cursor-pointer transition-colors"
           >
             <span>Open Video Section</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-purple-500/15">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-blue-500/15">
           {/* Lesson 1 status */}
-          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#080D1F] border border-slate-200/80 dark:border-purple-500/20">
+          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#0F172A] border border-slate-200/80 dark:border-blue-500/20">
             <span className="text-xs font-medium text-slate-800 dark:text-slate-200">
               Lesson 01: What is Linear Search?
             </span>
@@ -306,7 +306,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
           </div>
 
           {/* Lesson 2 status */}
-          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#080D1F] border border-slate-200/80 dark:border-purple-500/20">
+          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#0F172A] border border-slate-200/80 dark:border-blue-500/20">
             <span className="text-xs font-medium text-slate-800 dark:text-slate-200">
               Lesson 02: How Does Linear Search Work?
             </span>
@@ -324,7 +324,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-purple-500/20 pb-3 mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-blue-500/20 pb-3 mb-6">
         <div className="flex items-center gap-1.5 overflow-x-auto py-1">
           {(['ALL', 'FOUNDATION', 'MECHANICS', 'ANALYSIS', 'PRACTICE'] as const).map((cat) => (
             <button
@@ -334,8 +334,8 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
                 setActiveFilter(cat);
               }}
               className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${activeFilter === cat
-                ? 'bg-indigo-600 dark:bg-purple-600 text-white shadow-xs dark:shadow-[0_0_10px_rgba(124,58,237,0.4)]'
-                : 'bg-slate-100 dark:bg-[#080D1F] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[#0F1733]'
+                ? 'bg-indigo-600 dark:bg-blue-600 text-white shadow-xs dark:shadow-[0_0_10px_rgba(59,130,246,0.4)]'
+                : 'bg-slate-100 dark:bg-[#0F172A] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[#172033]'
                 }`}
             >
               {cat === 'ALL' ? 'All Modules' : cat.charAt(0) + cat.slice(1).toLowerCase()}
@@ -359,21 +359,21 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
             <div
               key={m.id}
               id={`progress-module-${m.id}`}
-              className={`bg-white dark:bg-[#0B1228] border rounded-2xl p-5 sm:p-6 transition-all duration-200 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll ${staggerClass} ${isDone
-                ? 'border-slate-200 dark:border-purple-500/20 hover:border-slate-300 dark:hover:border-purple-500/40'
+              className={`bg-white dark:bg-[#111827] border rounded-2xl p-5 sm:p-6 transition-all duration-200 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll ${staggerClass} ${isDone
+                ? 'border-slate-200 dark:border-blue-500/20 hover:border-slate-300 dark:hover:border-blue-500/40'
                 : isInProgress
-                  ? 'border-indigo-300 dark:border-cyan-400/50 ring-1 ring-indigo-200 dark:ring-cyan-500/30'
-                  : 'border-slate-200 dark:border-purple-500/20 hover:border-slate-300 dark:hover:border-purple-500/40'
+                  ? 'border-indigo-300 dark:border-blue-400/50 ring-1 ring-indigo-200 dark:ring-blue-500/30'
+                  : 'border-slate-200 dark:border-blue-500/20 hover:border-slate-300 dark:hover:border-blue-500/40'
                 }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 {/* Left metadata & title */}
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="text-xs font-bold font-mono px-2 py-0.5 bg-slate-100 dark:bg-[#080D1F] border border-slate-200 dark:border-purple-500/30 text-slate-700 dark:text-slate-300 rounded-md">
+                    <span className="text-xs font-bold font-mono px-2 py-0.5 bg-slate-100 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/30 text-slate-700 dark:text-slate-300 rounded-md">
                       {m.code}
                     </span>
-                    <span className="text-xs font-semibold text-indigo-600 dark:text-cyan-300 uppercase font-mono">
+                    <span className="text-xs font-semibold text-indigo-600 dark:text-blue-300 uppercase font-mono">
                       {m.category}
                     </span>
                     {renderStatusBadge(m.status)}
@@ -387,14 +387,14 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
                     {m.description}
                   </p>
 
-                  <div className="mt-3 flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[#080D1F] px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-purple-500/20 inline-block font-sans">
+                  <div className="mt-3 flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[#0F172A] px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-blue-500/20 inline-block font-sans">
                     <span className="font-bold text-slate-700 dark:text-slate-200">Criteria:</span>
                     <span>{m.criteriaDescription}</span>
                   </div>
                 </div>
 
                 {/* Right Action & Progress Meter */}
-                <div className="flex flex-col sm:items-end justify-between gap-3 shrink-0 sm:border-l sm:border-slate-100 dark:sm:border-purple-500/15 sm:pl-6">
+                <div className="flex flex-col sm:items-end justify-between gap-3 shrink-0 sm:border-l sm:border-slate-100 dark:sm:border-blue-500/15 sm:pl-6">
                   <div className="w-full sm:w-36 text-right">
                     <div className="flex justify-between items-center text-xs font-semibold mb-1 text-slate-500 dark:text-slate-400">
                       <span>Progress</span>
@@ -406,7 +406,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
                           ? 'bg-amber-500'
                           : m.status === 'COMPLETED'
                             ? 'bg-emerald-600'
-                            : 'bg-indigo-600 dark:bg-purple-600'
+                            : 'bg-indigo-600 dark:bg-blue-600'
                           }`}
                         style={{ width: `${m.progressPercent}%` }}
                       />

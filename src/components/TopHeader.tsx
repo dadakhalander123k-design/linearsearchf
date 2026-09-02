@@ -81,17 +81,16 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
     showHamburgerDesktop && showHamburgerMobile
       ? 'flex'
       : showHamburgerDesktop && !showHamburgerMobile
-      ? 'hidden lg:flex'
-      : !showHamburgerDesktop && showHamburgerMobile
-      ? 'flex lg:hidden'
-      : 'hidden';
+        ? 'hidden lg:flex'
+        : !showHamburgerDesktop && showHamburgerMobile
+          ? 'flex lg:hidden'
+          : 'hidden';
 
   return (
     <header
       id="app-top-header"
-      className={`fixed top-0 right-0 left-0 ${
-        isDesktopSidebarOpen ? 'lg:left-64' : 'lg:left-0'
-      } z-20 bg-white dark:bg-[#070B18]/95 border-b border-slate-200 dark:border-purple-500/20 shadow-xs backdrop-blur-md transition-all duration-300`}
+      className={`fixed top-0 right-0 left-0 ${isDesktopSidebarOpen ? 'lg:left-64' : 'lg:left-0'
+        } z-20 bg-white dark:bg-[#0F172A]/95 border-b border-slate-200 dark:border-blue-500/20 shadow-xs backdrop-blur-md transition-all duration-300`}
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
         {/* Left Side: 1. Menu Button (when sidebar is closed) -> 2. AlgoLearn Logo -> 3. Current Section */}
@@ -100,7 +99,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           <button
             id="btn-sidebar-toggle"
             onClick={onToggleMobileSidebar}
-            className={`p-1.5 sm:p-2 text-slate-600 dark:text-purple-300 hover:text-slate-900 dark:hover:text-white bg-slate-100/80 dark:bg-purple-950/40 hover:bg-slate-200/80 dark:hover:bg-purple-900/50 border border-slate-200 dark:border-purple-500/30 rounded-xl transition-all duration-150 cursor-pointer shrink-0 shadow-xs items-center justify-center ${hamburgerVisibilityClass}`}
+            className={`p-1.5 sm:p-2 text-slate-600 dark:text-blue-300 hover:text-slate-900 dark:hover:text-white bg-slate-100/80 dark:bg-blue-950/40 hover:bg-slate-200/80 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-500/30 rounded-xl transition-all duration-150 cursor-pointer shrink-0 shadow-xs items-center justify-center ${hamburgerVisibilityClass}`}
             title="Open Navigation Menu (☰)"
             aria-label="Open navigation menu"
           >
@@ -113,8 +112,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           </div>
 
           {/* 3. CURRENT PAGE / SECTION (SECONDARY) */}
-          <div className="hidden xs:flex items-center gap-2 pl-2.5 sm:pl-3 border-l border-slate-200 dark:border-purple-500/25 min-w-0">
-            <span className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-purple-300 font-sans tracking-wide leading-none truncate">
+          <div className="hidden xs:flex items-center gap-2 pl-2.5 sm:pl-3 border-l border-slate-200 dark:border-blue-500/25 min-w-0">
+            <span className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-blue-300 font-sans tracking-wide leading-none truncate">
               {pageName}
             </span>
           </div>
@@ -141,7 +140,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
               soundManager.playToggle(theme !== 'dark');
               toggleTheme();
             }}
-            className="p-1.5 sm:p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-purple-950/40 border border-slate-200 dark:border-purple-500/30 rounded-xl transition-all cursor-pointer shadow-xs dark:shadow-[0_0_12px_rgba(124,58,237,0.2)]"
+            className="p-1.5 sm:p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-blue-950/40 border border-slate-200 dark:border-blue-500/30 rounded-xl transition-all cursor-pointer shadow-xs dark:shadow-[0_0_12px_rgba(37,99,235,0.2)]"
             title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           >
@@ -156,14 +155,14 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           <button
             id="btn-header-mute"
             onClick={onToggleMute}
-            className="p-1.5 sm:p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-purple-950/40 border border-slate-200 dark:border-purple-500/30 rounded-xl transition-colors cursor-pointer shadow-xs"
+            className="p-1.5 sm:p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-blue-950/40 border border-slate-200 dark:border-blue-500/30 rounded-xl transition-colors cursor-pointer shadow-xs"
             title={isMuted ? 'Unmute Audio' : 'Mute Audio'}
             aria-label={isMuted ? 'Unmute Audio' : 'Mute Audio'}
           >
             {isMuted ? (
               <VolumeX className="w-4 h-4 text-slate-400" />
             ) : (
-              <Volume2 className="w-4 h-4 text-indigo-600 dark:text-purple-400" />
+              <Volume2 className="w-4 h-4 text-indigo-600 dark:text-blue-400" />
             )}
           </button>
 
@@ -174,7 +173,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
               soundManager.playModalOpen();
               onResetAllProgress();
             }}
-            className="p-1.5 sm:p-2 text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-slate-200 dark:border-purple-500/30 rounded-xl transition-colors cursor-pointer shadow-xs"
+            className="p-1.5 sm:p-2 text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-slate-200 dark:border-blue-500/30 rounded-xl transition-colors cursor-pointer shadow-xs"
             title="Reset Progress"
             aria-label="Reset Progress"
           >

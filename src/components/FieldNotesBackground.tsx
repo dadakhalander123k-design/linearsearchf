@@ -11,7 +11,7 @@ export const FieldNotesBackground: React.FC = () => {
       aria-hidden="true"
     >
       {/* Plain clean background */}
-      <div className="absolute inset-0 bg-[#F8FAFC] dark:bg-[#050816]" />
+      <div className="absolute inset-0 bg-[#F8FAFC] dark:bg-[#0B1120]" />
     </div>
   );
 };

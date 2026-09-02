@@ -19,7 +19,7 @@ export const CollisionModal: React.FC<CollisionModalProps> = ({
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-editorial-fade font-sans">
-      <div className="bg-white dark:bg-[#0B1228] w-full max-w-md border border-slate-200 dark:border-purple-500/30 rounded-2xl shadow-xl dark:shadow-[0_0_30px_rgba(244,63,94,0.25)] overflow-hidden p-6 sm:p-8 flex flex-col items-center text-center">
+      <div className="bg-white dark:bg-[#111827] w-full max-w-md border border-slate-200 dark:border-blue-500/30 rounded-2xl shadow-xl dark:shadow-[0_0_30px_rgba(244,63,94,0.25)] overflow-hidden p-6 sm:p-8 flex flex-col items-center text-center">
         {/* Collision Badge */}
         <div className="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-3 shadow-xs">
           <ShieldAlert className="w-8 h-8 stroke-[2]" />
@@ -34,10 +34,10 @@ export const CollisionModal: React.FC<CollisionModalProps> = ({
         </h3>
 
         {/* Visual Clash Breakdown */}
-        <div className="flex items-center justify-center gap-3 my-4 w-full bg-slate-50 dark:bg-[#080D1F] border border-slate-200 dark:border-purple-500/20 rounded-xl p-4">
+        <div className="flex items-center justify-center gap-3 my-4 w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-blue-500/20 rounded-xl p-4">
           <div className="flex flex-col items-center">
             <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 font-mono">Stored Key</span>
-            <div className="w-14 h-14 rounded-xl bg-slate-900 dark:bg-[#0F1733] text-white dark:text-[#F8FAFC] border border-transparent dark:border-purple-500/30 flex items-center justify-center font-mono font-bold text-2xl shadow-xs mt-1">
+            <div className="w-14 h-14 rounded-xl bg-slate-900 dark:bg-[#172033] text-white dark:text-[#F8FAFC] border border-transparent dark:border-blue-500/30 flex items-center justify-center font-mono font-bold text-2xl shadow-xs mt-1">
               {existingKey}
             </div>
             <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono font-bold mt-1.5">{existingKey} % {tableSize} = {index}</span>
@@ -46,11 +46,11 @@ export const CollisionModal: React.FC<CollisionModalProps> = ({
           <div className="text-rose-600 dark:text-rose-400 font-black text-sm px-1 font-mono">VS</div>
 
           <div className="flex flex-col items-center">
-            <span className="text-[10px] uppercase font-bold text-indigo-600 dark:text-purple-400 font-mono">New Key</span>
-            <div className="w-14 h-14 rounded-xl bg-indigo-600 dark:bg-purple-600 text-white flex items-center justify-center font-mono font-bold text-2xl shadow-xs mt-1 shadow-indigo-200 dark:shadow-[0_0_14px_rgba(124,58,237,0.4)]">
+            <span className="text-[10px] uppercase font-bold text-indigo-600 dark:text-blue-400 font-mono">New Key</span>
+            <div className="w-14 h-14 rounded-xl bg-[#2563EB] dark:bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-2xl shadow-xs mt-1 shadow-blue-200 dark:shadow-[0_0_14px_rgba(37,99,235,0.4)]">
               {incomingKey}
             </div>
-            <span className="text-[10px] text-indigo-600 dark:text-purple-400 font-mono font-bold mt-1.5">{incomingKey} % {tableSize} = {index}</span>
+            <span className="text-[10px] text-indigo-600 dark:text-blue-400 font-mono font-bold mt-1.5">{incomingKey} % {tableSize} = {index}</span>
           </div>
         </div>
 
