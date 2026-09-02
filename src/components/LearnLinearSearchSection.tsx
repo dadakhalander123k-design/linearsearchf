@@ -35,13 +35,13 @@ import {
   LinearSearchModule,
 } from '../data/linearSearchTheory';
 
-export interface LearnHashingSectionProps {
+export interface LearnLinearSearchSectionProps {
   initialTopic?: string;
   onStartLevel: (levelId: number) => void;
   onOpenSandbox: (technique?: TechniqueType, size?: number) => void;
 }
 
-export const LearnHashingSection: React.FC<LearnHashingSectionProps> = ({
+export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> = ({
   initialTopic = 'theory-01',
   onStartLevel,
   onOpenSandbox,
@@ -708,4 +708,4 @@ export const LearnHashingSection: React.FC<LearnHashingSectionProps> = ({
   );
 };
 
-export default LearnHashingSection;
+export default LearnLinearSearchSection;

@@ -21,7 +21,7 @@ import { ExplanationPanel } from './components/ExplanationPanel';
 import { CollisionModal } from './components/CollisionModal';
 import { LevelCompleteModal } from './components/LevelCompleteModal';
 import { SandboxMode } from './components/SandboxMode';
-import { LearnHashingSection } from './components/LearnHashingSection';
+import { LearnLinearSearchSection } from './components/LearnLinearSearchSection';
 import { VideoTutorialsView } from './components/VideoTutorialsView';
 import { MyProgressView } from './components/MyProgressView';
 import { QuizView } from './components/QuizView';
@@ -619,7 +619,7 @@ export default function App() {
 
             {/* 2. THEORY SECTION */}
             {activeTab === 'THEORY' && (
-              <LearnHashingSection
+              <LearnLinearSearchSection
                 initialTopic={activeTheoryTopic}
                 onStartLevel={(lvlId) => {
                   if (lvlId === 6 && !isAllLevelsCompleted) {
