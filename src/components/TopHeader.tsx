@@ -4,7 +4,6 @@ import {
   Volume2,
   VolumeX,
   RotateCcw,
-  Flame,
   Moon,
   Sun,
 } from 'lucide-react';
@@ -121,18 +120,6 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
 
         {/* Right Side: Essential Utilities (Theme, Mute, Reset) - NO XP/PTS */}
         <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
-          {/* Streak Pill (in game mode) */}
-          {streak > 0 && isGameMode && (
-            <div
-              id="header-stat-streak"
-              className="flex items-center gap-1 px-1.5 sm:px-2 py-1.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200/80 dark:border-amber-500/30 rounded-xl text-xs font-semibold text-amber-800 dark:text-amber-300 shadow-xs animate-fadeIn"
-              title="Current Correct Streak"
-            >
-              <Flame className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              <span className="font-mono font-bold">{streak}</span>
-            </div>
-          )}
-
           {/* Theme Mode Toggle */}
           <button
             id="btn-theme-toggle"
