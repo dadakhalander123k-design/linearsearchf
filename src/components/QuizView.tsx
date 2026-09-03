@@ -364,6 +364,56 @@ export const QuizView: React.FC<QuizViewProps> = ({
 
   const tier = getResultTier(score);
 
+  // Dynamic Certificate / Completion Card Theme & Grade Content based on final quiz percentage
+  const certificateTheme = useMemo(() => {
+    if (percentage >= 80) {
+      // 🟢 Green / Grade A (80%–100%)
+      return {
+        grade: 'A',
+        badgeText: '★ OUTSTANDING MASTERY (GRADE A) ★',
+        description:
+          'Incredible performance! You demonstrated thorough command of Linear Search traversal, edge cases, and algorithmic complexities.',
+        cardBorder: 'border-slate-200 dark:border-emerald-500/30',
+        iconBg: 'bg-[#00A86B] dark:bg-emerald-600 shadow-emerald-500/20 dark:shadow-emerald-950/50',
+        badge: 'border-[#00A86B]/40 dark:border-emerald-500/40 bg-[#E6F8F0] dark:bg-emerald-950/60 text-[#008A54] dark:text-emerald-300',
+        scoreCardBorder: 'border-[#A7F3D0] dark:border-emerald-500/40',
+        scoreLabel: 'text-[#008A54] dark:text-emerald-400',
+        scoreAccent: 'text-[#00A86B] dark:text-emerald-400',
+        scoreSubBorder: 'border-slate-200 dark:border-emerald-500/30',
+      };
+    } else if (percentage >= 40) {
+      // 🔵 Light Blue / Grade B (40%–79%)
+      return {
+        grade: 'B',
+        badgeText: '★ STRONG PERFORMANCE (GRADE B) ★',
+        description:
+          'Solid performance! You have a good grasp of Linear Search fundamentals. Review any missed questions to master all concepts.',
+        cardBorder: 'border-slate-200 dark:border-sky-500/30',
+        iconBg: 'bg-[#0284C7] dark:bg-sky-500 shadow-sky-500/20 dark:shadow-sky-950/50',
+        badge: 'border-sky-400/40 dark:border-sky-500/40 bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300',
+        scoreCardBorder: 'border-sky-200 dark:border-sky-500/40',
+        scoreLabel: 'text-sky-600 dark:text-sky-400',
+        scoreAccent: 'text-[#0284C7] dark:text-sky-400',
+        scoreSubBorder: 'border-slate-200 dark:border-sky-500/30',
+      };
+    } else {
+      // 🟡 Yellow / Grade C (0%–39%)
+      return {
+        grade: 'C',
+        badgeText: '★ NEEDS IMPROVEMENT (GRADE C) ★',
+        description:
+          'Keep practicing! Review the step-by-step Theory modules and try interactive simulations in the Visualizer to strengthen your understanding.',
+        cardBorder: 'border-slate-200 dark:border-amber-500/30',
+        iconBg: 'bg-[#EAB308] dark:bg-amber-500 shadow-amber-500/20 dark:shadow-amber-950/50',
+        badge: 'border-amber-400/40 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300',
+        scoreCardBorder: 'border-amber-200 dark:border-amber-500/40',
+        scoreLabel: 'text-amber-700 dark:text-amber-400',
+        scoreAccent: 'text-[#D97706] dark:text-amber-400',
+        scoreSubBorder: 'border-slate-200 dark:border-amber-500/30',
+      };
+    }
+  }, [percentage]);
+
   // Handle student selecting an option (before or during answering)
   const handleSelectOption = (optionIndex: number) => {
     if (isCurrentQuestionAnswered && isSubmitted) return;
@@ -559,16 +609,16 @@ export const QuizView: React.FC<QuizViewProps> = ({
       {isSubmitted && (
         <div
           id="quiz-result-card"
-          className="mb-8 p-6 sm:p-10 lg:p-12 bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-3xl shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] flex flex-col items-center justify-center text-center animate-editorial-scale transition-all"
+          className={`mb-8 p-6 sm:p-10 lg:p-12 bg-white dark:bg-[#111827] border ${certificateTheme.cardBorder} rounded-3xl shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] flex flex-col items-center justify-center text-center animate-editorial-scale transition-all`}
         >
           {/* 1. Top Achievement Trophy Icon */}
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-[#00A86B] dark:bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 dark:shadow-emerald-950/50 mx-auto mb-4 sm:mb-5">
+          <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl ${certificateTheme.iconBg} flex items-center justify-center shadow-lg mx-auto mb-4 sm:mb-5`}>
             <Trophy className="w-8 h-8 sm:w-10 sm:h-10 text-white stroke-[2.2]" />
           </div>
 
           {/* 2. Achievement Badge */}
-          <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-[#00A86B]/40 dark:border-emerald-500/40 bg-[#E6F8F0] dark:bg-emerald-950/60 text-[#008A54] dark:text-emerald-300 font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-3 sm:mb-4">
-            ★ OUTSTANDING MASTERY (GRADE A+) ★
+          <div className={`inline-flex items-center justify-center px-4 py-1.5 rounded-full border ${certificateTheme.badge} font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-3 sm:mb-4`}>
+            {certificateTheme.badgeText}
           </div>
 
           {/* 3. Main Completion Heading */}
@@ -578,18 +628,18 @@ export const QuizView: React.FC<QuizViewProps> = ({
 
           {/* 4. Supporting Description */}
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed font-normal mb-6 sm:mb-8">
-            Incredible performance! You demonstrated thorough command of Linear Search traversal, edge cases, and algorithmic complexities.
+            {certificateTheme.description}
           </p>
 
           {/* 5. Large Highlighted Score Card */}
-          <div className="w-full max-w-md mx-auto p-6 sm:p-8 bg-white dark:bg-[#0F172A] border-2 border-[#DBEAFE] dark:border-blue-500/40 rounded-3xl shadow-sm dark:shadow-md flex flex-col items-center justify-center text-center mb-6 sm:mb-8">
-            <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] text-[#2563EB] dark:text-[#3B82F6] uppercase mb-2">
+          <div className={`w-full max-w-md mx-auto p-6 sm:p-8 bg-white dark:bg-[#0F172A] border-2 ${certificateTheme.scoreCardBorder} rounded-3xl shadow-sm dark:shadow-md flex flex-col items-center justify-center text-center mb-6 sm:mb-8`}>
+            <span className={`text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] ${certificateTheme.scoreLabel} uppercase mb-2`}>
               FINAL HIGHLIGHTED SCORE
             </span>
-            <div className="text-5xl sm:text-6xl font-black text-[#00A86B] dark:text-emerald-400 font-sans tracking-tight leading-none my-2">
+            <div className={`text-5xl sm:text-6xl font-black ${certificateTheme.scoreAccent} font-sans tracking-tight leading-none my-2`}>
               {percentage}%
             </div>
-            <div className="mt-3 px-4 py-1.5 rounded-xl bg-slate-50 dark:bg-blue-950/40 border border-slate-200 dark:border-blue-500/30 text-slate-700 dark:text-slate-300 font-mono text-xs sm:text-sm font-semibold">
+            <div className={`mt-3 px-4 py-1.5 rounded-xl bg-slate-50 dark:bg-blue-950/40 border ${certificateTheme.scoreSubBorder} text-slate-700 dark:text-slate-300 font-mono text-xs sm:text-sm font-semibold`}>
               {score} / {totalQuestions} Questions Correct
             </div>
           </div>
@@ -601,7 +651,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
               <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase mb-1.5">
                 CORRECT
               </span>
-              <span className="text-xl sm:text-2xl font-extrabold text-[#00A86B] dark:text-emerald-400 font-mono flex items-center justify-center gap-1.5">
+              <span className={`text-xl sm:text-2xl font-extrabold ${certificateTheme.scoreAccent} font-mono flex items-center justify-center gap-1.5`}>
                 <Check className="w-5 h-5 stroke-[2.5]" />
                 {score}
               </span>
@@ -776,7 +826,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
                     }`}
                 >
                   <Check className="w-4 h-4" />
-                  <span>Confirm Answer</span>
+                  <span>Submit Answer</span>
                 </button>
               ) : currentQuestionIndex < totalQuestions - 1 ? (
                 <button
