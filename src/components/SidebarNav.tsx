@@ -141,6 +141,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
               key={item.id}
               id={`sidebar-nav-${item.id.toLowerCase()}`}
               onClick={() => handleSelect(item.id)}
+              aria-current={isActive ? 'page' : undefined}
               className={`group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-150 cursor-pointer ${isActive
                   ? 'bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-[#3B82F6] font-semibold shadow-xs border border-[#DBEAFE] dark:border-blue-500/30'
                   : 'text-[#475569] dark:text-slate-400 hover:bg-[#EFF6FF] dark:hover:bg-blue-950/20 hover:text-[#2563EB] dark:hover:text-white border border-transparent'
@@ -176,7 +177,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
     <>
       {/* Desktop Fixed Left Sidebar with smooth collapse transition */}
       <div
-        id="app-sidebar-container"
+        id="app-sidebar-desktop-container"
         className={`hidden lg:block fixed top-0 left-0 bottom-0 h-screen z-30 transition-all duration-300 ease-in-out ${isDesktopOpen
             ? 'w-64 opacity-100 translate-x-0 pointer-events-auto'
             : 'w-0 opacity-0 -translate-x-full pointer-events-none overflow-hidden'
@@ -193,7 +194,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
             onClick={onCloseMobile}
           />
           <div
-            id="app-sidebar-container"
+            id="app-sidebar-mobile-container"
             className="relative z-10 w-64 h-full bg-white dark:bg-[#0F172A] shadow-xl animate-slideRight"
           >
             {content}

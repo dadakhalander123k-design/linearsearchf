@@ -138,7 +138,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
           Learning Progress & Mastery
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-300 max-w-2xl mt-1 leading-relaxed">
-          Track your journey through hashing principles, collision resolution techniques, and interactive lab experiments.
+          Track your journey through sequential search mechanics, complexity analysis, and interactive lab experiments.
         </p>
 
         {/* 100% Completion Golden Banner if Completed */}
@@ -156,7 +156,7 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
                   ★ Congratulations! 100% Curriculum Completed
                 </div>
                 <div className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
-                  You Have Mastered All 12 Hashing Modules & Activities
+                  You Have Mastered All 12 Linear Search Modules & Activities
                 </div>
               </div>
             </div>

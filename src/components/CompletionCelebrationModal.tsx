@@ -49,18 +49,18 @@ export const CompletionCelebrationModal: React.FC<CompletionCelebrationModalProp
   });
 
   const competencies = [
-    { code: 'FN-01', title: 'What is Hashing? & O(1) Time Complexity', status: 'Mastered' },
-    { code: 'FN-02', title: 'The Hash Function & Modulo Arithmetic', status: 'Mastered' },
-    { code: 'FN-03', title: 'The Hash Table Architecture & Direct Addressing', status: 'Mastered' },
-    { code: 'FN-04', title: 'The Hashing Lifecycle Pipeline', status: 'Mastered' },
-    { code: 'FN-05', title: 'What is a Collision? & Birthday Paradox', status: 'Mastered' },
-    { code: 'FN-06', title: 'Separate Chaining & Linked Buckets', status: 'Mastered' },
-    { code: 'FN-07', title: 'Linear Probing & Open Addressing', status: 'Mastered' },
-    { code: 'FN-08', title: 'Quadratic Probing & Square Leap Intervals', status: 'Mastered' },
-    { code: 'FN-09', title: 'Double Hashing & Dual Step Functions', status: 'Mastered' },
-    { code: 'FN-10', title: 'Real-World Production Applications & Systems', status: 'Mastered' },
-    { code: 'FN-11', title: 'Core Algorithmic Advantages & Hardware Cache', status: 'Mastered' },
-    { code: 'FN-12', title: 'Limitations, Range Search Tradeoffs & Rehashing', status: 'Mastered' },
+    { code: 'FN-01', title: 'What is Linear Search? & Fundamental Mechanics', status: 'Mastered' },
+    { code: 'FN-02', title: 'How Linear Search Works & Step-by-Step Traversal', status: 'Mastered' },
+    { code: 'FN-03', title: 'Detailed Concrete Tracing & State Inspection', status: 'Mastered' },
+    { code: 'FN-04', title: 'Pseudocode & Formal Algorithmic Invariants', status: 'Mastered' },
+    { code: 'FN-05', title: 'Time Complexity: Best O(1), Avg & Worst O(n)', status: 'Mastered' },
+    { code: 'FN-06', title: 'Space Complexity & In-Place Auxiliary Memory', status: 'Mastered' },
+    { code: 'FN-07', title: 'Multi-Language Implementation in C, C++, Java & Python', status: 'Mastered' },
+    { code: 'FN-08', title: 'Core Algorithmic Advantages & Hardware Cache Locality', status: 'Mastered' },
+    { code: 'FN-09', title: 'Disadvantages, Scaling Bottlenecks & Big-Data Limits', status: 'Mastered' },
+    { code: 'FN-10', title: 'When to Use Linear Search & Decision Guidelines', status: 'Mastered' },
+    { code: 'FN-11', title: 'Real-World Applications, Duplicates & Object Lookups', status: 'Mastered' },
+    { code: 'FN-12', title: 'Linear Search vs Binary Search Tradeoff Synthesis', status: 'Mastered' },
   ];
 
   const handlePrint = () => {
@@ -105,7 +105,7 @@ export const CompletionCelebrationModal: React.FC<CompletionCelebrationModalProp
           </h2>
 
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto mt-2 leading-relaxed font-normal">
-            You have successfully completed every Field Note module, conquered all 5 interactive Quest levels, mastered collision resolution strategies, and passed the official examination.
+            You have successfully completed every Field Note module, conquered all 5 interactive Quest levels, mastered sequential search strategies, and passed the official examination.
           </p>
         </div>
 
@@ -118,7 +118,7 @@ export const CompletionCelebrationModal: React.FC<CompletionCelebrationModalProp
                 <span>Official DSA Certification</span>
               </div>
               <div className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">
-                Hash Quest Data Structure Specialist
+                Linear Search Algorithm Specialist
               </div>
             </div>
 

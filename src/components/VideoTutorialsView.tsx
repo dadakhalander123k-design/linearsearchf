@@ -397,6 +397,31 @@ export const VideoTutorialsView: React.FC = () => {
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-8 animate-fadeIn pb-12">
+      {/* Top Header Banner for Section */}
+      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 rounded-3xl p-6 sm:p-8 shadow-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-4 border-b border-slate-100 dark:border-blue-500/15 pb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-[#3B82F6] text-xs font-bold font-mono uppercase tracking-wider rounded-lg border border-[#DBEAFE] dark:border-blue-500/30">
+            <VideoIcon className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
+            <span>Video Masterclass</span>
+          </div>
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+            Sequential Search In Action
+          </span>
+        </div>
+
+        <div className="space-y-2">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight animate-heading-enter">
+            Linear Search Video Tutorials
+          </h1>
+          <p className="text-sm sm:text-base font-semibold text-[#2563EB] dark:text-[#3B82F6]">
+            Watch step-by-step visual explanations of sequential array searching.
+          </p>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
+            Select a video lesson below to observe how each element is compared with the target value from start to finish.
+          </p>
+        </div>
+      </div>
+
       {/* =========================================================================
           PART 3 — TWO LESSON CARDS (SIDE BY SIDE ON DESKTOP, STACKED ON MOBILE)
           ========================================================================= */}
@@ -554,7 +579,7 @@ export const VideoTutorialsView: React.FC = () => {
                 Select a lesson and click CLICK TO WATCH.
               </h4>
               <p className="text-xs sm:text-sm text-slate-400 max-w-md font-sans leading-relaxed">
-                Choose between Introduction to Hashing or Collision to load and play the provided video lesson.
+                Choose between Introduction to Linear Search or How Linear Search Works to load and play the provided video lesson.
               </p>
             </div>
           )}

@@ -270,9 +270,9 @@ export const LinearSearchLab: React.FC<LinearSearchLabProps> = () => {
         </div>
 
         <div className="space-y-2">
-          <h2 className="text-2xl sm:text-4xl font-bold font-display text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-bold font-display text-slate-900 dark:text-white tracking-tight animate-heading-enter">
             LINEAR SEARCH LAB
-          </h2>
+          </h1>
           <p className="text-sm sm:text-base font-semibold text-[#2563EB] dark:text-[#3B82F6]">
             Build your own array, choose a target, and perform Linear Search step by step.
           </p>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { LevelConfig, TechniqueType } from './types/game';
 import { GAME_LEVELS } from './data/levels';
 import { soundManager } from './utils/audio';
@@ -18,18 +18,114 @@ import { QuestCompletionView } from './components/QuestCompletionView';
 import { CompletionCelebrationModal } from './components/CompletionCelebrationModal';
 import { ResetProgressModal } from './components/ResetProgressModal';
 import { AIBotFloatingButton } from './components/AIBotFloatingButton';
+import { NotFoundView } from './components/NotFoundView';
 import { Sparkles } from 'lucide-react';
 import { progressManager } from './utils/progressManager';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { updateSEO } from './utils/seo';
+import { LINEAR_SEARCH_MODULES } from './data/linearSearchTheory';
+
+// Hash-to-Tab mappings for clean, production-grade URL synchronizations
+const HASH_MAP: Record<string, MainViewTab> = {
+  overview: 'HOME',
+  home: 'HOME',
+  learn: 'THEORY',
+  theory: 'THEORY',
+  visualize: 'VIDEO',
+  video: 'VIDEO',
+  game: 'GAME',
+  quest: 'GAME',
+  lab: 'LAB',
+  sandbox: 'LAB',
+  quiz: 'QUIZ',
+  exam: 'QUIZ',
+  progress: 'PROGRESS',
+};
+
+const TAB_HASH_MAP: Record<MainViewTab, string> = {
+  HOME: 'overview',
+  THEORY: 'learn',
+  VIDEO: 'visualize',
+  GAME: 'game',
+  QUEST: 'game',
+  LAB: 'lab',
+  QUIZ: 'quiz',
+  PROGRESS: 'progress',
+};
 
 export default function App() {
   // Navigation View State (Defaults to HOME landing page)
   const [activeTab, setActiveTab] = useState<MainViewTab>('HOME');
-  const [activeTheoryTopic, setActiveTheoryTopic] = useState<string>('what-is-hashing');
+  const [activeTheoryTopic, setActiveTheoryTopic] = useState<string>('theory-01');
+  const [is404, setIs404] = useState<boolean>(false);
   const [show100Celebration, setShow100Celebration] = useState<boolean>(false);
   const [showResetModal, setShowResetModal] = useState<boolean>(false);
   const [desktopSidebarOpen, setDesktopSidebarOpen] = useState<boolean>(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
+
+  // Hash-based URL synchronizer on mount and hashchange
+  const handleHashChange = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    const rawHash = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
+
+    if (!rawHash) {
+      setIs404(false);
+      setActiveTab('HOME');
+      return;
+    }
+
+    // Support sub-paths like learn/theory-04
+    const [baseRoute, subRoute] = rawHash.split('/');
+    if (HASH_MAP[baseRoute]) {
+      setIs404(false);
+      setActiveTab(HASH_MAP[baseRoute]);
+      if (subRoute && (baseRoute === 'learn' || baseRoute === 'theory')) {
+        setActiveTheoryTopic(subRoute);
+      }
+    } else {
+      setIs404(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [handleHashChange]);
+
+  // Navigate tab and sync URL hash smoothly
+  const navigateToTab = (tab: MainViewTab, chapterId?: string) => {
+    setIs404(false);
+    setActiveTab(tab);
+    if (chapterId) {
+      setActiveTheoryTopic(chapterId);
+    }
+    const hashSegment = TAB_HASH_MAP[tab] || 'overview';
+    const targetHash = chapterId && tab === 'THEORY' ? `#/${hashSegment}/${chapterId}` : `#/${hashSegment}`;
+    if (typeof window !== 'undefined' && window.location.hash !== targetHash) {
+      window.history.replaceState(null, '', targetHash);
+    }
+  };
+
+  // Synchronize dynamic SEO, page title, meta description & JSON-LD
+  useEffect(() => {
+    if (is404) {
+      updateSEO('NOT_FOUND');
+      return;
+    }
+
+    let chapterTitle: string | undefined;
+    if (activeTab === 'THEORY') {
+      const activeModule = LINEAR_SEARCH_MODULES.find((m) => m.id === activeTheoryTopic);
+      if (activeModule) {
+        chapterTitle = `${activeModule.number}. ${activeModule.title}`;
+      }
+    }
+
+    updateSEO(activeTab, chapterTitle);
+  }, [activeTab, activeTheoryTopic, is404]);
 
   const handleToggleSidebar = () => {
     if (typeof window !== 'undefined' && window.innerWidth < 1024) {
@@ -49,7 +145,10 @@ export default function App() {
       const isSidebarOpen = isDesktop ? desktopSidebarOpen : mobileSidebarOpen;
       if (!isSidebarOpen) return;
 
-      const isInsideSidebar = target.closest('#app-sidebar-container') || target.closest('#app-sidebar-navigation');
+      const isInsideSidebar =
+        target.closest('#app-sidebar-desktop-container') ||
+        target.closest('#app-sidebar-mobile-container') ||
+        target.closest('#app-sidebar-navigation');
       const isToggleButton = target.closest('#btn-sidebar-toggle');
 
       if (!isInsideSidebar && !isToggleButton) {
@@ -139,20 +238,19 @@ export default function App() {
     const nextMod = stats.nextModule;
 
     if (!nextMod || nextMod.id === 'fn-01-basics' || nextMod.id === 'fn-02-modulo') {
-      setActiveTheoryTopic(nextMod?.targetChapterId || 'theory-01');
-      setActiveTab('THEORY');
+      navigateToTab('THEORY', nextMod?.targetChapterId || 'theory-01');
       return;
     }
 
     if (nextMod.id === 'fn-10-completion') {
       if (isAllLevelsCompleted) {
         setCurrentLevelIndex(5);
-        setActiveTab('GAME');
+        navigateToTab('GAME');
       } else {
         const targetLvl = Math.min(completedLevels.length, 4);
         setCurrentLevelIndex(targetLvl);
         initLevel(targetLvl);
-        setActiveTab('GAME');
+        navigateToTab('GAME');
       }
       return;
     }
@@ -167,31 +265,27 @@ export default function App() {
         setCurrentLevelIndex(targetLvl);
         if (targetLvl < 5) initLevel(targetLvl);
       }
-      setActiveTab('GAME');
+      navigateToTab('GAME');
       return;
     }
 
     if (nextMod.id === 'fn-09-quiz' || nextMod.targetChapterId === 'knowledge-quiz') {
-      setActiveTab('QUIZ');
+      navigateToTab('QUIZ');
       return;
     }
 
     if (nextMod.targetTab === 'LEARN' || nextMod.targetTab === 'THEORY') {
-      setActiveTheoryTopic(nextMod.targetChapterId || 'theory-01');
-      setActiveTab('THEORY');
+      navigateToTab('THEORY', nextMod.targetChapterId || 'theory-01');
       return;
     }
 
     // Default fallback
-    setActiveTab('GAME');
+    navigateToTab('GAME');
   };
 
   // Direct trigger to Theory from Topic card
   const handleNavigateToTheory = (chapterId?: string) => {
-    if (chapterId) {
-      setActiveTheoryTopic(chapterId);
-    }
-    setActiveTab('THEORY');
+    navigateToTab('THEORY', chapterId);
   };
 
   const handleNavigateToQuest = (levelId?: number) => {
@@ -205,7 +299,7 @@ export default function App() {
         if (levelId <= 5) initLevel(levelId - 1);
       }
     }
-    setActiveTab('GAME');
+    navigateToTab('GAME');
   };
 
   return (
@@ -214,7 +308,7 @@ export default function App() {
       <SidebarNav
         activeTab={activeTab}
         onChangeTab={(tab) => {
-          setActiveTab(tab);
+          navigateToTab(tab);
           setMobileSidebarOpen(false);
         }}
         isOpenMobile={mobileSidebarOpen}
@@ -254,185 +348,194 @@ export default function App() {
         {/* Page Main Content Container */}
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-[76px] sm:pt-[84px] pb-8 flex flex-col gap-6">
           <div
-            key={activeTab}
+            key={is404 ? '404' : activeTab}
             className="w-full flex-1 flex flex-col gap-6 animate-page-enter"
           >
-            {/* 1. HOME LANDING PAGE */}
-            {activeTab === 'HOME' && (
-              <HomePage
-                onContinueLearning={handleContinueLearning}
-                onExploreTopics={() => {
-                  setActiveTheoryTopic('theory-01');
-                  setActiveTab('THEORY');
-                }}
-                onNavigateToTab={(tab, targetOption) => {
-                  if (tab === 'THEORY') {
-                    if (typeof targetOption === 'string') {
-                      setActiveTheoryTopic(targetOption);
-                    }
-                    setActiveTab('THEORY');
-                  } else if (tab === 'GAME' || tab === 'QUEST') {
-                    if (typeof targetOption === 'number') {
-                      if (targetOption === 6 && !isAllLevelsCompleted) {
+            {/* Custom 404 Route */}
+            {is404 ? (
+              <NotFoundView
+                onNavigateHome={() => navigateToTab('HOME')}
+                onNavigateTheory={() => navigateToTab('THEORY', 'theory-01')}
+                onNavigateGame={() => navigateToTab('GAME')}
+                onNavigateLab={() => navigateToTab('LAB')}
+              />
+            ) : (
+              <>
+                {/* 1. HOME LANDING PAGE */}
+                {activeTab === 'HOME' && (
+                  <HomePage
+                    onContinueLearning={handleContinueLearning}
+                    onExploreTopics={() => {
+                      navigateToTab('THEORY', 'theory-01');
+                    }}
+                    onNavigateToTab={(tab, targetOption) => {
+                      if (tab === 'THEORY') {
+                        if (typeof targetOption === 'string') {
+                          navigateToTab('THEORY', targetOption);
+                        } else {
+                          navigateToTab('THEORY');
+                        }
+                      } else if (tab === 'GAME' || tab === 'QUEST') {
+                        if (typeof targetOption === 'number') {
+                          if (targetOption === 6 && !isAllLevelsCompleted) {
+                            const safeLvl = Math.min(completedLevels.length, 4);
+                            setCurrentLevelIndex(safeLvl);
+                            initLevel(safeLvl);
+                          } else {
+                            setCurrentLevelIndex(targetOption - 1);
+                            if (targetOption <= 5) initLevel(targetOption - 1);
+                          }
+                        }
+                        navigateToTab('GAME');
+                      } else if (tab === 'LAB') {
+                        navigateToTab('LAB');
+                      } else if (tab === 'QUIZ') {
+                        navigateToTab('QUIZ');
+                      } else if (tab === 'PROGRESS') {
+                        navigateToTab('PROGRESS');
+                      }
+                    }}
+                  />
+                )}
+
+                {/* 2. THEORY SECTION */}
+                {activeTab === 'THEORY' && (
+                  <LearnLinearSearchSection
+                    initialTopic={activeTheoryTopic}
+                    onStartLevel={(lvlId) => {
+                      if (lvlId === 6 && !isAllLevelsCompleted) {
                         const safeLvl = Math.min(completedLevels.length, 4);
                         setCurrentLevelIndex(safeLvl);
                         initLevel(safeLvl);
                       } else {
-                        setCurrentLevelIndex(targetOption - 1);
-                        if (targetOption <= 5) initLevel(targetOption - 1);
+                        setCurrentLevelIndex(lvlId - 1);
+                        if (lvlId <= 5) initLevel(lvlId - 1);
                       }
-                    }
-                    setActiveTab('GAME');
-                  } else if (tab === 'LAB') {
-                    setActiveTab('LAB');
-                  } else if (tab === 'QUIZ') {
-                    setActiveTab('QUIZ');
-                  } else if (tab === 'PROGRESS') {
-                    setActiveTab('PROGRESS');
-                  }
-                }}
-              />
-            )}
-
-            {/* 2. THEORY SECTION */}
-            {activeTab === 'THEORY' && (
-              <LearnLinearSearchSection
-                initialTopic={activeTheoryTopic}
-                onStartLevel={(lvlId) => {
-                  if (lvlId === 6 && !isAllLevelsCompleted) {
-                    const safeLvl = Math.min(completedLevels.length, 4);
-                    setCurrentLevelIndex(safeLvl);
-                    initLevel(safeLvl);
-                  } else {
-                    setCurrentLevelIndex(lvlId - 1);
-                    if (lvlId <= 5) initLevel(lvlId - 1);
-                  }
-                  setActiveTab('GAME');
-                }}
-                onOpenSandbox={(tech) => {
-                  if (tech) setSandboxTechnique(tech);
-                  setActiveTab('LAB');
-                }}
-              />
-            )}
-
-            {/* 2.5. VIDEO LEARNING SECTION */}
-            {activeTab === 'VIDEO' && (
-              <VideoTutorialsView />
-            )}
-
-            {/* 3. GAME PLAY SECTION */}
-            {(activeTab === 'GAME' || activeTab === 'QUEST') && (
-              <div className="flex flex-col gap-6 animate-page-enter">
-                {/* Level Stepper Bar */}
-                <LevelProgressBar
-                  currentLevelId={currentLevelIndex >= 5 ? 6 : currentLevel.id}
-                  completedLevels={completedLevels}
-                  onSelectLevel={(lvlId) => {
-                    soundManager.playClick();
-                    setCurrentLevelIndex(lvlId - 1);
-                    if (lvlId <= 5) {
-                      initLevel(lvlId - 1);
-                    }
-                  }}
-                  onOpenLab={() => setActiveTab('LAB')}
-                  isCompletionActive={currentLevelIndex >= 5}
-                />
-
-                {/* Level 6: Quest Completion & Mastery Certificate */}
-                {currentLevelIndex >= 5 ? (
-                  <QuestCompletionView
-                    onReplayLevel={(lvlId) => {
-                      setCurrentLevelIndex(lvlId - 1);
-                      initLevel(lvlId - 1);
+                      navigateToTab('GAME');
                     }}
-                    onOpenTheory={() => {
-                      setActiveTheoryTopic('what-is-hashing');
-                      setActiveTab('THEORY');
-                    }}
-                    onOpenSandbox={() => {
-                      setActiveTab('LAB');
-                    }}
-                    onOpenQuiz={() => {
-                      setActiveTab('QUIZ');
-                    }}
-                    onOpenProgress={() => {
-                      setActiveTab('PROGRESS');
+                    onOpenSandbox={(tech) => {
+                      if (tech) setSandboxTechnique(tech);
+                      navigateToTab('LAB');
                     }}
                   />
-                ) : (
-                  <div key={`game-level-${currentLevel.id}`} className="flex flex-col gap-6 animate-chapter-switch">
-                    {/* Level Title & Subtitle Banner */}
-                    <div className="text-center max-w-2xl mx-auto font-sans">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] text-xs font-bold mb-2 uppercase font-mono rounded-lg">
-                        <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
-                        <span>Level {currentLevel.id < 10 ? `0${currentLevel.id}` : currentLevel.id} • {currentLevel.title}</span>
-                      </div>
-                      <h2 className="text-2xl sm:text-4xl font-bold font-display text-slate-900 dark:text-white tracking-tight animate-heading-enter">
-                        {currentLevel.subtitle}
-                      </h2>
-                    </div>
+                )}
 
-                    {/* Linear Search 5-Level Progressive Learning Gameplay */}
-                    <LinearSearchGameplay
-                      key={`linear-search-level-${currentLevel.id}`}
-                      level={currentLevel}
-                      onLevelComplete={(lvlId, _lvlScore) => {
-                        progressManager.markLevelCompleted(lvlId, 100, true);
-                        setShowLevelCompleteModal(true);
+                {/* 2.5. VIDEO LEARNING SECTION */}
+                {activeTab === 'VIDEO' && <VideoTutorialsView />}
+
+                {/* 3. GAME PLAY SECTION */}
+                {(activeTab === 'GAME' || activeTab === 'QUEST') && (
+                  <div className="flex flex-col gap-6 animate-page-enter">
+                    {/* Level Stepper Bar */}
+                    <LevelProgressBar
+                      currentLevelId={currentLevelIndex >= 5 ? 6 : currentLevel.id}
+                      completedLevels={completedLevels}
+                      onSelectLevel={(lvlId) => {
+                        soundManager.playClick();
+                        setCurrentLevelIndex(lvlId - 1);
+                        if (lvlId <= 5) {
+                          initLevel(lvlId - 1);
+                        }
                       }}
-                      onScoreUpdate={(delta) => setScore((s) => s + delta)}
-                      onStreakUpdate={(st) => setStreak(st)}
+                      onOpenLab={() => navigateToTab('LAB')}
+                      isCompletionActive={currentLevelIndex >= 5}
                     />
+
+                    {/* Level 6: Quest Completion & Mastery Certificate */}
+                    {currentLevelIndex >= 5 ? (
+                      <QuestCompletionView
+                        onReplayLevel={(lvlId) => {
+                          setCurrentLevelIndex(lvlId - 1);
+                          initLevel(lvlId - 1);
+                        }}
+                        onOpenTheory={() => {
+                          navigateToTab('THEORY', 'theory-01');
+                        }}
+                        onOpenSandbox={() => {
+                          navigateToTab('LAB');
+                        }}
+                        onOpenQuiz={() => {
+                          navigateToTab('QUIZ');
+                        }}
+                        onOpenProgress={() => {
+                          navigateToTab('PROGRESS');
+                        }}
+                      />
+                    ) : (
+                      <div key={`game-level-${currentLevel.id}`} className="flex flex-col gap-6 animate-chapter-switch">
+                        {/* Level Title & Subtitle Banner */}
+                        <div className="text-center max-w-2xl mx-auto font-sans">
+                          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] text-xs font-bold mb-2 uppercase font-mono rounded-lg">
+                            <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
+                            <span>
+                              Level {currentLevel.id < 10 ? `0${currentLevel.id}` : currentLevel.id} • {currentLevel.title}
+                            </span>
+                          </div>
+                          <h1 className="text-2xl sm:text-4xl font-bold font-display text-slate-900 dark:text-white tracking-tight animate-heading-enter">
+                            {currentLevel.subtitle}
+                          </h1>
+                        </div>
+
+                        {/* Linear Search 5-Level Progressive Learning Gameplay */}
+                        <LinearSearchGameplay
+                          key={`linear-search-level-${currentLevel.id}`}
+                          level={currentLevel}
+                          onLevelComplete={(lvlId, _lvlScore) => {
+                            progressManager.markLevelCompleted(lvlId, 100, true);
+                            setShowLevelCompleteModal(true);
+                          }}
+                          onScoreUpdate={(delta) => setScore((s) => s + delta)}
+                          onStreakUpdate={(st) => setStreak(st)}
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
-              </div>
-            )}
 
-            {/* 4. LAB WORKBENCH SECTION */}
-            {activeTab === 'LAB' && (
-              <SandboxMode
-                initialTechnique={sandboxTechnique}
-                onExit={() => {
-                  setCurrentLevelIndex(5);
-                  setActiveTab('GAME');
-                }}
-                onOpenTheory={() => {
-                  setActiveTheoryTopic('theory-01');
-                  setActiveTab('THEORY');
-                }}
-              />
-            )}
+                {/* 4. LAB WORKBENCH SECTION */}
+                {activeTab === 'LAB' && (
+                  <SandboxMode
+                    initialTechnique={sandboxTechnique}
+                    onExit={() => {
+                      setCurrentLevelIndex(5);
+                      navigateToTab('GAME');
+                    }}
+                    onOpenTheory={() => {
+                      navigateToTab('THEORY', 'theory-01');
+                    }}
+                  />
+                )}
 
-            {/* 5. QUIZ EXAMINATION SECTION */}
-            {activeTab === 'QUIZ' && (
-              <QuizView
-                onNavigateToTheory={handleNavigateToTheory}
-                onNavigateToQuest={handleNavigateToQuest}
-                onNavigateToProgress={() => setActiveTab('PROGRESS')}
-                onNavigateToHome={() => setActiveTab('HOME')}
-              />
-            )}
+                {/* 5. QUIZ EXAMINATION SECTION */}
+                {activeTab === 'QUIZ' && (
+                  <QuizView
+                    onNavigateToTheory={handleNavigateToTheory}
+                    onNavigateToQuest={handleNavigateToQuest}
+                    onNavigateToProgress={() => navigateToTab('PROGRESS')}
+                    onNavigateToHome={() => navigateToTab('HOME')}
+                  />
+                )}
 
-            {/* 6. PROGRESS AUDIT SECTION */}
-            {activeTab === 'PROGRESS' && (
-              <MyProgressView
-                onNavigateToTab={(tab, levelId, chapterId) => {
-                  if (tab === 'THEORY' || tab === 'LEARN') {
-                    if (chapterId) setActiveTheoryTopic(chapterId);
-                    setActiveTab('THEORY');
-                  } else if (tab === 'QUEST' || tab === 'GAME') {
-                    if (levelId) setCurrentLevelIndex(levelId - 1);
-                    setActiveTab('GAME');
-                  } else if (tab === 'LAB' || tab === 'SANDBOX') {
-                    setActiveTab('LAB');
-                  } else if (tab === 'QUIZ' || tab === 'EXAM') {
-                    setActiveTab('QUIZ');
-                  } else {
-                    setActiveTab(tab as MainViewTab);
-                  }
-                }}
-              />
+                {/* 6. PROGRESS AUDIT SECTION */}
+                {activeTab === 'PROGRESS' && (
+                  <MyProgressView
+                    onNavigateToTab={(tab, levelId, chapterId) => {
+                      if (tab === 'THEORY' || tab === 'LEARN') {
+                        navigateToTab('THEORY', chapterId);
+                      } else if (tab === 'QUEST' || tab === 'GAME') {
+                        if (levelId) setCurrentLevelIndex(levelId - 1);
+                        navigateToTab('GAME');
+                      } else if (tab === 'LAB' || tab === 'SANDBOX') {
+                        navigateToTab('LAB');
+                      } else if (tab === 'QUIZ' || tab === 'EXAM') {
+                        navigateToTab('QUIZ');
+                      } else {
+                        navigateToTab(tab as MainViewTab);
+                      }
+                    }}
+                  />
+                )}
+              </>
             )}
           </div>
         </main>
@@ -446,7 +549,7 @@ export default function App() {
           onNextLevel={handleNextLevel}
           onOpenLab={() => {
             setShowLevelCompleteModal(false);
-            setActiveTab('LAB');
+            navigateToTab('LAB');
           }}
           onReplayLevel={() => {
             setShowLevelCompleteModal(false);
@@ -462,11 +565,11 @@ export default function App() {
         onClose={() => setShow100Celebration(false)}
         onNavigateToLab={() => {
           setShow100Celebration(false);
-          setActiveTab('LAB');
+          navigateToTab('LAB');
         }}
         onNavigateToProgress={() => {
           setShow100Celebration(false);
-          setActiveTab('PROGRESS');
+          navigateToTab('PROGRESS');
         }}
       />
 
