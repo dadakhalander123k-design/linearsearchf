@@ -6,12 +6,14 @@ interface ResetProgressModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  isQuizOnly?: boolean;
 }
 
 export const ResetProgressModal: React.FC<ResetProgressModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
+  isQuizOnly = false,
 }) => {
   if (!isOpen) return null;
 
@@ -39,20 +41,30 @@ export const ResetProgressModal: React.FC<ResetProgressModalProps> = ({
           id="reset-modal-title"
           className="text-xl sm:text-2xl font-black font-sans text-slate-900 dark:text-white tracking-tight uppercase mb-3"
         >
-          RESET PROGRESS?
+          {isQuizOnly ? 'RESET QUIZ PROGRESS?' : 'RESET PROGRESS?'}
         </h2>
 
         {/* Body Description */}
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6 font-normal">
-          Are you sure you want to reset your learning progress?
-          <br className="hidden sm:inline" /> All completed theory chapters,
-          watched videos, completed game levels, quiz progress, and
-          mastery progress will be reset.
+          {isQuizOnly ? (
+            <>
+              Are you sure you want to reset your quiz progress?
+              <br className="hidden sm:inline" /> All answers, score, and
+              completion status for this quiz will be cleared. This action cannot be undone.
+            </>
+          ) : (
+            <>
+              Are you sure you want to reset your learning progress?
+              <br className="hidden sm:inline" /> All completed theory chapters,
+              watched videos, completed game levels, quiz progress, and
+              mastery progress will be reset.
+            </>
+          )}
         </p>
 
-        {/* Action Buttons: [ EXIT ] [ RESET ] */}
+        {/* Action Buttons: [ CANCEL / EXIT ] [ RESET PROGRESS / RESET ] */}
         <div className="grid grid-cols-2 gap-3 pt-2">
-          {/* EXIT Button */}
+          {/* Cancel / EXIT Button */}
           <button
             id="btn-modal-exit-reset"
             onClick={() => {
@@ -61,10 +73,10 @@ export const ResetProgressModal: React.FC<ResetProgressModalProps> = ({
             }}
             className="py-3 px-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all cursor-pointer active:scale-95 shadow-xs"
           >
-            EXIT
+            {isQuizOnly ? 'Cancel' : 'EXIT'}
           </button>
 
-          {/* RESET Button */}
+          {/* Reset / Confirm Button */}
           <button
             id="btn-modal-confirm-reset"
             onClick={() => {
@@ -75,7 +87,7 @@ export const ResetProgressModal: React.FC<ResetProgressModalProps> = ({
             className="py-3 px-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider bg-rose-600 hover:bg-rose-700 text-white shadow-md shadow-rose-600/30 transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
           >
             <RotateCcw className="w-4 h-4" />
-            <span>RESET</span>
+            <span>{isQuizOnly ? 'Reset Progress' : 'RESET'}</span>
           </button>
         </div>
       </div>

@@ -585,6 +585,16 @@ class ProgressManager {
   }
 
   public resetQuizAttempt() {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.removeItem('hash_quest_quiz_answers_v4');
+        localStorage.removeItem('hash_quest_quiz_submitted_v4');
+        localStorage.removeItem('hash_quest_quiz_answers_v3');
+        localStorage.removeItem('hash_quest_quiz_submitted_v3');
+      } catch {
+        // Ignore storage errors
+      }
+    }
     this.state.quizScores = {};
     this.state.quizSubmitted = false;
     this.state.quizFinalScore = 0;
@@ -609,6 +619,8 @@ class ProgressManager {
   public resetProgress() {
     if (typeof window !== 'undefined') {
       try {
+        localStorage.removeItem('hash_quest_quiz_answers_v4');
+        localStorage.removeItem('hash_quest_quiz_submitted_v4');
         localStorage.removeItem('hash_quest_quiz_answers_v3');
         localStorage.removeItem('hash_quest_quiz_submitted_v3');
       } catch {

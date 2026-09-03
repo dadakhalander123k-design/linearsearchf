@@ -258,8 +258,10 @@ export const QuizView: React.FC<QuizViewProps> = ({
         setIsSubmitted(false);
         try {
           const stored = localStorage.getItem(QUIZ_STORAGE_ANSWERS_KEY);
-          if (!stored) {
+          if (!stored || stored === '{}') {
             setStudentAnswers({});
+            setCurrentQuestionIndex(0);
+            setPendingSelection(null);
             setViewMode('STEP_BY_STEP');
           }
         } catch {
@@ -296,7 +298,11 @@ export const QuizView: React.FC<QuizViewProps> = ({
   // Persist answers to localStorage whenever they change
   useEffect(() => {
     try {
-      localStorage.setItem(QUIZ_STORAGE_ANSWERS_KEY, JSON.stringify(studentAnswers));
+      if (Object.keys(studentAnswers).length > 0) {
+        localStorage.setItem(QUIZ_STORAGE_ANSWERS_KEY, JSON.stringify(studentAnswers));
+      } else {
+        localStorage.removeItem(QUIZ_STORAGE_ANSWERS_KEY);
+      }
     } catch {
       // Ignore storage errors
     }
@@ -499,7 +505,9 @@ export const QuizView: React.FC<QuizViewProps> = ({
 
     try {
       localStorage.removeItem(QUIZ_STORAGE_ANSWERS_KEY);
-      localStorage.setItem(QUIZ_STORAGE_SUBMITTED_KEY, 'false');
+      localStorage.removeItem(QUIZ_STORAGE_SUBMITTED_KEY);
+      localStorage.removeItem('hash_quest_quiz_answers_v3');
+      localStorage.removeItem('hash_quest_quiz_submitted_v3');
     } catch {
       // Ignore
     }

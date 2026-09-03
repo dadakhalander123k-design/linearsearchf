@@ -165,6 +165,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             aria-label="Reset Progress"
           >
             <RotateCcw className="w-4 h-4" />
+            <span className="sr-only">Reset Progress</span>
           </button>
         </div>
       </div>

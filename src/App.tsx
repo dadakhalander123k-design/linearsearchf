@@ -60,6 +60,7 @@ export default function App() {
   const [is404, setIs404] = useState<boolean>(false);
   const [show100Celebration, setShow100Celebration] = useState<boolean>(false);
   const [showResetModal, setShowResetModal] = useState<boolean>(false);
+  const [quizResetKey, setQuizResetKey] = useState<number>(0);
   const [desktopSidebarOpen, setDesktopSidebarOpen] = useState<boolean>(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
 
@@ -302,6 +303,19 @@ export default function App() {
     navigateToTab('GAME');
   };
 
+  const handleResetQuiz = useCallback(() => {
+    try {
+      localStorage.removeItem('hash_quest_quiz_answers_v4');
+      localStorage.removeItem('hash_quest_quiz_submitted_v4');
+      localStorage.removeItem('hash_quest_quiz_answers_v3');
+      localStorage.removeItem('hash_quest_quiz_submitted_v3');
+    } catch {
+      // Ignore
+    }
+    progressManager.resetQuizAttempt();
+    setQuizResetKey((k) => k + 1);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-900 dark:text-[#F8FAFC] font-sans flex antialiased selection:bg-[#2563EB] dark:selection:bg-[#3B82F6] selection:text-white transition-colors duration-300">
       {/* Sticky Left Sidebar Navigation */}
@@ -509,6 +523,7 @@ export default function App() {
                 {/* 5. QUIZ EXAMINATION SECTION */}
                 {activeTab === 'QUIZ' && (
                   <QuizView
+                    key={`quiz-view-${quizResetKey}`}
                     onNavigateToTheory={handleNavigateToTheory}
                     onNavigateToQuest={handleNavigateToQuest}
                     onNavigateToProgress={() => navigateToTab('PROGRESS')}
@@ -576,14 +591,20 @@ export default function App() {
       {/* Centered Reset Progress Confirmation Modal */}
       <ResetProgressModal
         isOpen={showResetModal}
+        isQuizOnly={activeTab === 'QUIZ'}
         onClose={() => setShowResetModal(false)}
         onConfirm={() => {
-          progressManager.resetProgress();
-          setScore(0);
-          setStreak(0);
-          setCompletedLevels([]);
-          setCurrentLevelIndex(0);
-          initLevel(0);
+          if (activeTab === 'QUIZ') {
+            handleResetQuiz();
+          } else {
+            progressManager.resetProgress();
+            setScore(0);
+            setStreak(0);
+            setCompletedLevels([]);
+            setCurrentLevelIndex(0);
+            initLevel(0);
+            handleResetQuiz();
+          }
           setShowResetModal(false);
         }}
       />
