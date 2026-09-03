@@ -466,6 +466,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
     }
 
     setIsSubmitted(true);
+    setViewMode('FULL_REVIEW');
     try {
       localStorage.setItem(QUIZ_STORAGE_SUBMITTED_KEY, 'true');
     } catch {
@@ -586,8 +587,31 @@ export const QuizView: React.FC<QuizViewProps> = ({
                   id={`btn-quiz-jump-${q.id}`}
                   onClick={() => {
                     soundManager.playNav();
-                    setCurrentQuestionIndex(idx);
-                    setViewMode('STEP_BY_STEP');
+                    if (isSubmitted) {
+                      if (viewMode !== 'FULL_REVIEW') {
+                        setViewMode('FULL_REVIEW');
+                        setTimeout(() => {
+                          const targetElement = document.getElementById(`quiz-review-card-${q.id}`);
+                          if (targetElement) {
+                            targetElement.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start',
+                            });
+                          }
+                        }, 50);
+                      } else {
+                        const targetElement = document.getElementById(`quiz-review-card-${q.id}`);
+                        if (targetElement) {
+                          targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                          });
+                        }
+                      }
+                    } else {
+                      setCurrentQuestionIndex(idx);
+                      setViewMode('STEP_BY_STEP');
+                    }
                   }}
                   className={`py-2 text-center text-xs font-mono rounded-lg border transition-all cursor-pointer ${pillStyle}`}
                   title={`Question ${idx + 1}`}
@@ -924,7 +948,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
                 <div
                   key={q.id}
                   id={`quiz-review-card-${q.id}`}
-                  className={`p-5 sm:p-6 border rounded-2xl transition-all bg-white dark:bg-[#111827] shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] ${isAnswered
+                  className={`p-5 sm:p-6 border rounded-2xl transition-all bg-white dark:bg-[#111827] shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] scroll-mt-24 ${isAnswered
                     ? isCorrect
                       ? 'border-emerald-300 dark:border-emerald-500/40 ring-1 ring-emerald-200 dark:ring-emerald-500/30'
                       : 'border-rose-300 dark:border-rose-500/40 ring-1 ring-rose-200 dark:ring-rose-500/30'
