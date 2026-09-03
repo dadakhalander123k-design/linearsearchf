@@ -2,5 +2,5 @@
   "name": "AlgoLearn – Linear Search Learning Guide",
   "description": "Learn how Linear Search works step by step, how it searches elements sequentially, and how to analyze its time complexity through interactive learning.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }
