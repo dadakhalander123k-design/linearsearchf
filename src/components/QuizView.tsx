@@ -517,6 +517,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
     }
 
     progressManager.resetQuizAttempt();
+    pointsManager.resetQuizAttempt();
   };
 
   const answeredCount = Object.keys(studentAnswers).length;

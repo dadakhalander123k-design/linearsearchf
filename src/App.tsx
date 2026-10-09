@@ -19,8 +19,8 @@ import { CompletionCelebrationModal } from './components/CompletionCelebrationMo
 import { ResetProgressModal } from './components/ResetProgressModal';
 import { AIBotFloatingButton } from './components/AIBotFloatingButton';
 import { NotFoundView } from './components/NotFoundView';
-import { GameLevelSelectionCards } from './components/GameLevelSelectionCards';
 import { PointsView } from './components/PointsView';
+import { PointsToastNotification } from './components/PointsToastNotification';
 import { Sparkles } from 'lucide-react';
 import { progressManager } from './utils/progressManager';
 import { pointsManager } from './utils/pointsManager';
@@ -691,6 +691,9 @@ export default function App() {
           setShowResetModal(false);
         }}
       />
+
+      {/* Global Points Transaction Toast Notifications */}
+      <PointsToastNotification />
 
       {/* Global AI Bot Floating Icon */}
       <AIBotFloatingButton />

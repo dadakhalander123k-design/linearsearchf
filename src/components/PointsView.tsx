@@ -78,7 +78,12 @@ export const PointsView: React.FC = () => {
       id: 'quiz',
       label: `Quiz (Max ${breakdown.maxQuiz})`,
       score: breakdown.quizScore,
-      scoreText: `+${breakdown.quizScore}`,
+      scoreText:
+        breakdown.quizScore > 0
+          ? `+${breakdown.quizScore}`
+          : breakdown.quizScore < 0
+            ? `${breakdown.quizScore}`
+            : '+0',
       icon: HelpCircle,
       iconContainerClass:
         'bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 border-purple-100 dark:border-purple-500/20',
@@ -88,7 +93,7 @@ export const PointsView: React.FC = () => {
       id: 'penalties',
       label: 'Penalties',
       score: breakdown.penaltiesTotal,
-      scoreText: `-${breakdown.penaltiesTotal}`,
+      scoreText: breakdown.penaltiesTotal > 0 ? `-${breakdown.penaltiesTotal}` : '0',
       icon: ShieldAlert,
       iconContainerClass:
         'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-500/20',
@@ -185,7 +190,7 @@ export const PointsView: React.FC = () => {
 
                     <span
                       className={`font-mono font-bold text-sm shrink-0 ${
-                        cat.isPenalty
+                        (cat.isPenalty && cat.score > 0) || cat.score < 0
                           ? 'text-rose-600 dark:text-rose-400'
                           : 'text-[#0F172A] dark:text-white'
                       }`}

@@ -48,12 +48,22 @@ export interface PointsBreakdown {
   maxTotalPoints: number; // 100
 }
 
+export interface PointsNotification {
+  id: string;
+  pointsChange: number;
+  title: string;
+  message: string;
+  type: 'reward' | 'penalty';
+  timestamp: number;
+}
+
 export interface PointsState {
   version: number;
   completedTheoryIds: string[];
   completedVisualizeIds: string[];
   completedGameLevelIds: number[];
-  quizScore: number; // 0 to 20
+  answeredQuizQuestionIds: number[];
+  quizScore: number;
   hintPenaltiesTotal: number;
   hintUsesCount: number;
   guidedSolvePenaltiesTotal: number;
@@ -61,3 +71,4 @@ export interface PointsState {
   totalPoints: number;
   history: PointsActivityEvent[];
 }
+

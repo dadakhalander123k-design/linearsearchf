@@ -2,6 +2,7 @@ import {
   POINTS_CONFIG,
   PointsActivityEvent,
   PointsBreakdown,
+  PointsNotification,
   PointsState,
 } from '../types/points';
 import { progressManager } from './progressManager';
@@ -13,6 +14,7 @@ const INITIAL_POINTS_STATE: PointsState = {
   completedTheoryIds: [],
   completedVisualizeIds: [],
   completedGameLevelIds: [],
+  answeredQuizQuestionIds: [],
   quizScore: 0,
   hintPenaltiesTotal: 0,
   hintUsesCount: 0,
@@ -23,10 +25,12 @@ const INITIAL_POINTS_STATE: PointsState = {
 };
 
 type PointsListener = (state: PointsState) => void;
+type PointsNotificationListener = (notification: PointsNotification) => void;
 
 class PointsManager {
   private state: PointsState;
   private listeners: Set<PointsListener> = new Set();
+  private notificationListeners: Set<PointsNotificationListener> = new Set();
   private lastActionTimestamps: Map<string, number> = new Map();
 
   constructor() {
@@ -55,7 +59,8 @@ class PointsManager {
               completedGameLevelIds: Array.isArray(v2Parsed.completedGameLevelIds)
                 ? Array.from(new Set(v2Parsed.completedGameLevelIds))
                 : [],
-              quizScore: Math.max(0, Math.min(POINTS_CONFIG.MAX_QUIZ, Number(v2Parsed.quizScore) || 0)),
+              answeredQuizQuestionIds: [],
+              quizScore: Number(v2Parsed.quizScore) || 0,
               hintPenaltiesTotal: Math.max(0, Number(v2Parsed.hintPenaltiesTotal) || 0),
               hintUsesCount: Math.max(0, Number(v2Parsed.hintUsesCount) || 0),
               guidedSolvePenaltiesTotal: Math.max(0, Number(v2Parsed.guidedSolvePenaltiesTotal) || 0),
@@ -70,6 +75,25 @@ class PointsManager {
 
       const parsed = JSON.parse(stored);
       if (parsed && typeof parsed.totalPoints === 'number') {
+        let answeredQuizIds: number[] = Array.isArray(parsed.answeredQuizQuestionIds)
+          ? parsed.answeredQuizQuestionIds
+          : [];
+
+        // If answeredQuizIds is not yet populated, check existing quiz answers in localStorage
+        if (answeredQuizIds.length === 0 && typeof window !== 'undefined') {
+          try {
+            const rawAnswers = localStorage.getItem('hash_quest_quiz_answers_v4');
+            if (rawAnswers) {
+              const parsedAns = JSON.parse(rawAnswers);
+              if (parsedAns && typeof parsedAns === 'object') {
+                answeredQuizIds = Object.keys(parsedAns).map(Number).filter((n) => !isNaN(n) && n > 0);
+              }
+            }
+          } catch {
+            // Ignore
+          }
+        }
+
         return {
           version: 3,
           completedTheoryIds: Array.isArray(parsed.completedTheoryIds)
@@ -81,7 +105,8 @@ class PointsManager {
           completedGameLevelIds: Array.isArray(parsed.completedGameLevelIds)
             ? Array.from(new Set(parsed.completedGameLevelIds))
             : [],
-          quizScore: Math.max(0, Math.min(POINTS_CONFIG.MAX_QUIZ, Number(parsed.quizScore) || 0)),
+          answeredQuizQuestionIds: answeredQuizIds,
+          quizScore: Number(parsed.quizScore) || 0,
           hintPenaltiesTotal: Math.max(0, Number(parsed.hintPenaltiesTotal) || 0),
           hintUsesCount: Math.max(0, Number(parsed.hintUsesCount) || 0),
           guidedSolvePenaltiesTotal: Math.max(0, Number(parsed.guidedSolvePenaltiesTotal) || 0),
@@ -164,7 +189,7 @@ class PointsManager {
       POINTS_CONFIG.MAX_THEORY,
       this.state.completedTheoryIds.length * POINTS_CONFIG.THEORY_PER_MODULE
     );
-    const quiz = Math.max(0, Math.min(POINTS_CONFIG.MAX_QUIZ, this.state.quizScore));
+    const quiz = Math.min(POINTS_CONFIG.MAX_QUIZ, this.state.quizScore);
     const visualize = Math.min(
       POINTS_CONFIG.MAX_VISUALIZE,
       this.state.completedVisualizeIds.length * POINTS_CONFIG.VISUALIZE_PER_MODULE
@@ -195,6 +220,23 @@ class PointsManager {
     return () => {
       this.listeners.delete(listener);
     };
+  }
+
+  public onNotification(listener: PointsNotificationListener): () => void {
+    this.notificationListeners.add(listener);
+    return () => {
+      this.notificationListeners.delete(listener);
+    };
+  }
+
+  private triggerNotification(notification: PointsNotification) {
+    this.notificationListeners.forEach((fn) => {
+      try {
+        fn(notification);
+      } catch {
+        // Safe dispatch
+      }
+    });
   }
 
   private notifyListeners() {
@@ -235,7 +277,7 @@ class PointsManager {
   // =========================================================================
 
   /**
-   * Complete Theory Module (First time only): +3 Points (Max 36)
+   * Complete Theory Module (First time only): +2 Points (Max 24)
    */
   public recordTheoryCompleted(moduleId: string, title?: string): boolean {
     if (!moduleId || this.state.completedTheoryIds.includes(moduleId)) {
@@ -245,22 +287,34 @@ class PointsManager {
 
     // Format module number cleanly, e.g. "theory-01" -> "1"
     const modNumber = moduleId.replace(/\D/g, '') || '1';
+    const pointsAdded = POINTS_CONFIG.THEORY_PER_MODULE;
+
     this.addHistoryEvent({
       id: `theory_${moduleId}_${Date.now()}`,
       type: 'THEORY_COMPLETED',
       description: title ? `Completed Theory: ${title}` : `Completed Theory Module ${parseInt(modNumber, 10)}`,
       categoryLabel: 'THEORY COMPLETED',
-      pointsChange: POINTS_CONFIG.THEORY_PER_MODULE,
+      pointsChange: pointsAdded,
       timestamp: Date.now(),
     });
 
     this.recalculateTotal();
     this.saveState();
+
+    this.triggerNotification({
+      id: `toast_theory_${moduleId}_${Date.now()}`,
+      pointsChange: pointsAdded,
+      title: `+${pointsAdded} Points`,
+      message: 'Theory Module Completed',
+      type: 'reward',
+      timestamp: Date.now(),
+    });
+
     return true;
   }
 
   /**
-   * Complete Visualize / Video Module (First time only): +4 Points (Max 8)
+   * Complete Visualize / Video Module (First time only): +3 Points (Max 6)
    */
   public recordVideoCompleted(videoId: string, title?: string): boolean {
     if (!videoId || this.state.completedVisualizeIds.includes(videoId)) {
@@ -269,22 +323,34 @@ class PointsManager {
     this.state.completedVisualizeIds.push(videoId);
 
     const vidNumber = videoId.replace(/\D/g, '') || '1';
+    const pointsAdded = POINTS_CONFIG.VISUALIZE_PER_MODULE;
+
     this.addHistoryEvent({
       id: `video_${videoId}_${Date.now()}`,
       type: 'VISUALIZE_COMPLETED',
       description: title ? `Completed Visualization: ${title}` : `Completed Visualization Module ${parseInt(vidNumber, 10)}`,
       categoryLabel: 'VISUALIZATION COMPLETED',
-      pointsChange: POINTS_CONFIG.VISUALIZE_PER_MODULE,
+      pointsChange: pointsAdded,
       timestamp: Date.now(),
     });
 
     this.recalculateTotal();
     this.saveState();
+
+    this.triggerNotification({
+      id: `toast_video_${videoId}_${Date.now()}`,
+      pointsChange: pointsAdded,
+      title: `+${pointsAdded} Points`,
+      message: 'Visualization Completed',
+      type: 'reward',
+      timestamp: Date.now(),
+    });
+
     return true;
   }
 
   /**
-   * Complete Game Level (First time only): +9 Points (Max 36)
+   * Complete Game Level (First time only): +10 Points (Max 50)
    */
   public recordGameCompleted(levelId: number): boolean {
     if (!levelId || this.state.completedGameLevelIds.includes(levelId)) {
@@ -292,17 +358,29 @@ class PointsManager {
     }
     this.state.completedGameLevelIds.push(levelId);
 
+    const pointsAdded = POINTS_CONFIG.GAME_PER_LEVEL;
+
     this.addHistoryEvent({
       id: `game_${levelId}_${Date.now()}`,
       type: 'GAME_COMPLETED',
       description: `Completed Game Level ${levelId}`,
       categoryLabel: 'GAME COMPLETED',
-      pointsChange: POINTS_CONFIG.GAME_PER_LEVEL,
+      pointsChange: pointsAdded,
       timestamp: Date.now(),
     });
 
     this.recalculateTotal();
     this.saveState();
+
+    this.triggerNotification({
+      id: `toast_game_${levelId}_${Date.now()}`,
+      pointsChange: pointsAdded,
+      title: `+${pointsAdded} Points`,
+      message: 'Game Level Completed',
+      type: 'reward',
+      timestamp: Date.now(),
+    });
+
     return true;
   }
 
@@ -310,36 +388,81 @@ class PointsManager {
    * Quiz Question Answer:
    * - Correct: +2 Points
    * - Wrong: -1 Point
-   * - Clamped: 0 to 20 Points for quiz category
+   * - Category Cap: Max 20 Points
+   * Prevents duplicate scoring for the same question.
    */
   public recordQuizAnswer(questionId: number, isCorrect: boolean): boolean {
-    const debounceKey = `quiz_${questionId}_${isCorrect}`;
+    if (!Array.isArray(this.state.answeredQuizQuestionIds)) {
+      this.state.answeredQuizQuestionIds = [];
+    }
+
+    // 1. Prevent duplicate scoring for this question
+    if (this.state.answeredQuizQuestionIds.includes(questionId)) {
+      return false;
+    }
+
+    const debounceKey = `quiz_${questionId}`;
     if (this.isDebounced(debounceKey, 200)) return false;
 
+    const prevQuiz = this.state.quizScore;
+    let targetQuiz: number;
+    let actualDelta: number;
+
     if (isCorrect) {
-      this.state.quizScore = Math.min(
-        POINTS_CONFIG.MAX_QUIZ,
-        this.state.quizScore + POINTS_CONFIG.QUIZ_CORRECT
-      );
+      targetQuiz = Math.min(POINTS_CONFIG.MAX_QUIZ, prevQuiz + POINTS_CONFIG.QUIZ_CORRECT);
+      actualDelta = targetQuiz - prevQuiz;
     } else {
-      this.state.quizScore = Math.max(
-        0,
-        this.state.quizScore + POINTS_CONFIG.QUIZ_WRONG
-      );
+      targetQuiz = prevQuiz + POINTS_CONFIG.QUIZ_WRONG; // -1 point
+      actualDelta = POINTS_CONFIG.QUIZ_WRONG; // -1
     }
+
+    // If cap prevented any points from being added (e.g. already at Max 20)
+    if (isCorrect && actualDelta <= 0) {
+      this.state.answeredQuizQuestionIds.push(questionId);
+      this.saveState();
+      return false; // No points added due to cap; avoid misleading toast
+    }
+
+    this.state.answeredQuizQuestionIds.push(questionId);
+    this.state.quizScore = targetQuiz;
+    this.recalculateTotal();
+
+    const desc = isCorrect ? 'Correct Answer!' : 'Incorrect Answer';
+    const title = actualDelta > 0
+      ? `+${actualDelta} ${actualDelta === 1 ? 'Point' : 'Points'}`
+      : `${actualDelta} ${Math.abs(actualDelta) === 1 ? 'Point' : 'Points'}`;
 
     this.addHistoryEvent({
       id: `quiz_${questionId}_${Date.now()}`,
       type: isCorrect ? 'QUIZ_CORRECT' : 'QUIZ_WRONG',
       description: isCorrect ? `Correct Quiz Answer (Q${questionId})` : `Incorrect Quiz Answer (Q${questionId})`,
       categoryLabel: isCorrect ? 'QUIZ CORRECT' : 'QUIZ INCORRECT',
-      pointsChange: isCorrect ? POINTS_CONFIG.QUIZ_CORRECT : POINTS_CONFIG.QUIZ_WRONG,
+      pointsChange: actualDelta,
       timestamp: Date.now(),
     });
 
+    this.saveState();
+
+    this.triggerNotification({
+      id: `toast_quiz_${questionId}_${Date.now()}`,
+      pointsChange: actualDelta,
+      title,
+      message: desc,
+      type: isCorrect ? 'reward' : 'penalty',
+      timestamp: Date.now(),
+    });
+
+    return true;
+  }
+
+  /**
+   * Resets quiz question tracking and quiz score on quiz retake.
+   */
+  public resetQuizAttempt() {
+    this.state.answeredQuizQuestionIds = [];
+    this.state.quizScore = 0;
     this.recalculateTotal();
     this.saveState();
-    return true;
   }
 
   /**
@@ -364,6 +487,16 @@ class PointsManager {
 
     this.recalculateTotal();
     this.saveState();
+
+    this.triggerNotification({
+      id: `toast_hint_${Date.now()}`,
+      pointsChange: -POINTS_CONFIG.HINT_PENALTY,
+      title: `-${POINTS_CONFIG.HINT_PENALTY} Points`,
+      message: 'Hint Used',
+      type: 'penalty',
+      timestamp: Date.now(),
+    });
+
     return true;
   }
 
@@ -395,6 +528,16 @@ class PointsManager {
 
     this.recalculateTotal();
     this.saveState();
+
+    this.triggerNotification({
+      id: `toast_guided_${Date.now()}`,
+      pointsChange: -POINTS_CONFIG.GUIDED_SOLVE_PENALTY,
+      title: `-${POINTS_CONFIG.GUIDED_SOLVE_PENALTY} Points`,
+      message: 'Guided Solve Used',
+      type: 'penalty',
+      timestamp: Date.now(),
+    });
+
     return true;
   }
 
