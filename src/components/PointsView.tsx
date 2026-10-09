@@ -45,16 +45,6 @@ export const PointsView: React.FC = () => {
 
   const categoryRows = [
     {
-      id: 'theory',
-      label: `Theory (Max ${breakdown.maxTheory})`,
-      score: breakdown.theoryScore,
-      scoreText: `+${breakdown.theoryScore}`,
-      icon: BookOpen,
-      iconContainerClass:
-        'bg-blue-50 dark:bg-blue-950/50 text-[#2563EB] dark:text-[#3B82F6] border-blue-100 dark:border-blue-500/20',
-      isPenalty: false,
-    },
-    {
       id: 'visualize',
       label: `Visualization (Max ${breakdown.maxVisualize})`,
       score: breakdown.visualizeScore,
@@ -122,7 +112,7 @@ export const PointsView: React.FC = () => {
 
             {/* Subtitle */}
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              Overall score earned across Theory modules, Quiz challenges, Visualizations, and Game levels.
+              Overall score earned across Visualizations (20 pts), Game levels (40 pts), and Quiz challenges (40 pts).
             </p>
           </div>
 
@@ -231,28 +221,19 @@ export const PointsView: React.FC = () => {
             <div className="divide-y divide-slate-100 dark:divide-blue-500/10 text-xs">
               <div className="py-2.5 flex items-center justify-between gap-2">
                 <span className="text-slate-600 dark:text-slate-400">
-                  Complete Theory module (12 × +2)
+                  Complete Visualize module (2 × +10)
                 </span>
                 <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
-                  +2 (max 24)
+                  +10 (max 20)
                 </span>
               </div>
 
               <div className="py-2.5 flex items-center justify-between gap-2">
                 <span className="text-slate-600 dark:text-slate-400">
-                  Complete Visualize module (2 × +4)
+                  Complete Game level (4 × +10)
                 </span>
                 <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
-                  +4 (max 8)
-                </span>
-              </div>
-
-              <div className="py-2.5 flex items-center justify-between gap-2">
-                <span className="text-slate-600 dark:text-slate-400">
-                  Complete Game level (4 × +9)
-                </span>
-                <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
-                  +9 (max 36)
+                  +10 (max 40)
                 </span>
               </div>
 
@@ -261,25 +242,34 @@ export const PointsView: React.FC = () => {
                   Quiz question correct
                 </span>
                 <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
-                  +2
+                  +4
                 </span>
               </div>
 
               <div className="py-2.5 flex items-center justify-between gap-2">
                 <span className="text-slate-600 dark:text-slate-400">
-                  Quiz question incorrect
+                  Quiz question wrong
                 </span>
                 <span className="font-mono font-bold text-rose-600 dark:text-rose-400 shrink-0">
-                  -1
+                  −3
                 </span>
               </div>
 
               <div className="py-2.5 flex items-center justify-between gap-2">
                 <span className="text-slate-600 dark:text-slate-400">
-                  Quiz Category Cap
+                  Quiz timeout or unanswered
+                </span>
+                <span className="font-mono font-bold text-slate-500 dark:text-slate-400 shrink-0">
+                  0 pts
+                </span>
+              </div>
+
+              <div className="py-2.5 flex items-center justify-between gap-2">
+                <span className="text-slate-600 dark:text-slate-400">
+                  Quiz Category Maximum
                 </span>
                 <span className="font-mono font-bold text-[#0F172A] dark:text-white shrink-0">
-                  Max 20
+                  Max 40
                 </span>
               </div>
 
@@ -288,7 +278,7 @@ export const PointsView: React.FC = () => {
                   Use Hint (per actual use)
                 </span>
                 <span className="font-mono font-bold text-rose-600 dark:text-rose-400 shrink-0">
-                  -2
+                  −2
                 </span>
               </div>
 
@@ -297,7 +287,7 @@ export const PointsView: React.FC = () => {
                   Use Guided Solve (per actual use)
                 </span>
                 <span className="font-mono font-bold text-rose-600 dark:text-rose-400 shrink-0">
-                  -3
+                  −4
                 </span>
               </div>
 

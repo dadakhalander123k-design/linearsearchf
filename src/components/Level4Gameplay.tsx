@@ -86,6 +86,13 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string>('Search through the array element by element.');
   const [isGuidedSolveActive, setIsGuidedSolveActive] = useState<boolean>(false);
+  const [currentHint, setCurrentHint] = useState<string | null>(null);
+
+  const handleUseHint = () => {
+    soundManager.playClick();
+    pointsManager.recordHintUsed(`Level 3: Challenge ${challengeIndex + 1}`);
+    setCurrentHint(`Challenge ${challengeIndex + 1}: ${currentChallenge.question} (Target is ${currentChallenge.target}, check array elements systematically).`);
+  };
 
   const currentChallenge = challenges[challengeIndex];
   const isSearching = status === 'searching';
@@ -209,6 +216,20 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
               </span>
             </div>
 
+            {!isAllChallengesComplete && (
+              <button
+                id="btn-lvl4-hint"
+                type="button"
+                onClick={handleUseHint}
+                className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30 flex items-center gap-1.5 cursor-pointer shadow-2xs transition-all active:scale-95"
+                title="Get a hint (-2 points per use)"
+              >
+                <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
+                <span>Hint</span>
+                <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-200/60 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200">−2 pts</span>
+              </button>
+            )}
+
             {!isGuidedSolveActive && !isAllChallengesComplete && (
               <button
                 id="btn-lvl4-start-guided-solve"
@@ -218,15 +239,32 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
                   pointsManager.recordGuidedSolveUsed(3);
                   setIsGuidedSolveActive(true);
                 }}
-                className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
-                title="Start Guided Solve step-by-step assistant"
+                className="btn-modern-secondary px-2.5 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
+                title="Start Guided Solve step-by-step assistant (-4 points per use)"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
                 <span>Guided Solve</span>
+                <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200/60 dark:border-rose-500/30">−4 pts</span>
               </button>
             )}
           </div>
         </div>
+
+        {/* Dynamic Hint Banner */}
+        {currentHint && (
+          <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-500/30 rounded-xl text-xs font-medium text-amber-900 dark:text-amber-200 flex items-center justify-between gap-2 animate-fade-in">
+            <div className="flex items-center gap-2">
+              <Lightbulb className="w-4 h-4 text-amber-500 shrink-0" />
+              <span><strong>Hint:</strong> {currentHint}</span>
+            </div>
+            <button
+              onClick={() => setCurrentHint(null)}
+              className="text-amber-700 hover:text-amber-950 dark:text-amber-400 font-bold text-xs p-1 cursor-pointer"
+            >
+              ✕
+            </button>
+          </div>
+        )}
 
         {/* Guided Solve Step-by-Step Panel */}
         {isGuidedSolveActive && (

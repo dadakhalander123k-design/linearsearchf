@@ -242,7 +242,7 @@ export const GameLevelSelectionCards: React.FC<GameLevelSelectionCardsProps> = (
                   {/* Points Reward Badge */}
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold font-sans shadow-2xs">
                     <Sparkles className="w-3 h-3 text-amber-500 fill-amber-400" />
-                    <span>+{POINTS_CONFIG.GAME_PER_LEVEL} points</span>
+                    <span>+{POINTS_CONFIG.GAME_PER_LEVEL} pts</span>
                   </span>
                 </div>
               </div>

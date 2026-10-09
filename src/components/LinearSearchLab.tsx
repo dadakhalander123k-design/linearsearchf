@@ -402,7 +402,7 @@ export const LinearSearchLab: React.FC<LinearSearchLabProps> = () => {
                 className="btn-modern-secondary px-5 py-2.5 text-xs font-semibold flex items-center gap-2 cursor-pointer"
               >
                 <RotateCcw className="w-4 h-4" />
-                <span>Reset / Try Another Target</span>
+                <span>Try Another Target</span>
               </button>
             )}
           </div>

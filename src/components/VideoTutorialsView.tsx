@@ -3,7 +3,6 @@ import {
   Play,
   Pause,
   RotateCcw,
-  RotateCw,
   Volume2,
   VolumeX,
   Maximize,
@@ -164,17 +163,21 @@ export const VideoTutorialsView: React.FC = () => {
     setCurrentTime(newTime);
   }, [duration]);
 
-  // Timeline scrubber seek
+  // Timeline scrubber seek: only allow backward seeking, prevent forward seeking
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const time = parseFloat(e.target.value);
+    if (videoRef.current && time > videoRef.current.currentTime) {
+      return; // Prevent seeking forward
+    }
     setCurrentTime(time);
     if (videoRef.current) {
       videoRef.current.currentTime = time;
     }
   };
 
-  // Speed selector
+  // Speed selector: restricted to 1x and 0.5x to prevent fast-forwarding
   const handleChangeSpeed = useCallback((spd: number) => {
+    if (spd > 1) return; // Prevent fast-forwarding
     soundManager.playVideoSpeed();
     setPlaybackSpeed(spd);
     if (videoRef.current) {
@@ -280,14 +283,7 @@ export const VideoTutorialsView: React.FC = () => {
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       const cur = videoRef.current.currentTime;
-      const dur = videoRef.current.duration;
       setCurrentTime(cur);
-      if (selectedLesson && dur > 0 && cur >= dur * 0.90) {
-        const newlyCompleted = progressManager.completeVideo(selectedLesson.id);
-        if (newlyCompleted) {
-          pointsManager.recordVideoCompleted(selectedLesson.id);
-        }
-      }
     }
   };
 
@@ -370,9 +366,6 @@ export const VideoTutorialsView: React.FC = () => {
       } else if (e.key === 'k' || e.key === 'K') {
         e.preventDefault();
         pauseVideoStrict();
-      } else if (e.key === 'l' || e.key === 'L') {
-        e.preventDefault();
-        handleForward();
       } else if (e.key === 'f' || e.key === 'F') {
         e.preventDefault();
         toggleFullscreen();
@@ -466,7 +459,7 @@ export const VideoTutorialsView: React.FC = () => {
                       {/* Points Reward Badge */}
                       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold font-sans shadow-2xs">
                         <Sparkles className="w-3 h-3 text-amber-500 fill-amber-400" />
-                        <span>+{POINTS_CONFIG.VISUALIZE_PER_MODULE} points</span>
+                        <span>+{POINTS_CONFIG.VISUALIZE_PER_MODULE} pts</span>
                       </span>
 
                       {/* Small Minimal Completion Indicator */}
@@ -706,22 +699,13 @@ export const VideoTutorialsView: React.FC = () => {
                     {isPlaying ? <Pause className="w-4 h-4 sm:w-4.5 sm:h-4.5" /> : <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current" />}
                     <span className="uppercase font-bold text-xs">{isPlaying ? 'Pause' : 'Play'}</span>
                   </button>
-
-                  {/* 3. FORWARD BUTTON */}
-                  <button
-                    onClick={handleForward}
-                    className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-white/10 hover:bg-white/20 dark:bg-blue-950/40 text-slate-200 hover:text-white transition-colors cursor-pointer active:scale-95 flex items-center justify-center shrink-0"
-                    title="Forward 10s (L)"
-                  >
-                    <RotateCw className="w-4 h-4" />
-                  </button>
                 </div>
 
                 {/* Right Side: Speed Selector + Volume + Fullscreen */}
                 <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 border-t sm:border-t-0 border-white/10 pt-2 sm:pt-0">
-                  {/* 4. PLAYBACK SPEED SELECTOR */}
+                  {/* 3. PLAYBACK SPEED SELECTOR (0.5x, 1x - fast-forwarding disabled) */}
                   <div className="flex items-center gap-0.5 sm:gap-1 bg-black/40 border border-white/10 dark:border-blue-500/30 rounded-xl p-1 shadow-inner shrink-0">
-                    {[0.5, 1, 1.5, 2].map((spd) => (
+                    {[0.5, 1].map((spd) => (
                       <button
                         key={spd}
                         onClick={() => handleChangeSpeed(spd)}
@@ -833,25 +817,13 @@ export const VideoTutorialsView: React.FC = () => {
                   {isPlaying ? <Pause className="w-4 h-4 sm:w-4.5 sm:h-4.5" /> : <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current" />}
                   <span className="tracking-wide uppercase font-bold text-xs">{isPlaying ? 'Pause' : 'Play'}</span>
                 </button>
-
-                {/* 3. FORWARD BUTTON (THIRD) */}
-                <button
-                  id="btn-video-forward"
-                  onClick={handleForward}
-                  disabled={hasError}
-                  className="h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#0F172A] dark:hover:bg-blue-950/40 border border-slate-200/90 dark:border-blue-500/25 text-slate-700 dark:text-slate-300 transition-all cursor-pointer active:scale-95 shadow-xs flex items-center justify-center shrink-0"
-                  title="Forward 10 seconds (L)"
-                  aria-label="Forward 10 seconds"
-                >
-                  <RotateCw className="w-4 h-4" />
-                </button>
               </div>
 
               {/* SECONDARY CONTROLS: Speed Selector + Volume + Fullscreen */}
               <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3.5 border-t sm:border-t-0 border-slate-100 dark:border-blue-500/15 pt-2.5 sm:pt-0">
-                {/* 4. PLAYBACK SPEED (0.5x | 1x | 1.5x | 2x) */}
+                {/* 3. PLAYBACK SPEED (0.5x | 1x - fast-forwarding disabled) */}
                 <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-100 dark:bg-[#0F172A] border border-slate-200/90 dark:border-blue-500/25 rounded-xl p-1 shadow-inner shrink-0">
-                  {[0.5, 1, 1.5, 2].map((spd) => (
+                  {[0.5, 1].map((spd) => (
                     <button
                       key={spd}
                       id={`btn-video-speed-${spd}`}

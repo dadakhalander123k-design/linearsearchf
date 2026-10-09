@@ -180,7 +180,7 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
               onClick={() => setM2Step((prev) => (prev < 3 ? prev + 1 : 0))}
               className="btn-modern-primary px-3.5 py-1.5 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-all"
             >
-              <span>{m2Step < 3 ? `Advance to Step ${m2Step + 2}` : 'Reset Simulation'}</span>
+              <span>{m2Step < 3 ? `Advance to Step ${m2Step + 2}` : 'Start Over'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -257,13 +257,6 @@ export const TheoryVisualEnhancer: React.FC<TheoryVisualEnhancerProps> = ({ chap
                 className="btn-modern-primary px-3 py-1 text-xs font-semibold disabled:opacity-40 cursor-pointer"
               >
                 Next Step
-              </button>
-              <button
-                onClick={() => setM3Step(0)}
-                className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
-                title="Reset"
-              >
-                <RotateCcw className="w-4 h-4" />
               </button>
             </div>
           </div>

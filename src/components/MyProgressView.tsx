@@ -78,19 +78,6 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
 
   const categoryCards = [
     {
-      id: 'learn',
-      label: 'Learn',
-      icon: BookOpen,
-      iconContainerClass: 'bg-sky-500/10 text-sky-400 border-sky-500/25',
-      score: `${pointsBreakdown.theoryScore} / ${pointsBreakdown.maxTheory}`,
-      percent: theoryPercent,
-      description: 'Complete learning modules',
-      onClick: () => {
-        soundManager.playSelect();
-        onNavigateToTab('THEORY');
-      },
-    },
-    {
       id: 'visualize',
       label: 'Visualize',
       icon: Eye,
@@ -202,18 +189,6 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
             Last synced: {new Date(progressState.lastActiveTimestamp).toLocaleDateString()}
           </span>
         </div>
-
-        <button
-          id="btn-reset-progress-dialog"
-          onClick={() => {
-            soundManager.playModalOpen();
-            setShowResetConfirm(true);
-          }}
-          className="text-xs font-medium text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 flex items-center gap-1.5 cursor-pointer transition-colors"
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-          <span>Reset Progress</span>
-        </button>
       </div>
 
       {/* 1. Overall Completion Card - Exact Reference Layout */}
@@ -302,8 +277,8 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
           </div>
         </div>
 
-        {/* 4 Category Cards in 1 Row on Desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        {/* 3 Category Cards in 1 Row on Desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-6">
           {categoryCards.map((cat) => {
             const Icon = cat.icon;
             return (

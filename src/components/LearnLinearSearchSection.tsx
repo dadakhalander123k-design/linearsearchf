@@ -119,7 +119,6 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
     const newlyCompleted = progressManager.completeTheoryChapter(activeModule.id);
     if (newlyCompleted) {
       soundManager.playTheoryComplete();
-      pointsManager.recordTheoryCompleted(activeModule.id);
     }
   };
 
@@ -130,7 +129,6 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
       const newlyCompleted = progressManager.completeTheoryChapter(activeModule.id);
       if (newlyCompleted) {
         soundManager.playTheoryComplete();
-        pointsManager.recordTheoryCompleted(activeModule.id);
       }
     }
 
@@ -177,11 +175,6 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
             </span>
             <span className="text-xs font-medium text-slate-500 dark:text-slate-400 font-sans">
               Sequential &amp; Linear Search Foundations
-            </span>
-            {/* Points Reward Badge */}
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold font-sans shadow-2xs">
-              <Sparkles className="w-3 h-3 text-amber-500 fill-amber-400" />
-              <span>+{POINTS_CONFIG.THEORY_PER_MODULE} points per module</span>
             </span>
           </div>
           <div className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[#0F172A] px-3 py-1 rounded-lg border border-slate-200 dark:border-blue-500/20 flex items-center gap-2">

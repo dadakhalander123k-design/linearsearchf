@@ -185,10 +185,7 @@ class PointsManager {
    * Example: 0 - 2 = -2. If -2 + 6 = 4.
    */
   private recalculateTotal() {
-    const theory = Math.min(
-      POINTS_CONFIG.MAX_THEORY,
-      this.state.completedTheoryIds.length * POINTS_CONFIG.THEORY_PER_MODULE
-    );
+    const theory = 0; // Learn/Theory contributes 0 points to Linear Search
     const quiz = Math.min(POINTS_CONFIG.MAX_QUIZ, this.state.quizScore);
     const visualize = Math.min(
       POINTS_CONFIG.MAX_VISUALIZE,
@@ -199,7 +196,7 @@ class PointsManager {
       this.state.completedGameLevelIds.length * POINTS_CONFIG.GAME_PER_LEVEL
     );
 
-    const gross = theory + quiz + visualize + game;
+    const gross = quiz + visualize + game;
     const deductions = this.state.hintPenaltiesTotal + this.state.guidedSolvePenaltiesTotal;
 
     // Do NOT clamp to zero! Negative balances are fully supported.
@@ -277,39 +274,14 @@ class PointsManager {
   // =========================================================================
 
   /**
-   * Complete Theory Module (First time only): +2 Points (Max 24)
+   * Complete Theory Module: 0 Points (Theory contributes zero points in Linear Search)
    */
-  public recordTheoryCompleted(moduleId: string, title?: string): boolean {
+  public recordTheoryCompleted(moduleId: string, _title?: string): boolean {
     if (!moduleId || this.state.completedTheoryIds.includes(moduleId)) {
-      return false; // Already awarded
+      return false; // Already tracked
     }
     this.state.completedTheoryIds.push(moduleId);
-
-    // Format module number cleanly, e.g. "theory-01" -> "1"
-    const modNumber = moduleId.replace(/\D/g, '') || '1';
-    const pointsAdded = POINTS_CONFIG.THEORY_PER_MODULE;
-
-    this.addHistoryEvent({
-      id: `theory_${moduleId}_${Date.now()}`,
-      type: 'THEORY_COMPLETED',
-      description: title ? `Completed Theory: ${title}` : `Completed Theory Module ${parseInt(modNumber, 10)}`,
-      categoryLabel: 'THEORY COMPLETED',
-      pointsChange: pointsAdded,
-      timestamp: Date.now(),
-    });
-
-    this.recalculateTotal();
     this.saveState();
-
-    this.triggerNotification({
-      id: `toast_theory_${moduleId}_${Date.now()}`,
-      pointsChange: pointsAdded,
-      title: `+${pointsAdded} Points`,
-      message: 'Theory Module Completed',
-      type: 'reward',
-      timestamp: Date.now(),
-    });
-
     return true;
   }
 
@@ -456,6 +428,44 @@ class PointsManager {
   }
 
   /**
+   * Quiz Question Timeout or Unanswered: 0 Points
+   * Prevents duplicate scoring for this question.
+   */
+  public recordQuizTimeout(questionId: number): boolean {
+    if (!Array.isArray(this.state.answeredQuizQuestionIds)) {
+      this.state.answeredQuizQuestionIds = [];
+    }
+
+    if (this.state.answeredQuizQuestionIds.includes(questionId)) {
+      return false;
+    }
+
+    this.state.answeredQuizQuestionIds.push(questionId);
+
+    this.addHistoryEvent({
+      id: `quiz_timeout_${questionId}_${Date.now()}`,
+      type: 'QUIZ_TIMEOUT',
+      description: `Question Q${questionId} Timed Out (0 pts)`,
+      categoryLabel: 'QUIZ TIMEOUT',
+      pointsChange: 0,
+      timestamp: Date.now(),
+    });
+
+    this.saveState();
+
+    this.triggerNotification({
+      id: `toast_quiz_timeout_${questionId}_${Date.now()}`,
+      pointsChange: 0,
+      title: '0 Points',
+      message: `Question ${questionId} Timed Out`,
+      type: 'penalty',
+      timestamp: Date.now(),
+    });
+
+    return true;
+  }
+
+  /**
    * Resets quiz question tracking and quiz score on quiz retake.
    */
   public resetQuizAttempt() {
@@ -545,11 +555,8 @@ class PointsManager {
    * Returns current Points breakdown according to the 100-point curriculum
    */
   public getBreakdown(): PointsBreakdown {
-    const theoryScore = Math.min(
-      POINTS_CONFIG.MAX_THEORY,
-      this.state.completedTheoryIds.length * POINTS_CONFIG.THEORY_PER_MODULE
-    );
-    const quizScore = Math.max(0, Math.min(POINTS_CONFIG.MAX_QUIZ, this.state.quizScore));
+    const theoryScore = 0; // Learn/Theory contributes 0 points to Linear Search
+    const quizScore = this.state.quizScore;
     const visualizeScore = Math.min(
       POINTS_CONFIG.MAX_VISUALIZE,
       this.state.completedVisualizeIds.length * POINTS_CONFIG.VISUALIZE_PER_MODULE
