@@ -13,11 +13,13 @@ import {
   Tv,
   Check,
   Loader2,
+  Sparkles,
 } from 'lucide-react';
 import { LessonItem, VIDEO_LESSONS } from '../data/videoLessons';
 import { soundManager } from '../utils/audio';
 import { progressManager } from '../utils/progressManager';
 import { pointsManager } from '../utils/pointsManager';
+import { POINTS_CONFIG } from '../types/points';
 
 export const VideoTutorialsView: React.FC = () => {
   const [selectedLesson, setSelectedLesson] = useState<LessonItem | null>(null);
@@ -449,9 +451,9 @@ export const VideoTutorialsView: React.FC = () => {
                   }`}
               >
                 <div>
-                  {/* Lesson Header Pill & Completion Indicator */}
+                  {/* Lesson Header Pill, Points Badge & Completion Indicator */}
                   <div className="flex items-center justify-between mb-3.5">
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex flex-wrap items-center gap-2.5">
                       <span
                         className={`px-3 py-1 rounded-md text-xs font-bold font-mono border tracking-wide transition-colors ${isSelected
                             ? 'bg-[#EFF6FF] dark:bg-blue-950/80 text-[#2563EB] dark:text-[#3B82F6] border-[#DBEAFE] dark:border-blue-500/40'
@@ -459,6 +461,12 @@ export const VideoTutorialsView: React.FC = () => {
                           }`}
                       >
                         {lesson.lessonNumber}
+                      </span>
+
+                      {/* Points Reward Badge */}
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold font-sans shadow-2xs">
+                        <Sparkles className="w-3 h-3 text-amber-500 fill-amber-400" />
+                        <span>+{POINTS_CONFIG.VISUALIZE_PER_MODULE} points</span>
                       </span>
 
                       {/* Small Minimal Completion Indicator */}

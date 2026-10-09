@@ -18,6 +18,7 @@ import {
 import { GAME_LEVELS } from '../data/levels';
 import { progressManager } from '../utils/progressManager';
 import { soundManager } from '../utils/audio';
+import { POINTS_CONFIG } from '../types/points';
 
 interface GameLevelSelectionCardsProps {
   completedLevels: number[];
@@ -220,21 +221,29 @@ export const GameLevelSelectionCards: React.FC<GameLevelSelectionCardsProps> = (
                   {lvl.introExplanation || lvl.techniqueSummary}
                 </p>
 
-                {/* Technical Specs & Details */}
-                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap items-center gap-2 text-[11px] font-mono">
-                  <span className="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 flex items-center gap-1">
-                    <Layers className="w-3 h-3 text-slate-400" />
-                    {lvl.tableSize} Elements
-                  </span>
-                  <span className="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 flex items-center gap-1 truncate max-w-[200px]" title={lvl.formulaDisplay || lvl.h1Formula}>
-                    <Code2 className="w-3 h-3 text-slate-400" />
-                    {lvl.h1Formula || lvl.formulaDisplay}
-                  </span>
-                  {lvl.moduleCode && (
-                    <span className="px-2 py-1 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 font-bold ml-auto">
-                      {lvl.moduleCode}
+                {/* Technical Specs & Details + Points Reward Badge */}
+                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                      <Layers className="w-3 h-3 text-slate-400" />
+                      {lvl.tableSize} Elements
                     </span>
-                  )}
+                    <span className="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 flex items-center gap-1 truncate max-w-[200px]" title={lvl.formulaDisplay || lvl.h1Formula}>
+                      <Code2 className="w-3 h-3 text-slate-400" />
+                      {lvl.h1Formula || lvl.formulaDisplay}
+                    </span>
+                    {lvl.moduleCode && (
+                      <span className="px-2 py-1 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 font-bold">
+                        {lvl.moduleCode}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Points Reward Badge */}
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold font-sans shadow-2xs">
+                    <Sparkles className="w-3 h-3 text-amber-500 fill-amber-400" />
+                    <span>+{POINTS_CONFIG.GAME_PER_LEVEL} points</span>
+                  </span>
                 </div>
               </div>
 

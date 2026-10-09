@@ -26,6 +26,7 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import { TechniqueType } from '../types/game';
+import { POINTS_CONFIG } from '../types/points';
 import { progressManager, normalizeTheoryChapterId } from '../utils/progressManager';
 import { pointsManager } from '../utils/pointsManager';
 import { soundManager } from '../utils/audio';
@@ -170,12 +171,17 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
           ========================================================================= */}
       <div className="border border-slate-200 dark:border-blue-500/20 rounded-2xl pt-5 pb-6 px-6 sm:px-8 bg-white dark:bg-[#111827] shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <span className="px-2.5 py-0.5 bg-[#EFF6FF] dark:bg-blue-950/60 text-[#2563EB] dark:text-[#3B82F6] border border-[#DBEAFE] dark:border-blue-500/30 rounded-md text-xs font-semibold uppercase tracking-wider font-mono">
               THEORY CURRICULUM // VOL. 01
             </span>
             <span className="text-xs font-medium text-slate-500 dark:text-slate-400 font-sans">
               Sequential &amp; Linear Search Foundations
+            </span>
+            {/* Points Reward Badge */}
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold font-sans shadow-2xs">
+              <Sparkles className="w-3 h-3 text-amber-500 fill-amber-400" />
+              <span>+{POINTS_CONFIG.THEORY_PER_MODULE} points per module</span>
             </span>
           </div>
           <div className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[#0F172A] px-3 py-1 rounded-lg border border-slate-200 dark:border-blue-500/20 flex items-center gap-2">

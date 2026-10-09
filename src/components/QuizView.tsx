@@ -23,6 +23,7 @@ import { progressManager } from '../utils/progressManager';
 import { pointsManager } from '../utils/pointsManager';
 import { soundManager } from '../utils/audio';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { POINTS_CONFIG } from '../types/points';
 
 export interface QuizViewProps {
   onNavigateToTheory: (chapterId?: string) => void;
@@ -550,6 +551,29 @@ export const QuizView: React.FC<QuizViewProps> = ({
         <p className="text-sm text-slate-600 dark:text-slate-300 max-w-2xl mt-1 leading-relaxed">
           Test your understanding of sequential searching, best/worst case complexities, element comparison, and early termination.
         </p>
+
+        {/* Quiz Points Scoring Guideline Banner */}
+        <div className="mt-4 p-3 rounded-xl bg-amber-50/90 dark:bg-amber-950/40 border border-amber-200/90 dark:border-amber-500/30 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200 font-semibold font-sans">
+            <Sparkles className="w-4 h-4 text-amber-500 fill-amber-400 shrink-0" />
+            <span>Quiz Scoring Rules:</span>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-emerald-700 dark:text-emerald-400">
+              <span className="font-sans text-slate-700 dark:text-slate-300">Correct answer:</span>
+              <strong className="px-2 py-0.5 rounded-md bg-emerald-100/90 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-500/30">
+                +{POINTS_CONFIG.QUIZ_CORRECT} points
+              </strong>
+            </span>
+            <span className="text-amber-400 dark:text-amber-600 font-sans">|</span>
+            <span className="inline-flex items-center gap-1.5 font-semibold text-rose-700 dark:text-rose-400">
+              <span className="font-sans text-slate-700 dark:text-slate-300">Incorrect answer:</span>
+              <strong className="px-2 py-0.5 rounded-md bg-rose-100/90 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200/80 dark:border-rose-500/30">
+                {POINTS_CONFIG.QUIZ_WRONG} point
+              </strong>
+            </span>
+          </div>
+        </div>
 
         {/* Question Index Tabs / Progress Tracker */}
         <div className="mt-5 pt-4 border-t border-slate-100 dark:border-blue-500/15">
