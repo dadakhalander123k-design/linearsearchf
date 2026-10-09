@@ -7,6 +7,7 @@ import { SidebarNav } from './components/SidebarNav';
 import { TopHeader } from './components/TopHeader';
 import { HomePage } from './components/HomePage';
 import { LevelProgressBar } from './components/LevelProgressBar';
+import { GameLevelSelectionCards } from './components/GameLevelSelectionCards';
 import { LinearSearchGameplay } from './components/LinearSearchGameplay';
 import { LevelCompleteModal } from './components/LevelCompleteModal';
 import { SandboxMode } from './components/SandboxMode';

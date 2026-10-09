@@ -240,19 +240,19 @@ export const PointsView: React.FC = () => {
 
               <div className="py-2.5 flex items-center justify-between gap-2">
                 <span className="text-slate-600 dark:text-slate-400">
-                  Complete Visualize module (2 × +3)
+                  Complete Visualize module (2 × +4)
                 </span>
                 <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
-                  +3 (max 6)
+                  +4 (max 8)
                 </span>
               </div>
 
               <div className="py-2.5 flex items-center justify-between gap-2">
                 <span className="text-slate-600 dark:text-slate-400">
-                  Complete Game level (5 × +10)
+                  Complete Game level (4 × +9)
                 </span>
                 <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
-                  +10 (max 50)
+                  +9 (max 36)
                 </span>
               </div>
 

@@ -7,11 +7,9 @@ import {
   HelpCircle,
   TrendingUp,
   X,
-  Award,
 } from 'lucide-react';
 import { MainViewTab } from '../types/game';
 import { progressManager } from '../utils/progressManager';
-import { pointsManager } from '../utils/pointsManager';
 import { soundManager } from '../utils/audio';
 
 export interface SidebarNavProps {
@@ -34,19 +32,14 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
   onToggleDesktopCollapse,
 }) => {
   const [stats, setStats] = React.useState(() => progressManager.getStats());
-  const [pointsTotal, setPointsTotal] = useState(() => pointsManager.getTotalPoints());
   const [isProgressHovered, setIsProgressHovered] = useState(false);
 
   React.useEffect(() => {
     const unsub = progressManager.subscribe(() => {
       setStats(progressManager.getStats());
     });
-    const unsubPoints = pointsManager.subscribe((pState) => {
-      setPointsTotal(pState.totalPoints);
-    });
     return () => {
       unsub();
-      unsubPoints();
     };
   }, []);
 
@@ -92,13 +85,6 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
       icon: TrendingUp,
       badge: `${stats.percentage}%`,
       badgeClass: 'bg-[#EFF6FF] dark:bg-blue-800/40 text-[#2563EB] dark:text-[#3B82F6] font-bold border border-[#DBEAFE] dark:border-blue-500/30',
-    },
-    {
-      id: 'POINTS' as MainViewTab,
-      label: 'Points',
-      icon: Award,
-      badge: `${pointsTotal} / 100`,
-      badgeClass: 'bg-[#EFF6FF] dark:bg-blue-950/50 text-[#2563EB] dark:text-[#3B82F6] font-bold border border-[#DBEAFE] dark:border-blue-500/30',
     },
   ];
 

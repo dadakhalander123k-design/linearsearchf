@@ -314,7 +314,7 @@ class PointsManager {
   }
 
   /**
-   * Complete Visualize / Video Module (First time only): +3 Points (Max 6)
+   * Complete Visualize / Video Module (First time only): +4 Points (Max 8)
    */
   public recordVideoCompleted(videoId: string, title?: string): boolean {
     if (!videoId || this.state.completedVisualizeIds.includes(videoId)) {
@@ -350,7 +350,7 @@ class PointsManager {
   }
 
   /**
-   * Complete Game Level (First time only): +10 Points (Max 50)
+   * Complete Game Level (First time only): +9 Points (Max 36)
    */
   public recordGameCompleted(levelId: number): boolean {
     if (!levelId || this.state.completedGameLevelIds.includes(levelId)) {

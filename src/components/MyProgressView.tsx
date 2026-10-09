@@ -16,8 +16,13 @@ import {
   Star,
   Circle,
   Clock,
+  TrendingUp,
+  Eye,
+  Brain,
 } from 'lucide-react';
 import { progressManager } from '../utils/progressManager';
+import { pointsManager } from '../utils/pointsManager';
+import { PointsBreakdown, PointsState } from '../types/points';
 import { ModuleRecord, ModuleStatus, UserProgressState, MainViewTab } from '../types/game';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { CompletionCelebrationModal } from './CompletionCelebrationModal';
@@ -31,22 +36,100 @@ interface MyProgressViewProps {
 export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab }) => {
   useScrollReveal();
   const [progressState, setProgressState] = useState<UserProgressState>(progressManager.getState());
+  const [pointsBreakdown, setPointsBreakdown] = useState<PointsBreakdown>(() => pointsManager.getBreakdown());
+  const [pointsState, setPointsState] = useState<PointsState>(() => pointsManager.getState());
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [showCertificateModal, setShowCertificateModal] = useState<boolean>(false);
   const [activeFilter, setActiveFilter] = useState<'ALL' | 'FOUNDATION' | 'MECHANICS' | 'ANALYSIS' | 'PRACTICE'>('ALL');
 
   useEffect(() => {
     progressManager.checkAndCompleteCertification();
-    const unsubscribe = progressManager.subscribe((state) => {
+    const unsubscribeProgress = progressManager.subscribe((state) => {
       setProgressState(state);
     });
-    return unsubscribe;
+    const unsubscribePoints = pointsManager.subscribe((pState) => {
+      setPointsBreakdown(pointsManager.getBreakdown());
+      setPointsState(pState);
+    });
+    return () => {
+      unsubscribeProgress();
+      unsubscribePoints();
+    };
   }, []);
 
   const stats = progressManager.getStats();
   const videoStats = progressManager.getVideoStats();
   const modules = progressManager.getModules();
   const is100Percent = stats.percentage === 100;
+
+  const theoryPercent = pointsBreakdown.maxTheory > 0
+    ? Math.min(100, Math.max(0, Math.round((pointsBreakdown.theoryScore / pointsBreakdown.maxTheory) * 100)))
+    : 0;
+  const visualizePercent = pointsBreakdown.maxVisualize > 0
+    ? Math.min(100, Math.max(0, Math.round((pointsBreakdown.visualizeScore / pointsBreakdown.maxVisualize) * 100)))
+    : 0;
+  const gamePercent = pointsBreakdown.maxGame > 0
+    ? Math.min(100, Math.max(0, Math.round((pointsBreakdown.gameScore / pointsBreakdown.maxGame) * 100)))
+    : 0;
+  const quizDisplayScore = pointsState.quizScore < 0 ? pointsState.quizScore : pointsBreakdown.quizScore;
+  const quizPercent = pointsBreakdown.maxQuiz > 0
+    ? Math.min(100, Math.max(0, Math.round((Math.max(0, quizDisplayScore) / pointsBreakdown.maxQuiz) * 100)))
+    : 0;
+
+  const categoryCards = [
+    {
+      id: 'learn',
+      label: 'Learn',
+      icon: BookOpen,
+      iconContainerClass: 'bg-sky-500/10 text-sky-400 border-sky-500/25',
+      score: `${pointsBreakdown.theoryScore} / ${pointsBreakdown.maxTheory}`,
+      percent: theoryPercent,
+      description: 'Complete learning modules',
+      onClick: () => {
+        soundManager.playSelect();
+        onNavigateToTab('THEORY');
+      },
+    },
+    {
+      id: 'visualize',
+      label: 'Visualize',
+      icon: Eye,
+      iconContainerClass: 'bg-purple-500/10 text-purple-400 border-purple-500/25',
+      score: `${pointsBreakdown.visualizeScore} / ${pointsBreakdown.maxVisualize}`,
+      percent: visualizePercent,
+      description: 'Complete visualizations & videos',
+      onClick: () => {
+        soundManager.playSelect();
+        onNavigateToTab('VIDEO');
+      },
+    },
+    {
+      id: 'game',
+      label: 'Game',
+      icon: Gamepad2,
+      iconContainerClass: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/25',
+      score: `${pointsBreakdown.gameScore} / ${pointsBreakdown.maxGame}`,
+      percent: gamePercent,
+      description: 'Complete game levels',
+      onClick: () => {
+        soundManager.playSelect();
+        onNavigateToTab('GAME');
+      },
+    },
+    {
+      id: 'quiz',
+      label: 'Quiz',
+      icon: Brain,
+      iconContainerClass: 'bg-blue-500/10 text-blue-400 border-blue-500/25',
+      score: `${quizDisplayScore} / ${pointsBreakdown.maxQuiz}`,
+      percent: quizPercent,
+      description: 'Answer quiz questions',
+      onClick: () => {
+        soundManager.playSelect();
+        onNavigateToTab('QUIZ');
+      },
+    },
+  ];
 
   const filteredModules = activeFilter === 'ALL'
     ? modules
@@ -109,155 +192,201 @@ export const MyProgressView: React.FC<MyProgressViewProps> = ({ onNavigateToTab 
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 font-sans text-slate-900 dark:text-white animate-page-enter pb-24">
-      {/* Header Section */}
-      <div className="border-b border-slate-200 dark:border-blue-500/20 pb-6 mb-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-2">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-bold font-mono uppercase tracking-widest text-[#2563EB] dark:text-[#3B82F6] bg-[#EFF6FF] dark:bg-blue-950/60 px-2.5 py-1 rounded-md border border-[#DBEAFE] dark:border-blue-500/30">
-              Curriculum Progress Tracker
-            </span>
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-              Last synced: {new Date(progressState.lastActiveTimestamp).toLocaleDateString()}
-            </span>
-          </div>
-
-          <button
-            id="btn-reset-progress-dialog"
-            onClick={() => {
-              soundManager.playModalOpen();
-              setShowResetConfirm(true);
-            }}
-            className="text-xs font-medium text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 flex items-center gap-1.5 cursor-pointer transition-colors"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset Progress</span>
-          </button>
+      {/* Top Utility Header with Reset Button */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-bold font-mono uppercase tracking-widest text-[#2563EB] dark:text-[#3B82F6] bg-[#EFF6FF] dark:bg-blue-950/60 px-2.5 py-1 rounded-md border border-[#DBEAFE] dark:border-blue-500/30">
+            Curriculum Progress Tracker
+          </span>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+            Last synced: {new Date(progressState.lastActiveTimestamp).toLocaleDateString()}
+          </span>
         </div>
 
-        <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight animate-heading-enter">
-          Learning Progress & Mastery
-        </h1>
-        <p className="text-sm text-slate-600 dark:text-slate-300 max-w-2xl mt-1 leading-relaxed">
-          Track your journey through sequential search mechanics, complexity analysis, and interactive lab experiments.
-        </p>
-
-        {/* 100% Completion Golden Banner if Completed */}
-        {is100Percent && (
-          <div
-            id="progress-100-percent-banner"
-            className="mt-6 p-5 bg-gradient-to-r from-[#EFF6FF] to-blue-100/60 dark:from-blue-950/50 dark:to-blue-900/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 animate-editorial-scale"
-          >
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white flex items-center justify-center font-bold shadow-xs">
-                <Sparkles className="w-6 h-6 text-amber-300" />
-              </div>
-              <div>
-                <div className="text-xs font-bold font-mono text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider">
-                  ★ Congratulations! 100% Curriculum Completed
-                </div>
-                <div className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
-                  You Have Mastered All 12 Linear Search Modules & Activities
-                </div>
-              </div>
-            </div>
-
-            <button
-              id="btn-open-certificate-from-progress"
-              onClick={() => {
-                soundManager.playModalOpen();
-                setShowCertificateModal(true);
-              }}
-              className="btn-modern-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-all"
-            >
-              <Award className="w-4 h-4" />
-              <span>View Certificate</span>
-            </button>
-          </div>
-        )}
+        <button
+          id="btn-reset-progress-dialog"
+          onClick={() => {
+            soundManager.playModalOpen();
+            setShowResetConfirm(true);
+          }}
+          className="text-xs font-medium text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 flex items-center gap-1.5 cursor-pointer transition-colors"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+          <span>Reset Progress</span>
+        </button>
       </div>
 
-      {/* Progress Summary Cards & Next Action */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        {/* Card 1: Main Progress Metric */}
-        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-2xl p-6 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] relative overflow-hidden reveal-on-scroll">
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-            Overall Completion
+      {/* 1. Overall Completion Card - Exact Reference Layout */}
+      <div className="bg-white dark:bg-[#0B132B]/80 border border-slate-200 dark:border-blue-500/20 rounded-2xl sm:rounded-3xl p-6 sm:p-7 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] mb-6 reveal-on-scroll">
+        {/* Top Progress Header */}
+        <div className="flex items-center gap-3.5 sm:gap-4 mb-6">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#9333EA] flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/25">
+            <TrendingUp className="w-6 h-6 sm:w-7 sm:h-7 text-white stroke-[2.2]" />
           </div>
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-5xl font-extrabold text-slate-900 dark:text-white leading-none">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight animate-heading-enter">
+              Linear Search <span className="bg-gradient-to-r from-blue-500 via-indigo-400 to-purple-500 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-400 bg-clip-text text-transparent">Learning Progress</span>
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl mt-1 leading-relaxed">
+              Track your journey through Linear Search concepts, sequential scan algorithms, problem solving, complexity, and practical applications.
+            </p>
+          </div>
+        </div>
+
+        {/* Overall Completion Section */}
+        <div className="pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+            <div>
+              <div className="flex items-center gap-2.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white font-mono">
+                  OVERALL COMPLETION
+                </span>
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 font-mono">
+                  {stats.completed} of {stats.total} Modules
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Complete all learning activities to master Linear Search and earn 100 points.
+              </p>
+            </div>
+            <div className="text-3xl sm:text-4xl font-extrabold text-[#2563EB] dark:text-[#3B82F6] font-sans self-end sm:self-auto">
               {stats.percentage}%
-            </span>
-            <span className="text-sm font-medium text-slate-500 dark:text-slate-400 font-mono">
-              ({stats.completed} of {stats.total} Activities)
-            </span>
+            </div>
           </div>
 
-          {/* Clean Segmented Progress Bar */}
-          <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+          <div className="w-full bg-slate-100 dark:bg-slate-800/80 rounded-full h-3 overflow-hidden mt-3">
             <div
-              className="bg-gradient-to-r from-[#1D4ED8] via-[#2563EB] to-[#6366F1] h-full rounded-full transition-all duration-500 ease-out"
+              className="bg-gradient-to-r from-blue-600 via-[#2563EB] to-indigo-500 h-full rounded-full transition-all duration-500 ease-out"
               style={{ width: `${stats.percentage}%` }}
             />
           </div>
+        </div>
+      </div>
 
-          <div className="flex justify-between items-center text-[11px] font-mono text-slate-400 dark:text-slate-500 mt-2.5">
-            <span>0% Beginner</span>
-            <span>100% Master</span>
+      {/* 2. Linear Search Topic Score Card - Exact Reference Layout */}
+      <div className="bg-white dark:bg-[#0B132B]/80 border border-slate-200 dark:border-blue-500/20 rounded-2xl sm:rounded-3xl p-6 sm:p-7 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] mb-8 reveal-on-scroll">
+        {/* Header: Trophy + Linear Search Topic Score + Total Points Star Container */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5 sm:gap-4">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#9333EA] flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/25">
+              <Trophy className="w-6 h-6 sm:w-7 sm:h-7 text-white stroke-[2.2]" />
+            </div>
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                Linear Search Topic Score
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                Earned points are calculated from completed, persisted activities.
+              </p>
+            </div>
+          </div>
+
+          {/* Right: Star Icon & Total Points Box */}
+          <div className="flex items-center gap-3 self-end sm:self-auto shrink-0">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-100 dark:bg-[#060B17] border border-slate-200 dark:border-blue-500/20 flex items-center justify-center shrink-0 shadow-inner">
+              <Star className="w-6 h-6 sm:w-7 sm:h-7 fill-amber-400 text-amber-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.7)]" />
+            </div>
+            <div className="text-right">
+              <div className="flex items-baseline justify-end gap-1.5 leading-none font-mono">
+                <span className="text-2xl sm:text-3xl font-extrabold text-[#2563EB] dark:text-[#3B82F6] font-sans">
+                  {pointsBreakdown.totalPoints}
+                </span>
+                <span className="text-lg sm:text-xl font-bold text-slate-400 dark:text-slate-400">
+                  / 100
+                </span>
+              </div>
+              <div className="text-[10px] sm:text-[11px] font-bold font-mono tracking-wider text-slate-400 dark:text-slate-500 uppercase mt-1">
+                TOTAL POINTS
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Card 2: Stats Breakdown */}
-        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-2xl p-6 flex flex-col justify-between shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll stagger-1">
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-            Performance Stats
-          </div>
+        {/* 4 Category Cards in 1 Row on Desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          {categoryCards.map((cat) => {
+            const Icon = cat.icon;
+            return (
+              <div
+                key={cat.id}
+                onClick={cat.onClick}
+                className={`bg-slate-50/80 dark:bg-[#070E1E]/80 border border-slate-200/90 dark:border-blue-500/20 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-xs transition-all duration-200 ${
+                  cat.onClick ? 'cursor-pointer hover:border-blue-400 dark:hover:border-blue-500/40 hover:-translate-y-0.5' : ''
+                }`}
+              >
+                <div>
+                  {/* Top: Icon + Label + Score */}
+                  <div className="flex items-center gap-3">
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border ${cat.iconContainerClass}`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
+                        {cat.label}
+                      </div>
+                      <div className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-tight mt-0.5 font-sans">
+                        {cat.score}
+                      </div>
+                    </div>
+                  </div>
 
-          <div className="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 dark:border-blue-500/15 text-center">
-            <div>
-              <div className="text-2xl font-extrabold text-amber-600 dark:text-amber-400 font-mono">{stats.mastered}</div>
-              <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Mastered ★</div>
-            </div>
-            <div className="border-x border-slate-100 dark:border-blue-500/15">
-              <div className="text-2xl font-extrabold text-slate-900 dark:text-white font-mono">{stats.completed} / {stats.total}</div>
-              <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Activities</div>
-            </div>
-            <div>
-              <div className="text-2xl font-extrabold text-[#2563EB] dark:text-[#3B82F6] font-mono">{stats.game.completed} / {stats.game.total}</div>
-              <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase mt-0.5">Levels Won</div>
-            </div>
-          </div>
+                  {/* Horizontal Progress Bar + Percentage */}
+                  <div className="flex items-center gap-2.5 mt-4">
+                    <div className="flex-1 bg-slate-200 dark:bg-slate-800/80 rounded-full h-2 overflow-hidden">
+                      <div
+                        className="bg-[#2563EB] dark:bg-[#3B82F6] h-full rounded-full transition-all duration-500 ease-out"
+                        style={{ width: `${cat.percent}%` }}
+                      />
+                    </div>
+                    <span className="text-xs font-bold font-mono text-[#2563EB] dark:text-[#3B82F6] shrink-0">
+                      {cat.percent}%
+                    </span>
+                  </div>
+                </div>
 
-          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-3 font-medium">
-            <Trophy className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6] shrink-0" />
-            <span className="truncate">Master Challenges: {progressState.masterChallengesCompleted.length >= 4 ? 'All Clear (Master)' : `${progressState.masterChallengesCompleted.length} / 4 Challenges`}</span>
-          </div>
+                {/* Bottom Description */}
+                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-3 pt-2">
+                  {cat.description}
+                </p>
+              </div>
+            );
+          })}
         </div>
+      </div>
 
-        {/* Card 3: Next Recommended Step */}
-        <div className="bg-gradient-to-br from-[#EFF6FF]/60 to-white dark:from-blue-950/40 dark:to-[#111827] border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl p-6 flex flex-col justify-between shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll stagger-2">
-          <div>
-            <div className="flex items-center justify-between text-xs font-bold font-mono uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6] mb-1">
-              <span>Recommended Next Step</span>
-              <span className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] animate-ping" />
+      {/* 100% Completion Golden Banner if Completed */}
+      {is100Percent && (
+        <div
+          id="progress-100-percent-banner"
+          className="mb-8 p-5 bg-gradient-to-r from-[#EFF6FF] to-blue-100/60 dark:from-blue-950/50 dark:to-blue-900/40 border border-[#DBEAFE] dark:border-blue-500/30 rounded-2xl shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 animate-editorial-scale"
+        >
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white flex items-center justify-center font-bold shadow-xs">
+              <Sparkles className="w-6 h-6 text-amber-300" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white line-clamp-1">
-              {stats.nextModule.title}
-            </h3>
-            <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 line-clamp-2 leading-relaxed">
-              {stats.nextModule.criteriaDescription}
-            </p>
+            <div>
+              <div className="text-xs font-bold font-mono text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider">
+                ★ Congratulations! 100% Curriculum Completed
+              </div>
+              <div className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                You Have Mastered All 12 Linear Search Modules & Activities
+              </div>
+            </div>
           </div>
 
           <button
-            id="btn-continue-learning-cta"
-            onClick={handleContinueNext}
-            className="w-full mt-4 btn-modern-primary py-2.5 px-4 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider cursor-pointer"
+            id="btn-open-certificate-from-progress"
+            onClick={() => {
+              soundManager.playModalOpen();
+              setShowCertificateModal(true);
+            }}
+            className="btn-modern-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-all"
           >
-            <span>Continue Learning</span>
-            <ArrowRight className="w-4 h-4" />
+            <Award className="w-4 h-4" />
+            <span>View Certificate</span>
           </button>
         </div>
-      </div>
+      )}
 
       {/* Video Learning Lessons Progress Card */}
       <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/25 rounded-2xl p-5 mb-8 shadow-xs dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] reveal-on-scroll">
