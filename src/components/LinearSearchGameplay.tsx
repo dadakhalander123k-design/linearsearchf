@@ -2,7 +2,6 @@ import React from 'react';
 import { LevelConfig } from '../types/game';
 import { Level1Gameplay } from './Level1Gameplay';
 import { Level2Gameplay } from './Level2Gameplay';
-import { Level3Gameplay } from './Level3Gameplay';
 import { Level4Gameplay } from './Level4Gameplay';
 import { Level5Gameplay } from './Level5Gameplay';
 
@@ -40,7 +39,7 @@ export const LinearSearchGameplay: React.FC<LinearSearchGameplayProps> = ({
       );
     case 3:
       return (
-        <Level3Gameplay
+        <Level4Gameplay
           key="ls-lvl-3"
           onLevelComplete={onLevelComplete}
           onScoreUpdate={onScoreUpdate}
@@ -49,17 +48,8 @@ export const LinearSearchGameplay: React.FC<LinearSearchGameplayProps> = ({
       );
     case 4:
       return (
-        <Level4Gameplay
-          key="ls-lvl-4"
-          onLevelComplete={onLevelComplete}
-          onScoreUpdate={onScoreUpdate}
-          onStreakUpdate={onStreakUpdate}
-        />
-      );
-    case 5:
-      return (
         <Level5Gameplay
-          key="ls-lvl-5"
+          key="ls-lvl-4"
           onLevelComplete={onLevelComplete}
           onScoreUpdate={onScoreUpdate}
           onStreakUpdate={onStreakUpdate}

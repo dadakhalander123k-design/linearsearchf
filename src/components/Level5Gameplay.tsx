@@ -121,7 +121,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
 
   const handleMasterComplete = () => {
     soundManager.playLevelVictory();
-    onLevelComplete(5, 100);
+    onLevelComplete(4, 100);
   };
 
   const getGuidedSolveExplanation = () => {
@@ -142,7 +142,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
       return `Checking index ${pointer} (${val} ≠ ${currentChallenge.target}). Linear Search advances to index ${pointer + 1}.`;
     } else {
       if (masterStatus === 'completed') {
-        return `Final Master Challenge completed! Target ${finalMasterTarget} found at index 4. Level 5 complete!`;
+        return `Final Master Challenge completed! Target ${finalMasterTarget} found at index 4. Level 4 complete!`;
       }
       const val = finalMasterArray[masterPointer];
       if (val === finalMasterTarget) {

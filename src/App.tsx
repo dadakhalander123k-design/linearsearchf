@@ -19,6 +19,7 @@ import { CompletionCelebrationModal } from './components/CompletionCelebrationMo
 import { ResetProgressModal } from './components/ResetProgressModal';
 import { AIBotFloatingButton } from './components/AIBotFloatingButton';
 import { NotFoundView } from './components/NotFoundView';
+import { GameLevelSelectionCards } from './components/GameLevelSelectionCards';
 import { Sparkles } from 'lucide-react';
 import { progressManager } from './utils/progressManager';
 import { useScrollReveal } from './hooks/useScrollReveal';
@@ -57,6 +58,7 @@ export default function App() {
   // Navigation View State (Defaults to HOME landing page)
   const [activeTab, setActiveTab] = useState<MainViewTab>('HOME');
   const [activeTheoryTopic, setActiveTheoryTopic] = useState<string>('theory-01');
+  const [gameViewMode, setGameViewMode] = useState<'SELECTION' | 'PLAYING'>('SELECTION');
   const [is404, setIs404] = useState<boolean>(false);
   const [show100Celebration, setShow100Celebration] = useState<boolean>(false);
   const [showResetModal, setShowResetModal] = useState<boolean>(false);
@@ -79,7 +81,11 @@ export default function App() {
     const [baseRoute, subRoute] = rawHash.split('/');
     if (HASH_MAP[baseRoute]) {
       setIs404(false);
-      setActiveTab(HASH_MAP[baseRoute]);
+      const targetTab = HASH_MAP[baseRoute];
+      setActiveTab(targetTab);
+      if (targetTab === 'GAME' || targetTab === 'QUEST') {
+        setGameViewMode('SELECTION');
+      }
       if (subRoute && (baseRoute === 'learn' || baseRoute === 'theory')) {
         setActiveTheoryTopic(subRoute);
       }
@@ -97,9 +103,20 @@ export default function App() {
   }, [handleHashChange]);
 
   // Navigate tab and sync URL hash smoothly
-  const navigateToTab = (tab: MainViewTab, chapterId?: string) => {
+  const navigateToTab = (
+    tab: MainViewTab, 
+    chapterId?: string, 
+    forceGameMode?: 'SELECTION' | 'PLAYING'
+  ) => {
     setIs404(false);
     setActiveTab(tab);
+    if (tab === 'GAME' || tab === 'QUEST') {
+      if (forceGameMode) {
+        setGameViewMode(forceGameMode);
+      } else {
+        setGameViewMode('SELECTION');
+      }
+    }
     if (chapterId) {
       setActiveTheoryTopic(chapterId);
     }
@@ -203,13 +220,13 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  // Strict 5/5 game completion status
-  const isAllLevelsCompleted = [1, 2, 3, 4, 5].every(
+  // Strict 4/4 game completion status
+  const isAllLevelsCompleted = [1, 2, 3, 4].every(
     (lvl) => completedLevels.includes(lvl) || progressManager.getState().levelsCompleted.includes(lvl)
   );
 
   // Active Level State
-  const currentLevel: LevelConfig = GAME_LEVELS[Math.min(currentLevelIndex, 4)] || GAME_LEVELS[0];
+  const currentLevel: LevelConfig = GAME_LEVELS[Math.min(currentLevelIndex, GAME_LEVELS.length - 1)] || GAME_LEVELS[0];
   // Modals & Interactive Overlays
   const [showLevelCompleteModal, setShowLevelCompleteModal] = useState<boolean>(false);
 
@@ -246,12 +263,12 @@ export default function App() {
     if (nextMod.id === 'fn-10-completion') {
       if (isAllLevelsCompleted) {
         setCurrentLevelIndex(5);
-        navigateToTab('GAME');
+        navigateToTab('GAME', undefined, 'PLAYING');
       } else {
         const targetLvl = Math.min(completedLevels.length, 4);
         setCurrentLevelIndex(targetLvl);
         initLevel(targetLvl);
-        navigateToTab('GAME');
+        navigateToTab('GAME', undefined, 'PLAYING');
       }
       return;
     }
@@ -266,7 +283,7 @@ export default function App() {
         setCurrentLevelIndex(targetLvl);
         if (targetLvl < 5) initLevel(targetLvl);
       }
-      navigateToTab('GAME');
+      navigateToTab('GAME', undefined, 'PLAYING');
       return;
     }
 
@@ -281,7 +298,7 @@ export default function App() {
     }
 
     // Default fallback
-    navigateToTab('GAME');
+    navigateToTab('GAME', undefined, 'SELECTION');
   };
 
   // Direct trigger to Theory from Topic card
@@ -299,8 +316,10 @@ export default function App() {
         setCurrentLevelIndex(levelId - 1);
         if (levelId <= 5) initLevel(levelId - 1);
       }
+      navigateToTab('GAME', undefined, 'PLAYING');
+    } else {
+      navigateToTab('GAME', undefined, 'SELECTION');
     }
-    navigateToTab('GAME');
   };
 
   const handleResetQuiz = useCallback(() => {
@@ -399,8 +418,10 @@ export default function App() {
                             setCurrentLevelIndex(targetOption - 1);
                             if (targetOption <= 5) initLevel(targetOption - 1);
                           }
+                          navigateToTab('GAME', undefined, 'PLAYING');
+                        } else {
+                          navigateToTab('GAME', undefined, 'SELECTION');
                         }
-                        navigateToTab('GAME');
                       } else if (tab === 'LAB') {
                         navigateToTab('LAB');
                       } else if (tab === 'QUIZ') {
@@ -425,7 +446,7 @@ export default function App() {
                         setCurrentLevelIndex(lvlId - 1);
                         if (lvlId <= 5) initLevel(lvlId - 1);
                       }
-                      navigateToTab('GAME');
+                      navigateToTab('GAME', undefined, 'PLAYING');
                     }}
                     onOpenSandbox={(tech) => {
                       if (tech) setSandboxTechnique(tech);
@@ -440,68 +461,114 @@ export default function App() {
                 {/* 3. GAME PLAY SECTION */}
                 {(activeTab === 'GAME' || activeTab === 'QUEST') && (
                   <div className="flex flex-col gap-6 animate-page-enter">
-                    {/* Level Stepper Bar */}
-                    <LevelProgressBar
-                      currentLevelId={currentLevelIndex >= 5 ? 6 : currentLevel.id}
-                      completedLevels={completedLevels}
-                      onSelectLevel={(lvlId) => {
-                        soundManager.playClick();
-                        setCurrentLevelIndex(lvlId - 1);
-                        if (lvlId <= 5) {
-                          initLevel(lvlId - 1);
-                        }
-                      }}
-                      onOpenLab={() => navigateToTab('LAB')}
-                      isCompletionActive={currentLevelIndex >= 5}
-                    />
-
-                    {/* Level 6: Quest Completion & Mastery Certificate */}
-                    {currentLevelIndex >= 5 ? (
-                      <QuestCompletionView
-                        onReplayLevel={(lvlId) => {
-                          setCurrentLevelIndex(lvlId - 1);
-                          initLevel(lvlId - 1);
+                    {gameViewMode === 'SELECTION' ? (
+                      <GameLevelSelectionCards
+                        completedLevels={completedLevels}
+                        currentLevelIndex={currentLevelIndex}
+                        onSelectLevel={(levelIdx) => {
+                          setCurrentLevelIndex(levelIdx);
+                          initLevel(levelIdx);
+                          setGameViewMode('PLAYING');
                         }}
-                        onOpenTheory={() => {
-                          navigateToTab('THEORY', 'theory-01');
+                        onOpenCompletion={() => {
+                          setCurrentLevelIndex(5);
+                          setGameViewMode('PLAYING');
                         }}
-                        onOpenSandbox={() => {
-                          navigateToTab('LAB');
-                        }}
-                        onOpenQuiz={() => {
-                          navigateToTab('QUIZ');
-                        }}
-                        onOpenProgress={() => {
-                          navigateToTab('PROGRESS');
-                        }}
+                        onOpenLab={() => navigateToTab('LAB')}
                       />
                     ) : (
-                      <div key={`game-level-${currentLevel.id}`} className="flex flex-col gap-6 animate-chapter-switch">
-                        {/* Level Title & Subtitle Banner */}
-                        <div className="text-center max-w-2xl mx-auto font-sans">
-                          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] text-xs font-bold mb-2 uppercase font-mono rounded-lg">
-                            <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
-                            <span>
-                              Level {currentLevel.id < 10 ? `0${currentLevel.id}` : currentLevel.id} • {currentLevel.title}
-                            </span>
+                      <>
+                        {/* Top Bar with "Back to All Level Cards" & Level Stepper Bar */}
+                        <div className="flex flex-col gap-3">
+                          <div className="flex items-center justify-between">
+                            <button
+                              id="btn-back-to-level-cards"
+                              onClick={() => {
+                                soundManager.playSelect();
+                                setGameViewMode('SELECTION');
+                              }}
+                              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-[#111827] border border-slate-200 dark:border-blue-500/20 shadow-xs hover:border-[#2563EB] hover:text-[#2563EB] dark:hover:border-[#3B82F6] dark:hover:text-[#3B82F6] transition-all cursor-pointer"
+                            >
+                              <span className="text-base leading-none">←</span>
+                              <span>All Level Cards</span>
+                            </button>
+
+                            <div className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400">
+                              {currentLevelIndex >= 5 ? 'Milestone 06' : `Level 0${currentLevel.id} of 04`}
+                            </div>
                           </div>
-                          <h1 className="text-2xl sm:text-4xl font-bold font-display text-slate-900 dark:text-white tracking-tight animate-heading-enter">
-                            {currentLevel.subtitle}
-                          </h1>
+
+                          <LevelProgressBar
+                            currentLevelId={currentLevelIndex >= 5 ? 6 : currentLevel.id}
+                            completedLevels={completedLevels}
+                            onSelectLevel={(lvlId) => {
+                              soundManager.playClick();
+                              if (lvlId === 6) {
+                                if (isAllLevelsCompleted) {
+                                  setCurrentLevelIndex(5);
+                                  setGameViewMode('PLAYING');
+                                }
+                              } else {
+                                setCurrentLevelIndex(lvlId - 1);
+                                initLevel(lvlId - 1);
+                                setGameViewMode('PLAYING');
+                              }
+                            }}
+                            onOpenLab={() => navigateToTab('LAB')}
+                            isCompletionActive={currentLevelIndex >= 5}
+                          />
                         </div>
 
-                        {/* Linear Search 5-Level Progressive Learning Gameplay */}
-                        <LinearSearchGameplay
-                          key={`linear-search-level-${currentLevel.id}`}
-                          level={currentLevel}
-                          onLevelComplete={(lvlId, _lvlScore) => {
-                            progressManager.markLevelCompleted(lvlId, 100, true);
-                            setShowLevelCompleteModal(true);
-                          }}
-                          onScoreUpdate={(delta) => setScore((s) => s + delta)}
-                          onStreakUpdate={(st) => setStreak(st)}
-                        />
-                      </div>
+                        {/* Level 6: Quest Completion & Mastery Certificate */}
+                        {currentLevelIndex >= 5 ? (
+                          <QuestCompletionView
+                            onReplayLevel={(lvlId) => {
+                              setCurrentLevelIndex(lvlId - 1);
+                              initLevel(lvlId - 1);
+                              setGameViewMode('PLAYING');
+                            }}
+                            onOpenTheory={() => {
+                              navigateToTab('THEORY', 'theory-01');
+                            }}
+                            onOpenSandbox={() => {
+                              navigateToTab('LAB');
+                            }}
+                            onOpenQuiz={() => {
+                              navigateToTab('QUIZ');
+                            }}
+                            onOpenProgress={() => {
+                              navigateToTab('PROGRESS');
+                            }}
+                          />
+                        ) : (
+                          <div key={`game-level-${currentLevel.id}`} className="flex flex-col gap-6 animate-chapter-switch">
+                            {/* Level Title & Subtitle Banner */}
+                            <div className="text-center max-w-2xl mx-auto font-sans">
+                              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#EFF6FF] dark:bg-blue-950/60 border border-[#DBEAFE] dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] text-xs font-bold mb-2 uppercase font-mono rounded-lg">
+                                <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
+                                <span>
+                                  Level {currentLevel.id < 10 ? `0${currentLevel.id}` : currentLevel.id} • {currentLevel.title}
+                                </span>
+                              </div>
+                              <h1 className="text-2xl sm:text-4xl font-bold font-display text-slate-900 dark:text-white tracking-tight animate-heading-enter">
+                                {currentLevel.subtitle}
+                              </h1>
+                            </div>
+
+                            {/* Linear Search 5-Level Progressive Learning Gameplay */}
+                            <LinearSearchGameplay
+                              key={`linear-search-level-${currentLevel.id}`}
+                              level={currentLevel}
+                              onLevelComplete={(lvlId, _lvlScore) => {
+                                progressManager.markLevelCompleted(lvlId, 100, true);
+                                setShowLevelCompleteModal(true);
+                              }}
+                              onScoreUpdate={(delta) => setScore((s) => s + delta)}
+                              onStreakUpdate={(st) => setStreak(st)}
+                            />
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
                 )}
@@ -538,8 +605,13 @@ export default function App() {
                       if (tab === 'THEORY' || tab === 'LEARN') {
                         navigateToTab('THEORY', chapterId);
                       } else if (tab === 'QUEST' || tab === 'GAME') {
-                        if (levelId) setCurrentLevelIndex(levelId - 1);
-                        navigateToTab('GAME');
+                        if (levelId) {
+                          setCurrentLevelIndex(levelId - 1);
+                          initLevel(levelId - 1);
+                          navigateToTab('GAME', undefined, 'PLAYING');
+                        } else {
+                          navigateToTab('GAME', undefined, 'SELECTION');
+                        }
                       } else if (tab === 'LAB' || tab === 'SANDBOX') {
                         navigateToTab('LAB');
                       } else if (tab === 'QUIZ' || tab === 'EXAM') {
@@ -603,6 +675,7 @@ export default function App() {
             setCompletedLevels([]);
             setCurrentLevelIndex(0);
             initLevel(0);
+            setGameViewMode('SELECTION');
             handleResetQuiz();
           }
           setShowResetModal(false);

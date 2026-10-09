@@ -313,12 +313,12 @@ class ProgressManager {
     };
   }
 
-  // 3. GAME STATS (5 Levels)
+  // 3. GAME STATS (4 Levels)
   public getGameStats() {
     const rawList = Array.isArray(this.state.levelsCompleted) ? this.state.levelsCompleted : [];
-    const completedList = Array.from(new Set(rawList.filter((lvl) => lvl >= 1 && lvl <= 5)));
-    const completed = Math.min(5, completedList.length);
-    const total = 5;
+    const completedList = Array.from(new Set(rawList.filter((lvl) => lvl >= 1 && lvl <= 4)));
+    const completed = Math.min(4, completedList.length);
+    const total = 4;
     const percentage = Math.round((completed / total) * 100);
 
     return {
@@ -390,21 +390,21 @@ class ProgressManager {
     });
   }
 
-  // OVERALL PROGRESS (20 Unique Activities)
+  // OVERALL PROGRESS (19 Unique Activities)
   public getStats() {
     const theory = this.getTheoryStats();
     const video = this.getVideoStats();
     const game = this.getGameStats();
     const quiz = this.getQuizStats();
 
-    // Exactly 20 distinct measurable learning activities:
-    // 12 Theory Modules + 5 Game Levels + 2 Videos + 1 Quiz
-    const total = 20;
+    // Exactly 19 distinct measurable learning activities:
+    // 12 Theory Modules + 4 Game Levels + 2 Videos + 1 Quiz
+    const total = 19;
     const completed = theory.completed + video.completed + game.completed + quiz.completed;
     const isAllComplete =
       theory.completed === 12 &&
       video.completed === 2 &&
-      game.completed === 5 &&
+      game.completed === 4 &&
       quiz.completed === 1;
 
     // Strict 100% calculation: exactly 100% ONLY when every activity is finished

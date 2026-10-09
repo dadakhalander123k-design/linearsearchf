@@ -148,7 +148,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
       setFeedback(`Challenge ${nextIdx + 1}: Search for target ${challenges[nextIdx].target}.`);
     } else {
       soundManager.playLevelVictory();
-      onLevelComplete(4, 100);
+      onLevelComplete(3, 100);
     }
   };
 
@@ -157,7 +157,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
       if (challengeIndex < challenges.length - 1) {
         return `Challenge ${challengeIndex + 1} completed! Click Next Step to proceed to Challenge ${challengeIndex + 2}.`;
       }
-      return `All 4 complexity challenges solved! Level 4 complete.`;
+      return `All 4 complexity challenges solved! Level 3 complete.`;
     }
     if (status === 'question_active') {
       const correct = currentChallenge.options.find((o) => o.isCorrect);

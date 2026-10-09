@@ -23,12 +23,11 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({
   const steps = [
     { id: 1, code: '01', name: 'Find Number' },
     { id: 2, code: '02', name: 'Find Quickly' },
-    { id: 3, code: '03', name: 'Is It There?' },
-    { id: 4, code: '04', name: 'Comparisons' },
-    { id: 5, code: '05', name: 'Master' },
+    { id: 3, code: '03', name: 'Comparisons' },
+    { id: 4, code: '04', name: 'Master' },
   ];
 
-  const isAllQuestCompleted = [1, 2, 3, 4, 5].every(
+  const isAllQuestCompleted = [1, 2, 3, 4].every(
     (id) => completedLevels.includes(id) || pState.levelsCompleted.includes(id) || pState.levelsMastered.includes(id)
   );
   const isLevel6Active = currentLevelId === 6 || isCompletionActive;
