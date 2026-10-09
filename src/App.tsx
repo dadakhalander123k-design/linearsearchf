@@ -20,8 +20,10 @@ import { ResetProgressModal } from './components/ResetProgressModal';
 import { AIBotFloatingButton } from './components/AIBotFloatingButton';
 import { NotFoundView } from './components/NotFoundView';
 import { GameLevelSelectionCards } from './components/GameLevelSelectionCards';
+import { PointsView } from './components/PointsView';
 import { Sparkles } from 'lucide-react';
 import { progressManager } from './utils/progressManager';
+import { pointsManager } from './utils/pointsManager';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { updateSEO } from './utils/seo';
 import { LINEAR_SEARCH_MODULES } from './data/linearSearchTheory';
@@ -41,6 +43,7 @@ const HASH_MAP: Record<string, MainViewTab> = {
   quiz: 'QUIZ',
   exam: 'QUIZ',
   progress: 'PROGRESS',
+  points: 'POINTS',
 };
 
 const TAB_HASH_MAP: Record<MainViewTab, string> = {
@@ -52,6 +55,7 @@ const TAB_HASH_MAP: Record<MainViewTab, string> = {
   LAB: 'lab',
   QUIZ: 'quiz',
   PROGRESS: 'progress',
+  POINTS: 'points',
 };
 
 export default function App() {
@@ -561,6 +565,7 @@ export default function App() {
                               level={currentLevel}
                               onLevelComplete={(lvlId, _lvlScore) => {
                                 progressManager.markLevelCompleted(lvlId, 100, true);
+                                pointsManager.recordGameCompleted(lvlId);
                                 setShowLevelCompleteModal(true);
                               }}
                               onScoreUpdate={(delta) => setScore((s) => s + delta)}
@@ -621,6 +626,11 @@ export default function App() {
                       }
                     }}
                   />
+                )}
+
+                {/* 7. DEDICATED POINTS SECTION */}
+                {activeTab === 'POINTS' && (
+                  <PointsView />
                 )}
               </>
             )}

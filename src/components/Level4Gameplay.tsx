@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, HelpCircle, CheckCircle2, XCircle, Lightbulb, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { pointsManager } from '../utils/pointsManager';
 import { GuidedSolvePanel } from './GuidedSolvePanel';
 
 interface Level4Challenge {
@@ -214,6 +215,7 @@ export const Level4Gameplay: React.FC<Level4GameplayProps> = ({
                 type="button"
                 onClick={() => {
                   soundManager.playClick();
+                  pointsManager.recordGuidedSolveUsed(3);
                   setIsGuidedSolveActive(true);
                 }}
                 className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"

@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { TechniqueType } from '../types/game';
 import { progressManager, normalizeTheoryChapterId } from '../utils/progressManager';
+import { pointsManager } from '../utils/pointsManager';
 import { soundManager } from '../utils/audio';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { TheoryVisualEnhancer } from './TheoryVisualEnhancer';
@@ -117,6 +118,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
     const newlyCompleted = progressManager.completeTheoryChapter(activeModule.id);
     if (newlyCompleted) {
       soundManager.playTheoryComplete();
+      pointsManager.recordTheoryCompleted(activeModule.id);
     }
   };
 
@@ -127,6 +129,7 @@ export const LearnLinearSearchSection: React.FC<LearnLinearSearchSectionProps> =
       const newlyCompleted = progressManager.completeTheoryChapter(activeModule.id);
       if (newlyCompleted) {
         soundManager.playTheoryComplete();
+        pointsManager.recordTheoryCompleted(activeModule.id);
       }
     }
 

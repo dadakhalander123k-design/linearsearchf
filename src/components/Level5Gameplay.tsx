@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, Sparkles, Award } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { pointsManager } from '../utils/pointsManager';
 import { GuidedSolvePanel } from './GuidedSolvePanel';
 
 interface Level5Challenge {
@@ -199,6 +200,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                   type="button"
                   onClick={() => {
                     soundManager.playClick();
+                    pointsManager.recordGuidedSolveUsed(4);
                     setIsGuidedSolveActive(true);
                   }}
                   className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
@@ -346,6 +348,7 @@ export const Level5Gameplay: React.FC<Level5GameplayProps> = ({
                   type="button"
                   onClick={() => {
                     soundManager.playClick();
+                    pointsManager.recordGuidedSolveUsed(4, 'Master Challenge');
                     setIsGuidedSolveActive(true);
                   }}
                   className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"

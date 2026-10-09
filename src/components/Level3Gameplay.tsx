@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, CheckCircle2, XCircle, Lightbulb, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { pointsManager } from '../utils/pointsManager';
 import { GuidedSolvePanel } from './GuidedSolvePanel';
 
 interface Level3Round {
@@ -170,6 +171,7 @@ export const Level3Gameplay: React.FC<Level3GameplayProps> = ({
                 type="button"
                 onClick={() => {
                   soundManager.playClick();
+                  pointsManager.recordGuidedSolveUsed(3);
                   setIsGuidedSolveActive(true);
                 }}
                 className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"

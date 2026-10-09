@@ -20,6 +20,7 @@ import {
   Home,
 } from 'lucide-react';
 import { progressManager } from '../utils/progressManager';
+import { pointsManager } from '../utils/pointsManager';
 import { soundManager } from '../utils/audio';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
@@ -450,6 +451,9 @@ export const QuizView: React.FC<QuizViewProps> = ({
     };
 
     setStudentAnswers(updatedAnswers);
+
+    // Record Quiz Points (+2 for correct, -1 for wrong, capped at 20, min 0)
+    pointsManager.recordQuizAnswer(q.id, isCorrect);
 
     // Play appropriate interaction sound
     if (isCorrect) {

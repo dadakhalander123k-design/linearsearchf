@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, Lightbulb, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { pointsManager } from '../utils/pointsManager';
 import { GuidedSolvePanel } from './GuidedSolvePanel';
 
 interface Level2Round {
@@ -132,6 +133,7 @@ export const Level2Gameplay: React.FC<Level2GameplayProps> = ({
                 type="button"
                 onClick={() => {
                   soundManager.playClick();
+                  pointsManager.recordGuidedSolveUsed(2);
                   setIsGuidedSolveActive(true);
                 }}
                 className="btn-modern-secondary px-3 py-1 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs select-none"
