@@ -303,8 +303,8 @@ export const QuizView: React.FC<QuizViewProps> = ({
   });
   const [showStartQuizWarning, setShowStartQuizWarning] = useState<boolean>(false);
 
-  // Question countdown timer (30 seconds per question)
-  const QUESTION_TIME_LIMIT = 30;
+  // Question countdown timer (20 seconds per question)
+  const QUESTION_TIME_LIMIT = 20;
   const [timeLeft, setTimeLeft] = useState<number>(QUESTION_TIME_LIMIT);
 
   // Handle starting the quiz countdown
