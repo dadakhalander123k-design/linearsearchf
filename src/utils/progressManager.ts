@@ -619,6 +619,9 @@ class ProgressManager {
   public resetProgress() {
     if (typeof window !== 'undefined') {
       try {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem('algo_quest_points_system_v3');
+        localStorage.removeItem('algo_quest_points_system_v2');
         localStorage.removeItem('hash_quest_quiz_answers_v4');
         localStorage.removeItem('hash_quest_quiz_submitted_v4');
         localStorage.removeItem('hash_quest_quiz_answers_v3');

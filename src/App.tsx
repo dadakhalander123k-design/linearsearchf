@@ -681,6 +681,7 @@ export default function App() {
             handleResetQuiz();
           } else {
             progressManager.resetProgress();
+            pointsManager.resetAllPoints();
             setScore(0);
             setStreak(0);
             setCompletedLevels([]);

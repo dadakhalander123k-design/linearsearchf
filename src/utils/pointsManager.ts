@@ -552,6 +552,18 @@ class PointsManager {
   }
 
   /**
+   * Completely resets all points, activity history, and penalties.
+   */
+  public resetAllPoints() {
+    this.state = {
+      ...INITIAL_POINTS_STATE,
+      history: [],
+    };
+    this.saveState();
+    this.notifyListeners();
+  }
+
+  /**
    * Returns current Points breakdown according to the 100-point curriculum
    */
   public getBreakdown(): PointsBreakdown {

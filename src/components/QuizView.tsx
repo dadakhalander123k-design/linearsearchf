@@ -18,6 +18,7 @@ import {
   Trophy,
   Home,
   Clock,
+  Play,
 } from 'lucide-react';
 import { progressManager } from '../utils/progressManager';
 import { pointsManager } from '../utils/pointsManager';
@@ -259,6 +260,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
     const unsub = progressManager.subscribe((pState) => {
       if (!pState.quizSubmitted) {
         setIsSubmitted(false);
+        setIsQuizStarted(false);
         try {
           const stored = localStorage.getItem(QUIZ_STORAGE_ANSWERS_KEY);
           if (!stored || stored === '{}') {
@@ -293,9 +295,25 @@ export const QuizView: React.FC<QuizViewProps> = ({
     return isSubmitted ? 'FULL_REVIEW' : 'STEP_BY_STEP';
   });
 
+  // Quiz start state
+  const [isQuizStarted, setIsQuizStarted] = useState<boolean>(false);
+
   // Question countdown timer (30 seconds per question)
   const QUESTION_TIME_LIMIT = 30;
   const [timeLeft, setTimeLeft] = useState<number>(QUESTION_TIME_LIMIT);
+
+  // Handle starting the quiz countdown
+  const handleStartQuiz = useCallback(() => {
+    setIsQuizStarted((prev) => {
+      if (prev) return prev;
+      try {
+        soundManager.playClick();
+      } catch {
+        // audio fallback
+      }
+      return true;
+    });
+  }, []);
 
   // Current question helper
   const currentQuestion = QUIZ_QUESTIONS[currentQuestionIndex] || QUIZ_QUESTIONS[0];
@@ -339,7 +357,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
 
   // Countdown timer effect for current question
   useEffect(() => {
-    if (viewMode !== 'STEP_BY_STEP' || isCurrentQuestionAnswered || isSubmitted) {
+    if (!isQuizStarted || viewMode !== 'STEP_BY_STEP' || isCurrentQuestionAnswered || isSubmitted) {
       return;
     }
 
@@ -357,7 +375,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentQuestionIndex, isCurrentQuestionAnswered, viewMode, isSubmitted, handleQuestionTimeout, currentQuestion.id]);
+  }, [isQuizStarted, currentQuestionIndex, isCurrentQuestionAnswered, viewMode, isSubmitted, handleQuestionTimeout, currentQuestion.id]);
 
   // Persist answers to localStorage whenever they change
   useEffect(() => {
@@ -567,6 +585,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
     soundManager.playReset();
     setStudentAnswers({});
     setIsSubmitted(false);
+    setIsQuizStarted(false);
     setCurrentQuestionIndex(0);
     setPendingSelection(null);
     setViewMode('STEP_BY_STEP');
@@ -886,15 +905,29 @@ export const QuizView: React.FC<QuizViewProps> = ({
                     )}
                   </div>
                 ) : (
-                  <div
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border font-mono text-xs font-bold transition-colors ${
-                      timeLeft <= 10
-                        ? 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-500/40 animate-pulse'
-                        : 'bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30'
-                    }`}
-                  >
-                    <Clock className="w-3.5 h-3.5 text-amber-500" />
-                    <span>⏱️ {timeLeft}s remaining</span>
+                  <div className="flex items-center gap-2">
+                    {!isQuizStarted && (
+                      <button
+                        id="btn-start-quiz"
+                        type="button"
+                        onClick={handleStartQuiz}
+                        className="inline-flex items-center gap-1.5 px-3 py-1 text-xs sm:text-sm font-bold font-sans rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] text-white border border-[#2563EB] dark:border-[#3B82F6] shadow-xs transition-all cursor-pointer hover:shadow-sm active:scale-95"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                        <span>Start Quiz</span>
+                      </button>
+                    )}
+                    <div
+                      id="quiz-countdown-timer"
+                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border font-mono text-xs font-bold transition-colors ${
+                        timeLeft <= 10 && isQuizStarted
+                          ? 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-500/40 animate-pulse'
+                          : 'bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30'
+                      }`}
+                    >
+                      <Clock className="w-3.5 h-3.5 text-amber-500" />
+                      <span>⏱️ {timeLeft}s remaining</span>
+                    </div>
                   </div>
                 )}
               </div>
