@@ -261,6 +261,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
       if (!pState.quizSubmitted) {
         setIsSubmitted(false);
         setIsQuizStarted(false);
+        setShowStartQuizWarning(false);
         try {
           const stored = localStorage.getItem(QUIZ_STORAGE_ANSWERS_KEY);
           if (!stored || stored === '{}') {
@@ -296,7 +297,11 @@ export const QuizView: React.FC<QuizViewProps> = ({
   });
 
   // Quiz start state
-  const [isQuizStarted, setIsQuizStarted] = useState<boolean>(false);
+  const [isQuizStarted, setIsQuizStarted] = useState<boolean>(() => {
+    // If student has already answered any questions or submitted, quiz is already active
+    return Object.keys(studentAnswers).length > 0 || isSubmitted;
+  });
+  const [showStartQuizWarning, setShowStartQuizWarning] = useState<boolean>(false);
 
   // Question countdown timer (30 seconds per question)
   const QUESTION_TIME_LIMIT = 30;
@@ -313,6 +318,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
       }
       return true;
     });
+    setShowStartQuizWarning(false);
   }, []);
 
   // Current question helper
@@ -513,6 +519,13 @@ export const QuizView: React.FC<QuizViewProps> = ({
   const handleConfirmAnswer = () => {
     if (pendingSelection === null || isCurrentQuestionAnswered) return;
 
+    // Block submission if user has not clicked Start Quiz on the first question
+    if (!isQuizStarted) {
+      soundManager.playError();
+      setShowStartQuizWarning(true);
+      return;
+    }
+
     const q = currentQuestion;
     const isCorrect = pendingSelection === q.correctIndex;
     const selectedText = q.options[pendingSelection] || '';
@@ -586,6 +599,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
     setStudentAnswers({});
     setIsSubmitted(false);
     setIsQuizStarted(false);
+    setShowStartQuizWarning(false);
     setCurrentQuestionIndex(0);
     setPendingSelection(null);
     setViewMode('STEP_BY_STEP');
@@ -906,7 +920,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    {!isQuizStarted && (
+                    {!isQuizStarted && currentQuestionIndex === 0 && (
                       <button
                         id="btn-start-quiz"
                         type="button"
@@ -932,6 +946,17 @@ export const QuizView: React.FC<QuizViewProps> = ({
                 )}
               </div>
             </div>
+
+            {/* Warning Message Popup if user tries to submit without starting */}
+            {showStartQuizWarning && !isQuizStarted && (
+              <div
+                id="start-quiz-warning-banner"
+                className="mb-4 p-3.5 sm:p-4 rounded-xl bg-amber-50/95 dark:bg-amber-950/50 border border-amber-300 dark:border-amber-500/40 text-amber-900 dark:text-amber-200 text-xs sm:text-sm font-medium flex items-center gap-2.5 shadow-2xs animate-fadeIn"
+              >
+                <HelpCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />
+                <span>Please click Start Quiz first to begin the quiz.</span>
+              </div>
+            )}
 
             {/* Question Statement */}
             <p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6 leading-snug break-words">
